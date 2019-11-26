@@ -142,8 +142,13 @@
   .flex-container::after{
     clear:both;
   }
+  
+  .divAñadirCataegoria{
+	  display:flex;
+	  margin-left:90%;
+
+  }
   .AñadirCategoria{
-    float: right;
     background-color:#262626;
     border: none;
     font: small 100%/100% serif;
