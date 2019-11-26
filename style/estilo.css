@@ -49,6 +49,9 @@
     font-size: 30px;
   }
   /*Con usuario*/
+
+
+
   #headerPaginaConUsuario{
     display:none;
   }
@@ -142,13 +145,21 @@
   .flex-container::after{
     clear:both;
   }
-  
-  .divAñadirCataegoria{
-	  display:flex;
-	  margin-left:90%;
+  .TuPerfil{
+    margin-left:10%;
+    margin-right:30%;
+float: left;
+    font-size: 26px;
+    font-family: "Lucida Sans";
+    color:white;
+  }
+  #divAñadirCategoria{
+display:none;
+    overflow: hidden;
 
   }
   .AñadirCategoria{
+    float: right;
     background-color:#262626;
     border: none;
     font: small 100%/100% serif;
@@ -156,7 +167,7 @@
     color:white;
     width: auto;
     padding: 10px;
-    margin: 0 10px 0 0;
+
 
   }
   /*Titulo de los contenedores grandes*/

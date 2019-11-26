@@ -230,6 +230,8 @@ function pasarPaginaSignOut(){
   var parteInferiorConUsuario=document.getElementById("Home");
   parteInferiorConUsuario.style.display="flex";
 
+document.getElementById("divAñadirCategoria").style.display="none";
+
   //IMPORTANTE: CADA VEZ QUE SE HACE LOG OUT SE LIMPIA EL DIV HOME. CUANDO SE VUELVA A INICIAR SESIÓN HABRÁ QUE VOLVER A ESCRIBIR TODO
   parteInferiorConUsuario.innerHTML="";
   var parteInferiorProfile=document.getElementById("EditProfile");
@@ -305,6 +307,8 @@ function IniciarSesion(){
   headerSinUsuario.style.display="none";
   var headerConUsusario=document.getElementById("headerPaginaConUsuario");
   headerConUsusario.style.display="block";
+
+  document.getElementById("divAñadirCategoria").style.display="block";
 
   /* RECARGAMOS LA PAGINA DEL USUARIO QUE HA INICIADO SESION */
   //PARA ESCRIBIR EL NOMBRE DEL USUARIO EN EL HEADER AL INICIAR SESION
