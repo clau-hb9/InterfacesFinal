@@ -34,6 +34,8 @@ function PonerMeGusta(button){
 	  busca_email=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("&email=")+7,arraycookiesEventos[j].indexOf("&MeGusta="));
 	  busca_evento=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("nombreEvento=")+13,arraycookiesEventos[j].indexOf("&nombreCategoria="));
 
+
+
 	  //voy a coger toda las categorias SOLO del usuario con sesion iniciada
 	  if(busca_email==email_iniciado && busca_evento==eventoSelecionado){
 
@@ -46,6 +48,10 @@ function PonerMeGusta(button){
   			arraycookiesEventos[j]=arraycookiesEventos[j].replace("&MeGusta=true","&MeGusta=false");
           }
 
+
+          //Actualizamos la cookie de los eventos porque se actualiza el array
+          var json_str = JSON.stringify(arraycookiesEventos);
+          createCookie('eventos', json_str);
 	  }
 
 	}
@@ -238,6 +244,10 @@ function pasarPaginaSignOut(){
 /*Para cambiar de cualquier pagina a SignIn*/
 function pasarPaginaSignIn(){
   /*Parte inferior*/
+
+    recuperarArrays();
+
+
   var parteInferiorConUsuario=document.getElementById("Home");
   parteInferiorConUsuario.style.display="none";
   var parteInferiorSignUp=document.getElementById("signup_form");
@@ -246,11 +256,15 @@ function pasarPaginaSignIn(){
   parteInferiorSignIn.style.display="block";
   var form_signUp=document.getElementById("signup");
   form_signUp.reset();
+
 }
 
 /*Para cambiar de cualquier pagina a SignUp*/
 function pasarPaginaSignUp(){
   /*Parte inferior*/
+
+  recuperarArrays();
+
   var parteInferiorConUsuario=document.getElementById("Home");
   parteInferiorConUsuario.style.display="none";
   var parteInferiorSignIn=document.getElementById("signin_form");
@@ -260,6 +274,28 @@ function pasarPaginaSignUp(){
   var form_signIn=document.getElementById("signIn");
   form_signIn.reset();
 
+}
+
+
+function recuperarArrays(){
+
+	var json_str = getCookie('usuarios');
+	if(json_str.length!=0){
+  arraycookies = JSON.parse(json_str);
+
+	}
+
+	var json_str2 = getCookie('eventos');
+	if(json_str2.length!=0){
+  arraycookiesEventos = JSON.parse(json_str2);
+
+	}
+
+	var json_str3 = getCookie('categorias');
+	if(json_str3.length!=0){
+  arraycookiesCategorias = JSON.parse(json_str3);
+
+	}
 }
 
 /*Para cambiar de cualquier pagina a la página principal de usuario*/
@@ -422,6 +458,10 @@ function registerFormCookies(signUp) {
    arraycookies[w]= DatosUsuario;
    w++;
 
+   //GUARDO UNA COOKIE CON TODO EL ARRAY DE USUARIOS
+ var json_str = JSON.stringify(arraycookies);
+createCookie('usuarios', json_str);
+
     username.style.border = "none";
     password.style.border = "none";
     email.style.border = "none";
@@ -454,6 +494,12 @@ function saveCategoryCookie(form) {
 	var DatosCategoria= "nombreCategoria=" + document.getElementById("categoryname").value + "&email=" +email_iniciado;
   arraycookiesCategorias[indexCategorias]= DatosCategoria;
   indexCategorias++;
+
+ //GUARDO UNA COOKIE CON TODO EL ARRAY DE CATEGORIAS
+  var json_str = JSON.stringify(arraycookiesCategorias);
+createCookie('categorias', json_str);
+
+
 	//añadimos el div de la nueva clase despues de guardar los datos
   CerrarCategoriaPopUp();
   var nombreCategoria=document.getElementById("categoryname").value;
@@ -538,6 +584,12 @@ function saveEventCookie(form) {
 	var DatosEvento= "nombreEvento=" + document.getElementById("eventname").value +"&nombreCategoria="+ categoria_seleccionada + "&email=" +email_iniciado + "&MeGusta=false";
   arraycookiesEventos[indexEventos]= DatosEvento;
   indexEventos++;
+
+
+//GUARDO UNA COOKIE CON TODO EL ARRAY DE EVENTOS
+  var json_str = JSON.stringify(arraycookiesEventos);
+  createCookie('eventos', json_str);
+
 
 	//bucle solo para comprobar que se ha guardado cada cookie en cada posicion del array
 	for(var j=0;j<arraycookiesEventos.length;j++){
@@ -760,3 +812,42 @@ function checkCookieLogIn() {
 			 }
          return registrado;
          }
+
+
+
+
+
+
+
+
+
+
+
+//FUNCIONES PARA CREAR Y ACCEDER A LAS COOKIES DE LOS ARRAYS
+         var createCookie = function(name, value, days) {
+   var expires;
+   if (days) {
+       var date = new Date();
+       date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+       expires = "; expires=" + date.toGMTString();
+   }
+   else {
+       expires = "";
+   }
+   document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function getCookie(c_name) {
+   if (document.cookie.length > 0) {
+       c_start = document.cookie.indexOf(c_name + "=");
+       if (c_start != -1) {
+           c_start = c_start + c_name.length + 1;
+           c_end = document.cookie.indexOf(";", c_start);
+           if (c_end == -1) {
+               c_end = document.cookie.length;
+           }
+           return unescape(document.cookie.substring(c_start, c_end));
+       }
+   }
+   return "";
+}
