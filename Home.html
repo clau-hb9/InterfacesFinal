@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta  name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" >
+<link rel="stylesheet" href="style/estilo.css">
+
+<script src="https://kit.fontawesome.com/3d20e8281b.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+
+
+<title> Laboratorio 2</title>
+</head>
+
+<body>
+<div id="contenedor">
+    <!--Cabecera con usuario-->
+    <header id="headerPaginaConUsuario">
+      <img src="https://i2.wp.com/goldenskyva.com/wp-content/uploads/2017/09/cropped-logo-SIN-FONDO-1-1.png?ssl=1" alt="Logo Página" width=60 >
+        <h1>WorldAdvisor</h1>
+        <div id="DatosUsuario">
+          <i class="far fa-user"></i>
+          <p id="Username">User</p>
+        </div>
+        <ul id="HomeNavBarConUsuario">
+          <li><button onclick="ProfileDelUsuario();">Profile</button></li>
+          <li><button onclick="pasarPaginaSignOut();">Sign out</button></li>
+        </ul>
+        <ul id="navBarProfile">
+          <li><button onclick="IniciarSesion();">Home</button></li>
+          <li><button onclick="pasarPaginaSignOut();">Sign out</button></li>
+        </ul>
+    </header>
+    <!--Cabecera sin usuario-->
+    <header id="headerPaginaSinUsuario">
+      <img src="https://i2.wp.com/goldenskyva.com/wp-content/uploads/2017/09/cropped-logo-SIN-FONDO-1-1.png?ssl=1" alt="Logo Página" width=100 >
+        <h1>WorldAdvisor</h1>
+        <ul id="navigation-bar">
+          <li><button onclick="pasarPaginaSignOut();">Home</button></li>
+          <li><button onclick="pasarPaginaSignIn();">Sign In</button></li>
+          <li><button onclick="pasarPaginaSignUp();">Sign Up</button></li>
+        </ul>
+    </header>
+
+<!--CUERPO PAGINA PRINCIPAL CON USUARIO-->
+<button class= "AñadirCategoria" onclick="AñadirCategoria(this)"> Añadir categoria</button>
+    <div id="Home">
+
+	  </div>
+
+
+  <!--Información que se va a mostrar cuando se pulse el boton compartir-->
+  <div id="fullscreen-container">
+    <section id="popUpText">
+      <button onclick="CerrarCompartirPopUp();" class= Boton-cierre ><i class="fas fa-times"></i></button>
+      <div  class="DivImagenPopUp">
+        <img id="ImagenPopUp" src="https://www.revistadearte.com/wp-content/uploads/2019/03/paseos-a-orillas-del-mar-1909.jpg" alt="Museo Sorolla" width="80">
+        <p id="TextoPopUp">Hola</p>
+      </div>
+      <p>Elija una aplicación para compartir:</p>
+      <div id="DivIconosPopUp">
+        <button><img src="https://image.flaticon.com/icons/png/512/124/124010.png" alt="Referencia Facebook" width=40></button>
+        <button><img src="http://assets.stickpng.com/thumbs/58e9196deb97430e819064f6.png" alt="Referencia twitter" width=40></button>
+        <button><img src="https://image.flaticon.com/icons/png/512/1240/1240972.png" alt="Referencia Email" width=40 height=40></button>
+      </div>
+  </section>
+</div>
+
+
+
+  <!--Información que se va a mostrar cuando se pulse el boton añadir categoria-->
+
+  <!--NUEVO-->
+  <div id="fullscreen-container2">
+    <section id="popUpTextNewCategory">
+      <button onclick="CerrarCategoriaPopUp();" class= Boton-cierre ><i class="fas fa-times"></i></button>
+				  <form id="newCategory">
+				  <div class="container">
+  					<div>
+  					  <label><p><b>Añadir una nueva categoría</b></p><br>
+  					  <input type="text" id="categoryname" placeholder="Enter category name" name="categoryname"></label><br>
+  					</div>
+  					<div class="clearfix1">
+  					  <button type="button" onclick="saveCategoryCookie('newCategory');" class="crearCategoria">Añadir evento</button>
+  					</div>
+				</div>
+			  </form>
+  </section>
+</div>
+
+
+
+<!--Información que se va a mostrar cuando se pulse el boton añadir evento-->
+
+  <!--NUEVO-->
+  <div id="fullscreen-container3">
+    <section id="popUpTextNewEvent">
+      <button onclick="CerrarEventPopUp();" class= Boton-cierre ><i class="fas fa-times"></i></button>
+				  <form id="newEvent">
+				  <div class="container">
+					<div>
+					  <label><p><b>Nombre de Evento</b></p><br>
+					  <input type="text" id="eventname" placeholder="Enter event name" name="eventname"></label><br>
+					</div>
+					<div class="clearfix1">
+					  <button type="button" onclick="saveEventCookie('newEvent');" class="crearCategoria">Añadir evento</button>
+					</div>
+
+				</div>
+			  </form>
+  </section>
+</div>
+
+
+
+
+
+
+<!--PARTE INFERIOR CUANDO HACEMOS LOG OUT-->
+<!--INICIAR SESION-->
+<div id="signin_form">
+  <form id="signIn" onsubmit="return SignIn('signIn');">
+    <div class="container">
+      <h1>Sign in</h1>
+      <p>Sign in if you already have an account!</p>
+      <hr><br>
+      <br>
+      <label><b>Email</b></label><br>
+      <input type="text" id="emailLogIn" placeholder="Enter Email" name="email" required><br>
+
+      <label><b>Password</b></label><br>
+      <input id="pswLogIn" type="password" placeholder="Enter Password" name="psw" required><br>
+
+      <div class="clearfix">
+        <button class="signinbtn">Sign in</button>
+        <p>Don´t have an account? <a onclick="pasarPaginaSignUp();" >Register</a></p>
+      </div>
+  </div>
+</form>
+</div>
+
+<!--REGISTRARSE-->
+<div id="signup_form">
+  <form id="signup" onsubmit="return CheckLabels('signup');">
+      <div class="container">
+          <h1>Sign up</h1>
+          <p>Please fill in this form to create an account.</p>
+          <hr><br>
+          <br>
+        <div>
+          <label><b>User name</b><br>
+          <input type="text" id="username" placeholder="Enter user name" name="username"></label><br>
+        </div>
+          <label><b>Password</b><br>
+          <input id="pswRegister" type="password" placeholder="Enter Password" name="psw"></label><br>
+
+          <label><b>Email</b><br>
+          <input type="email" id="email" placeholder="Enter Email" name="email" ></label><br>
+
+
+
+          <input type="checkbox" name="agreement" required >He leído y acepto las condiciones de uso<br>
+
+        <div class="clearfix1">
+          <button type="button" onclick="CheckLabels('signup');" class="signupbtn">Sign Up</button>
+          <button type="reset" onclick="Borrar('signup')" class="borrarbtn">Borrar</button>
+        </div>
+
+    </div>
+  </form>
+  </div>
+
+  <!--PROFILE UNA VEZ TENEMOS EL LOG IN-->
+  <div id="EditProfile">
+    <form id="profile_form">
+        <div class="container">
+          <h1>Profile</h1>
+          <p>Edit your personal information</p>
+          <hr><br>
+          <br>
+          <div class="casillasMitadLeft">
+            <label><b>Name</b></label><br>
+            <input type="text" placeholder="Enter name" name="name" value="" ><br>
+          </div>
+          <div class="casillasMitadRight">
+            <label><b>Surname</b></label><br>
+            <input type="text" placeholder="Enter surname" name="surname" value="" ><br>
+          </div>
+            <label><b>User name</b></label><br>
+            <input type="text" placeholder="Enter user name" name="username" value=""><br>
+
+            <label><b>Email</b></label><br>
+            <input type="text" placeholder="Enter Email" name="email" value="" readonly><br>
+
+            <label><b>Password</b></label><br>
+            <input type="text" placeholder="Enter Password" name="psw" value=""><br>
+
+          <div class="clearfix">
+            <button onclick="saveChanges('profile_form');" type="button" class="profilebtn">Save</button>
+          </div>
+      </div>
+    </form>
+  </div>
+
+</div>
+<footer id="myFooter">
+  <div id="footerBox">
+    <div class="footerLinks"><a  href="http://www.facebook.com"><img src="https://image.flaticon.com/icons/png/512/124/124010.png" alt="Referencia Facebook" width=30></a></div>
+    <div class="footerLinks"><a  href="http://www.twitter.com"><img src="http://assets.stickpng.com/thumbs/58e9196deb97430e819064f6.png" alt="Referencia twitter" width=30></a></div>
+    <div class="footerLinks"><a  href="http://www.linkedin.com"><img src="https://logosmarcas.com/wp-content/uploads/2018/05/Linkedin-s%C3%ADmbolo.png" alt="Referencia linkedin" width=60></a></div>
+  </div>
+  <div id="footerTexto">
+    <p> Lucía Verdejo Estevez </p>
+    <hr>
+    <p> Claudia Fernández Estebaranz </p>
+  </div>
+</footer>
+<script src="Script/Funciones.js"></script>
+</body>
+</html>
