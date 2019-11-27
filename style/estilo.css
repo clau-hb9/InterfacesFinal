@@ -200,15 +200,25 @@
   /*Pagina princial con usuario parte inferior*/
   #Home{
     display:flex;
+
+    flex-wrap:wrap;
+    width: 100%;
   }
   .flex-container{
+    display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1 0 30%;
+  margin:10px;
+
+    /*flex: 1 0 21%;
     margin:10px;
     padding:15px;
     display:flex;
     flex-direction: column;
     min-width: 32%;
     flex-grow: 1;
-    cursor: pointer;
+    cursor: pointer;*/
   }
 
 
@@ -481,19 +491,8 @@ border:none;
   filter:blur(3px);
 }
 
-/*boton añadir evento*/
- #popUpTextNewEvent{
-    position:absolute;
-    display:none;
-    float:left;
-    margin:100px 400px;
-    background-color: #404040;
-    border-radius: 5px;
-    width: 400px;
-    height: 250px;
-    z-index:10;
 
-}
+
 /*Fondo inhabilitado*/
 #fullscreen-container {
   display: none;
@@ -647,6 +646,16 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
 }
 
 /*POP UP NUEVA CATEGORIA*/
+#fullscreen-container2 {
+  display: none;
+  position: fixed;
+  top: 100px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: transparent;
+  z-index: 9999;
+}
 #newCategory{
   color:#e6e6e6;
   font:small-caps 100%/100% courier;
@@ -682,6 +691,16 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
   margin:10px 0 0 70px
 }
 /*POP UP NUEVO EVENTO*/
+#fullscreen-container3 {
+  display: none;
+  position: fixed;
+  top: 100px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: transparent;
+  z-index: 9999;
+}
 #newEvent{
   color:#e6e6e6;
   font:small-caps 100%/100% courier;

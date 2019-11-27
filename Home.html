@@ -84,14 +84,14 @@
   <div id="fullscreen-container2">
     <section id="popUpTextNewCategory">
       <button onclick="CerrarCategoriaPopUp();" class= Boton-cierre ><i class="fas fa-times"></i></button>
-				  <form id="newCategory">
+				  <form id="newCategory" onsubmit="return saveCategoryCookie('newCategory');">
 				  <div class="container">
   					<div>
   					  <label><p><b>Añadir una nueva categoría</b></p><br>
   					  <input type="text" id="categoryname" placeholder="Enter category name" name="categoryname"></label><br>
   					</div>
   					<div class="clearfix1">
-  					  <button type="button" onclick="saveCategoryCookie('newCategory');" class="crearCategoria">Añadir evento</button>
+  					  <button type="submit" class="crearCategoria">Añadir evento</button>
   					</div>
 				</div>
 			  </form>
@@ -106,14 +106,14 @@
   <div id="fullscreen-container3">
     <section id="popUpTextNewEvent">
       <button onclick="CerrarEventPopUp();" class= Boton-cierre ><i class="fas fa-times"></i></button>
-				  <form id="newEvent">
+				  <form id="newEvent" onsubmit="return saveEventCookie('newEvent');">
 				  <div class="container">
 					<div>
 					  <label><p><b>Nombre de Evento</b></p><br>
 					  <input type="text" id="eventname" placeholder="Enter event name" name="eventname"></label><br>
 					</div>
 					<div class="clearfix1">
-					  <button type="button" onclick="saveEventCookie('newEvent');" class="crearCategoria">Añadir evento</button>
+					  <button type="submit" class="crearCategoria">Añadir evento</button>
 					</div>
 
 				</div>
@@ -134,6 +134,7 @@
   <button id="btnsingIn" onclick="pasarPaginaSignIn();">SIGN IN</button>
   <button id="btnsingUp" onclick="pasarPaginaSignUp();">SIGN UP</button>
 </div>
+
 <!--INICIAR SESION-->
 <div id="signin_form">
   <form id="signIn" onsubmit="return SignIn('signIn');">

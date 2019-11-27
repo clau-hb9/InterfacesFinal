@@ -84,11 +84,16 @@ containers[i].classList.remove("blur");
 var headerConUsusario=document.getElementById("headerPaginaConUsuario");
 var headerSinUsusario=document.getElementById("headerPaginaSinUsuario");
 var categoria=document.getElementById("divAñadirCategoria");
+var signup=document.getElementById("signup_form");
+var signin=document.getElementById("signin_form");
+
 var footer=document.getElementById("myFooter");
 
 categoria.classList.remove("blur");
 headerConUsusario.classList.remove("blur");
 headerSinUsusario.classList.remove("blur");
+signup.classList.remove("blur");
+signin.classList.remove("blur");
 footer.classList.remove("blur");
 }
 
@@ -111,6 +116,7 @@ function AñadirCategoria(elmnt) {
     ListenerNewCategory();
     form_añadirCategoria=document.getElementById("newCategory");
     form_añadirCategoria.reset();
+    return false;
 
   }
 
@@ -146,6 +152,10 @@ function CerrarCategoriaPopUp(){
                                                                             /*BOTON AÑADIR EVENTO*/
 /*PopUp cuando clickas el boton añadir evento*/
 function AñadirEvento(elmnt) {
+
+    var contenedorPequeño= $(elmnt).closest(".flex-container");
+    var menu= contenedorPequeño[0].getElementsByClassName("dropdown-content")[0];
+    menu.classList.toggle("visible");
     categoria_seleccionada=$(elmnt).closest(".flex-container").attr('id');
     /*Ponemos que el popUp sea visible*/
     var popUpTextNewEvent = document.getElementById("popUpTextNewEvent");
@@ -156,6 +166,10 @@ function AñadirEvento(elmnt) {
     /*Cerrar evento si se hace click fuera*/
     //var specifiedElement = document.getElementById("popUpTextNewEvent");
     ListenerNewEvent();
+    var form=document.getElementById("newEvent");
+    form.reset();
+    return false;
+
 
   }
 
@@ -231,7 +245,6 @@ function CerrarlanzarPopUpUsuarioRegistrado(){
   function desplegarMenu(ID){
       //var contenedorPequeño=document.getElementById(ID);
   	var contenedorPequeño= $(ID).closest(".flex-container");
-  	console.log(contenedorPequeño[0]);
       var menu= contenedorPequeño[0].getElementsByClassName("dropdown-content")[0];
       menu.classList.toggle("visible");
       //Miraremos la posición del click para que el menu no aparezca fuera de la pantalla
@@ -263,7 +276,7 @@ function pasarPaginaSignOut(){
   document.getElementById("divAñadirCategoria").style.display="none";
 
   //IMPORTANTE: CADA VEZ QUE SE HACE LOG OUT SE LIMPIA EL DIV HOME. CUANDO SE VUELVA A INICIAR SESIÓN HABRÁ QUE VOLVER A ESCRIBIR TODO
-  //parteInferiorConUsuario.innerHTML="";
+  parteInferiorConUsuario.innerHTML="";
   var parteInferiorProfile=document.getElementById("EditProfile");
   parteInferiorProfile.style.display="none";
   var parteInferiorSignUp=document.getElementById("signup_form");
@@ -303,7 +316,6 @@ function pasarPaginaSignUp(){
   /*Parte inferior*/
 
   recuperarArrays();
-
   var parteInferiorConUsuario=document.getElementById("Home");
   parteInferiorConUsuario.style.display="none";
   var parteInferiorSignIn=document.getElementById("signin_form");
@@ -481,7 +493,6 @@ function CheckLabels(form){
 
     if (comprobante == 1){
       registerFormCookies(signUp);
-      lanzarPopUpUsuarioRegistrado();
 
       return false;
     }
@@ -517,7 +528,7 @@ function registerFormCookies(signUp) {
     password.style.border = "none";
     email.style.border = "none";
     agreement.style.border = "none";
-
+    lanzarPopUpUsuarioRegistrado();
     signUp.reset();
   }
 }
@@ -554,7 +565,7 @@ createCookie('categorias', json_str);
   CerrarCategoriaPopUp();
   var nombreCategoria=document.getElementById("categoryname").value;
   addDivCategory(nombreCategoria);
-  false;
+  return false;
 }
 
 function addDivCategory(nombreCategoria) {
@@ -596,13 +607,13 @@ function addDivCategory(nombreCategoria) {
   buttonAñadir.setAttribute("onclick", "AñadirEvento(this);" );
   buttonAñadir.appendChild(contenido3);
 
-  var buttonCompartir = document.createElement("button");
+  /*var buttonCompartir = document.createElement("button");
   var contenido4 = document.createTextNode("Compartir lista");
   buttonCompartir.appendChild(contenido4);
 
   var buttonImportar  = document.createElement("button");
   var contenido5 = document.createTextNode("Importar a calendario");
-  buttonImportar.appendChild(contenido5);
+  buttonImportar.appendChild(contenido5);*/
 
   //metemos los elementos al div flex container
   var contenido = document.createTextNode(nombreCategoria);
@@ -621,8 +632,7 @@ function addDivCategory(nombreCategoria) {
   divdropdown.appendChild(divdropdowncontent);
   divdropdowncontent.appendChild(buttonarchivar);
   divdropdowncontent.appendChild(buttonAñadir);
-  divdropdowncontent.appendChild(buttonCompartir);
-  divdropdowncontent.appendChild(buttonImportar);
+
   }
 
 
@@ -650,6 +660,7 @@ function saveEventCookie(form) {
   CerrarEventPopUp();
   var nombreEvento=document.getElementById("eventname").value;
 	addDivEvent(nombreEvento);
+  return false;
 
 }
 
