@@ -58,6 +58,42 @@ function PonerMeGusta(button){
 
     }
 
+                                                                        /* EFECTOS BLUR */
+function activarBlur(){
+var containers=document.getElementsByClassName("flex-container");
+var headerConUsusario=document.getElementById("headerPaginaConUsuario");
+var headerSinUsusario=document.getElementById("headerPaginaSinUsuario");
+var categoria=document.getElementById("divAñadirCategoria");
+var footer=document.getElementById("myFooter");
+
+headerConUsusario.classList.add("blur");
+headerSinUsusario.classList.add("blur");
+categoria.classList.add("blur");
+footer.classList.add("blur");
+for(var i=0;i<containers.length;i++){
+containers[i].classList.add("blur");
+}
+}
+
+function desactivarBlur(){
+/*Quitaremos el efecto borroso a los elementos*/
+var containers=document.getElementsByClassName("flex-container");
+for(var i=0;i<containers.length;i++){
+containers[i].classList.remove("blur");
+}
+var headerConUsusario=document.getElementById("headerPaginaConUsuario");
+var headerSinUsusario=document.getElementById("headerPaginaSinUsuario");
+var categoria=document.getElementById("divAñadirCategoria");
+var footer=document.getElementById("myFooter");
+
+categoria.classList.remove("blur");
+headerConUsusario.classList.remove("blur");
+headerSinUsusario.classList.remove("blur");
+footer.classList.remove("blur");
+}
+
+
+
 
 
                                                                             /*BOTON AÑADIR CATEGORIA*/
@@ -69,18 +105,9 @@ function AñadirCategoria(elmnt) {
     popUpTextNewCategory.style.display="block";
     var container=document.getElementById("fullscreen-container2");
     container.style.display="block";
-    /*Pondremos el resto de elementos borrosos para focalizarnos en el popUp */
-    var containers=document.getElementsByClassName("flex-container");
-    var headerConUsusario=document.getElementById("headerPaginaConUsuario");
-    var footer=document.getElementById("myFooter");
-
-    headerConUsusario.classList.add("blur");
-    footer.classList.add("blur");
-    for(var i=0;i<containers.length;i++){
-      containers[i].classList.add("blur");
-    }
+    activarBlur();
     /*Cerrar evento si se hace click fuera*/
-    var specifiedElement = document.getElementById("popUpTextNewCategory");
+    //var specifiedElement = document.getElementById("popUpTextNewCategory");
     ListenerNewCategory();
     form_añadirCategoria=document.getElementById("newCategory");
     form_añadirCategoria.reset();
@@ -94,7 +121,7 @@ function AñadirCategoria(elmnt) {
     var isClickInside = event.target.closest("section");
     if(isClickInside==null){
       var isButton = event.target.closest("button");
-      if(isButton==null && event.target.className!="tooltip"){
+      if(isButton==null && event.target.className!="AñadirCategoria"){
         CerrarCategoriaPopUp();
       }
     }
@@ -108,20 +135,11 @@ function CerrarCategoriaPopUp(){
         popUp.style.display="none";
         var container=document.getElementById("fullscreen-container2");
         container.style.display="none";
-        /*Quitaremos el efecto borroso a los elementos*/
-        var containers=document.getElementsByClassName("flex-container");
-        for(var i=0;i<containers.length;i++){
-          containers[i].classList.remove("blur");
-        }
-        var headerConUsusario=document.getElementById("headerPaginaConUsuario");
-        var headerSinUsusario=document.getElementById("headerPaginaSinUsuario");
-
-        var footer=document.getElementById("myFooter");
-        headerConUsusario.classList.remove("blur");
-        headerSinUsusario.classList.remove("blur");
-
-        footer.classList.remove("blur");
+        desactivarBlur();
       }
+
+
+
 
 
                                                                         /* FUNCIONES LISTA TRES PUNTITOS */
@@ -134,24 +152,13 @@ function AñadirEvento(elmnt) {
     popUpTextNewEvent.style.display="block";
     var container=document.getElementById("fullscreen-container3");
     container.style.display="block";
-    /*Pondremos el resto de elementos borrosos para focalizarnos en el popUp */
-    var containers=document.getElementsByClassName("flex-container");
-    var headerConUsusario=document.getElementById("headerPaginaConUsuario");
-    var headerSinUsusario=document.getElementById("headerPaginaSinUsuario");
-
-    var footer=document.getElementById("myFooter");
-    headerConUsusario.classList.add("blur");
-    headerSinUsusario.classList.add("blur");
-
-    footer.classList.add("blur");
-    for(var i=0;i<containers.length;i++){
-      containers[i].classList.add("blur");
-    }
+    activarBlur();
     /*Cerrar evento si se hace click fuera*/
-    var specifiedElement = document.getElementById("popUpTextNewEvent");
+    //var specifiedElement = document.getElementById("popUpTextNewEvent");
     ListenerNewEvent();
 
   }
+
 
   function ListenerNewEvent(){
   document.addEventListener('click', function(event){
@@ -173,20 +180,40 @@ function CerrarEventPopUp(){
         popUp.style.display="none";
         var container=document.getElementById("fullscreen-container3");
         container.style.display="none";
-        /*Quitaremos el efecto borroso a los elementos*/
-        var containers=document.getElementsByClassName("flex-container");
-        for(var i=0;i<containers.length;i++){
-          containers[i].classList.remove("blur");
-        }
-        var headerConUsusario=document.getElementById("headerPaginaConUsuario");
-        var headerSinUsusario=document.getElementById("headerPaginaSinUsuario");
-
-        var footer=document.getElementById("myFooter");
-        headerConUsusario.classList.remove("blur");
-        headerSinUsusario.classList.remove("blur");
-
-        footer.classList.remove("blur");
+        desactivarBlur();
       }
+
+                                                              /* POP UP NUEVO USUARIO REGISTRADO */
+function lanzarPopUpUsuarioRegistrado(){
+  var popUp=document.getElementById("PopUpUsuarioRegistrado");
+  popUp.style.display="block";
+  activarBlur();
+  var signup=document.getElementById("signup_form");
+  signup.classList.add("blur");
+}
+
+function ListenerPopUpUsuarioRegistrado(){
+document.addEventListener('click', function(event){
+  var popUp=document.getElementById("popUpTextNewEvent");
+  var isClickInside = event.target.closest("form");
+  if(isClickInside==null){
+    var isButton = event.target.closest("button");
+    if(isButton==null && event.target.className!="signupbtn"){
+      CerrarlanzarPopUpUsuarioRegistrado();
+    }
+  }
+});
+}
+function CerrarlanzarPopUpUsuarioRegistrado(){
+  var popUp=document.getElementById("PopUpUsuarioRegistrado");
+  popUp.style.display="none";
+  var profile=document.getElementById("profile_form");
+  profile.classList.remove("blur");
+  activarBlur();
+}
+
+
+
 
   /* ARCHIVAR LISTA */
   function archivar(ID){
@@ -233,7 +260,7 @@ function pasarPaginaSignOut(){
   var parteInferiorPaginaInicial=document.getElementById("PaginaPrincipalLogOut");
   parteInferiorPaginaInicial.style.display="block";
 
-document.getElementById("divAñadirCategoria").style.display="none";
+  document.getElementById("divAñadirCategoria").style.display="none";
 
   //IMPORTANTE: CADA VEZ QUE SE HACE LOG OUT SE LIMPIA EL DIV HOME. CUANDO SE VUELVA A INICIAR SESIÓN HABRÁ QUE VOLVER A ESCRIBIR TODO
   //parteInferiorConUsuario.innerHTML="";
@@ -251,8 +278,6 @@ function pasarPaginaSignIn(){
   /*Parte inferior*/
 
     recuperarArrays();
-
-
   var parteInferiorConUsuario=document.getElementById("Home");
   parteInferiorConUsuario.style.display="none";
   var parteInferiorSignUp=document.getElementById("signup_form");
@@ -265,7 +290,8 @@ function pasarPaginaSignIn(){
   parteInferiorPaginaInicial.style.display="none";
   var footer=document.getElementById("myFooter");
   footer.style.display="block";
-
+  desactivarBlur();
+  document.getElementById("PopUpUsuarioRegistrado").style.display="none";
 
   var form_signUp=document.getElementById("signup");
   form_signUp.reset();
@@ -290,7 +316,7 @@ function pasarPaginaSignUp(){
   parteInferiorPaginaInicial.style.display="none";
   var footer=document.getElementById("myFooter");
   footer.style.display="block";
-
+  desactivarBlur();
   var form_signIn=document.getElementById("signIn");
   form_signIn.reset();
 
@@ -455,6 +481,8 @@ function CheckLabels(form){
 
     if (comprobante == 1){
       registerFormCookies(signUp);
+      lanzarPopUpUsuarioRegistrado();
+
       return false;
     }
   }
@@ -483,7 +511,7 @@ function registerFormCookies(signUp) {
 
    //GUARDO UNA COOKIE CON TODO EL ARRAY DE USUARIOS
  var json_str = JSON.stringify(arraycookies);
-createCookie('usuarios', json_str);
+ createCookie('usuarios', json_str);
 
     username.style.border = "none";
     password.style.border = "none";
@@ -491,7 +519,6 @@ createCookie('usuarios', json_str);
     agreement.style.border = "none";
 
     signUp.reset();
-    pasarPaginaSignIn();
   }
 }
 

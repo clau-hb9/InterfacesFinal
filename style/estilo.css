@@ -55,9 +55,6 @@
 
   }
   /*Con usuario*/
-
-
-
   #headerPaginaConUsuario{
     display:none;
   }
@@ -237,11 +234,13 @@ display:none;
     float: right;
     background-color:#262626;
     border: none;
+    border-radius: 5px;
     font: small 100%/100% serif;
     font-size: 13px;
     color:white;
     width: auto;
     padding: 10px;
+    margin-right: 10px;
 
 
   }
@@ -448,23 +447,6 @@ display:none;
 
 }
 
-
-
-
-/*boton a?adir evento*/
- #popUpTextNewEvent{
-    position:absolute;
-    display:none;
-    float:left;
-    margin:100px 400px;
-    background-color: #404040;
-    border-radius: 5px;
-    width: 400px;
-    height: 250px;
-    z-index:10;
-
-}
-
 .DivImagenPopUp{
   float:left;
   height: 30%;
@@ -497,6 +479,20 @@ border:none;
 }
  .blur{
   filter:blur(3px);
+}
+
+/*boton añadir evento*/
+ #popUpTextNewEvent{
+    position:absolute;
+    display:none;
+    float:left;
+    margin:100px 400px;
+    background-color: #404040;
+    border-radius: 5px;
+    width: 400px;
+    height: 250px;
+    z-index:10;
+
 }
 /*Fondo inhabilitado*/
 #fullscreen-container {
@@ -719,6 +715,43 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
   cursor: pointer;
   opacity: 0.9;
   margin:10px 0 0 70px
+}
+
+
+/*POP UP USUARIO NUEVO REGISTRADO*/
+#PopUpUsuarioRegistrado{
+  position:absolute;
+  display:none;
+  float:left;
+  margin:-300px 500px;
+  background-color: #404040;
+  border-radius: 5px;
+  height: 110px;
+  z-index:10;
+  width: 200px;
+}
+
+#PopUpUsuarioRegistrado p{
+margin:30px 0 10px 20px;
+float:left;
+color:#e6e6e6;
+font:small-caps 100%/100% courier;
+font-size:17px;
+text-align: center;
+}
+
+#PopUpUsuarioRegistrado button{
+margin:70px 0 0 -120px;
+padding: 4px 10px;
+border:none;
+background-color: #846D0E;
+color:white;
+font:small-caps 100%/100% courier;
+font-size:17px;
+border-radius: 5px;
+float:left;
+
+
 }
 
 /*FOOTER*/
