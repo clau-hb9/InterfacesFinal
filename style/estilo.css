@@ -33,6 +33,7 @@
     margin:20px 10px;
     overflow: auto;
     background-color:rgba(65,100,111,0.34);
+    height: 100px;
 
   }
   header>img{
@@ -47,6 +48,11 @@
     color:#FFFFFF;
     font: small-caps 100%/100% serif;
     font-size: 30px;
+  }
+  header h1:hover{
+    cursor:pointer;
+    color:#846D0E;
+
   }
   /*Con usuario*/
 
@@ -82,7 +88,7 @@
     float: right;
     margin: 0 5px auto 400px;
     padding: 10px ;
-    background-color:  #262626;
+    background-color:  none;
   }
   #HomeNavBarConUsuario li, #navBarProfile li{
     display:inline;
@@ -102,7 +108,7 @@
 
   /*Sin usurio*/
   #headerPaginaSinUsuario{
-    display:block;
+    display:none;
   }
   #navigation-bar{
     float: right;
@@ -124,6 +130,75 @@
   #navigation-bar li button:hover {
     color:#cc9900;
   }
+/*Pagina principal de inicio*/
+#PaginaPrincipalLogOut img{
+  float:left;
+  margin: 30px 0 0 320px;
+  border-width: 0px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 207px;
+  height: 180px;
+  }
+  #PaginaPrincipalLogOut p{
+    float:left;
+    margin: 125px 0 0 430px;
+    font-family: 'Cambria Math Bold', 'Cambria Math Regular', 'Cambria Math';
+    font-weight: 700;
+    font-style: normal;
+    font-size: 72px;
+    color:
+    #FFFFFF;
+  }
+  #btnsingIn{
+    margin:325px 0 0 420px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 200px;
+    height: 70px;
+    padding: 3px 2px 3px 2px;
+    font-family: 'Cambria Math';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    letter-spacing: normal;
+    vertical-align: none;
+    text-align: center;
+    text-transform: none;
+    background-color:#846D0E;
+    opacity: 0.9;
+    border:none;
+    border-radius: 5px;
+    cursor:pointer;
+    color: rgba(234, 236, 238, 0.972549019607843);
+
+  }
+  #btnsingUp{
+    margin:325px 0 0 660px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 200px;
+    height: 70px;
+    padding: 3px 2px 3px 2px;
+    font-family: 'Cambria Math';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    letter-spacing: normal;
+    vertical-align: none;
+    text-align: center;
+    text-transform: none;
+    background-color:#846D0E;
+    opacity: 0.9;
+    border:none;
+    border-radius: 5px;
+    cursor:pointer;
+    color: rgba(234, 236, 238, 0.972549019607843);
+  }
+
 
   /*Pagina princial con usuario parte inferior*/
   #Home{
@@ -496,22 +571,26 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
 
 .signinbtn {
   width: 40%;
-  background-color: #4CAF50;
+  background-color: #846D0E;
+  opacity: 0.9;
   color: white;
   padding: 14px 20px;
   margin-left: 35px;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
   opacity: 0.9;
 }
 .borrarbtn{
+  margin-top: 10px;
   float: left;
   width: 20%;
-  background-color: red;
+  background-color: #9C2A0C;
   color: white;
   padding: 14px 20px;
   margin-right: 15px;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
   opacity: 0.9;
 }
@@ -521,11 +600,12 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
 }
 .profilebtn{
   width: 40%;
-  background-color: #4CAF50;
+
   color: white;
   padding: 14px 20px;
   margin: 8px 100px;
   border: none;
+
   cursor: pointer;
   opacity: 0.9;
 }
@@ -549,13 +629,16 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
   cursor: pointer;
 }
 .signupbtn{
+  margin-top:10px;
   float: left;
   width: 20%;
-  background-color: #4CAF50;
+  background-color: #846D0E;
+  opacity: 0.9;
   color: white;
   padding: 14px 20px;
   margin-right: 15px;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
   opacity: 0.9;
 }
@@ -640,6 +723,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
 
 /*FOOTER*/
 footer {
+  display:none;
   background-color: #262626;
   padding: 10px;
   color: black;

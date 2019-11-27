@@ -22,7 +22,7 @@
     <!--Cabecera con usuario-->
     <header id="headerPaginaConUsuario">
       <img src="https://i2.wp.com/goldenskyva.com/wp-content/uploads/2017/09/cropped-logo-SIN-FONDO-1-1.png?ssl=1" alt="Logo Página" width=60 >
-        <h1>WorldAdvisor</h1>
+        <h1 >WorldAdvisor</h1>
         <div id="DatosUsuario">
           <i class="far fa-user"></i>
           <p id="Username">User</p>
@@ -39,9 +39,9 @@
     <!--Cabecera sin usuario-->
     <header id="headerPaginaSinUsuario">
       <img src="https://i2.wp.com/goldenskyva.com/wp-content/uploads/2017/09/cropped-logo-SIN-FONDO-1-1.png?ssl=1" alt="Logo Página" width=100 >
-        <h1>WorldAdvisor</h1>
+        <h1 onclick="pasarPaginaSignOut();">WorldAdvisor</h1>
         <ul id="navigation-bar">
-          <li><button onclick="pasarPaginaSignOut();">Home</button></li>
+          <li><button>Home</button></li>
           <li><button onclick="pasarPaginaSignIn();">Sign In</button></li>
           <li><button onclick="pasarPaginaSignUp();">Sign Up</button></li>
         </ul>
@@ -127,6 +127,13 @@
 
 
 <!--PARTE INFERIOR CUANDO HACEMOS LOG OUT-->
+<!--PAGINA PRINCIPAL LOG OUT-->
+<div id="PaginaPrincipalLogOut">
+  <img src="https://i2.wp.com/goldenskyva.com/wp-content/uploads/2017/09/cropped-logo-SIN-FONDO-1-1.png?ssl=1" alt="Logo Página" width=60 >
+  <p>WorldAdvisor</p>
+  <button id="btnsingIn" onclick="pasarPaginaSignIn();">SIGN IN</button>
+  <button id="btnsingUp" onclick="pasarPaginaSignUp();">SIGN UP</button>
+</div>
 <!--INICIAR SESION-->
 <div id="signin_form">
   <form id="signIn" onsubmit="return SignIn('signIn');">
@@ -158,13 +165,13 @@
           <hr><br>
           <br>
         <div>
-          <label><b>User name</b><br>
+          <label><b>User name*</b><br>
           <input type="text" id="username" placeholder="Enter user name" name="username"></label><br>
         </div>
-          <label><b>Password</b><br>
+          <label><b>Password*</b><br>
           <input id="pswRegister" type="password" placeholder="Enter Password" name="psw"></label><br>
 
-          <label><b>Email</b><br>
+          <label><b>Email*</b><br>
           <input type="email" id="email" placeholder="Enter Email" name="email" ></label><br>
 
 

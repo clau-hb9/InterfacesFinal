@@ -224,16 +224,19 @@ function pasarPaginaSignOut(){
   /*Cabecera*/
   var headerConUsusario=document.getElementById("headerPaginaConUsuario");
   headerConUsusario.style.display="none";
-  var headerSinUsuario=document.getElementById("headerPaginaSinUsuario");
-  headerSinUsuario.style.display="block";
+  var headerSinUsusario=document.getElementById("headerPaginaSinUsuario");
+  headerSinUsusario.style.display="none";
+  var footer=document.getElementById("myFooter");
+  footer.style.display="none";
+
   /*Parte inferior*/
-  var parteInferiorConUsuario=document.getElementById("Home");
-  parteInferiorConUsuario.style.display="flex";
+  var parteInferiorPaginaInicial=document.getElementById("PaginaPrincipalLogOut");
+  parteInferiorPaginaInicial.style.display="block";
 
 document.getElementById("divAñadirCategoria").style.display="none";
 
   //IMPORTANTE: CADA VEZ QUE SE HACE LOG OUT SE LIMPIA EL DIV HOME. CUANDO SE VUELVA A INICIAR SESIÓN HABRÁ QUE VOLVER A ESCRIBIR TODO
-  parteInferiorConUsuario.innerHTML="";
+  //parteInferiorConUsuario.innerHTML="";
   var parteInferiorProfile=document.getElementById("EditProfile");
   parteInferiorProfile.style.display="none";
   var parteInferiorSignUp=document.getElementById("signup_form");
@@ -256,6 +259,14 @@ function pasarPaginaSignIn(){
   parteInferiorSignUp.style.display="none";
   var parteInferiorSignIn=document.getElementById("signin_form");
   parteInferiorSignIn.style.display="block";
+  var headerSinUsuario=document.getElementById("headerPaginaSinUsuario");
+  headerSinUsuario.style.display="block";
+  var parteInferiorPaginaInicial=document.getElementById("PaginaPrincipalLogOut");
+  parteInferiorPaginaInicial.style.display="none";
+  var footer=document.getElementById("myFooter");
+  footer.style.display="block";
+
+
   var form_signUp=document.getElementById("signup");
   form_signUp.reset();
 
@@ -273,6 +284,13 @@ function pasarPaginaSignUp(){
   parteInferiorSignIn.style.display="none";
   var parteInferiorSignUp=document.getElementById("signup_form");
   parteInferiorSignUp.style.display="block";
+  var headerSinUsuario=document.getElementById("headerPaginaSinUsuario");
+  headerSinUsuario.style.display="block";
+  var parteInferiorPaginaInicial=document.getElementById("PaginaPrincipalLogOut");
+  parteInferiorPaginaInicial.style.display="none";
+  var footer=document.getElementById("myFooter");
+  footer.style.display="block";
+
   var form_signIn=document.getElementById("signIn");
   form_signIn.reset();
 
@@ -307,6 +325,7 @@ function IniciarSesion(){
   headerSinUsuario.style.display="none";
   var headerConUsusario=document.getElementById("headerPaginaConUsuario");
   headerConUsusario.style.display="block";
+
 
   document.getElementById("divAñadirCategoria").style.display="block";
 
