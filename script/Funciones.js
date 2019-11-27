@@ -197,6 +197,34 @@ function CerrarEventPopUp(){
         desactivarBlur();
       }
 
+                                                    /*POP UP COMPARTIR EVENTO*/
+/*  function CompartirEvento(){
+    var popUp=document.getElementById("PopUpCompartirEvento");
+    popUp.style.display="block";
+    activarBlur();
+  //  ListenerCompartirEvento();
+    var form=document.getElementById("newEvent");
+    form.reset();
+    return false;
+
+  }*/
+/*  function ListenerCompartirEvento(){
+  document.addEventListener('click', function(event){
+    var popUp=document.getElementById("popUpTextNewEvent");
+    var isClickInside = event.target.closest("section");
+    if(isClickInside==null){
+      var isButton = event.target.closest("button");
+      if(isButton==null && event.target.className!="tooltip"){
+        CerrarEventPopUp();
+      }
+    }
+  });
+}*/
+
+
+
+
+
                                                               /* POP UP NUEVO USUARIO REGISTRADO */
 function lanzarPopUpUsuarioRegistrado(){
   var popUp=document.getElementById("PopUpUsuarioRegistrado");
@@ -547,7 +575,7 @@ function comprobarRegistro(nombre) {
   }
 
 
-                                                                    /* AÑADIR CATEGORIA REGISTRO EN ARRAY Y CREACION DEL DIV*/
+                                                          /* AÑADIR CATEGORIA REGISTRO EN ARRAY Y CREACION DEL DIV*/
 //FUNCIONES PARA AÑADIR Categoria
 function saveCategoryCookie(form) {
 	// muy parecida a registerFormCookies pero en otro array
