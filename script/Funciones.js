@@ -304,7 +304,7 @@ function pasarPaginaSignOut(){
   document.getElementById("divAñadirCategoria").style.display="none";
 
   //IMPORTANTE: CADA VEZ QUE SE HACE LOG OUT SE LIMPIA EL DIV HOME. CUANDO SE VUELVA A INICIAR SESIÓN HABRÁ QUE VOLVER A ESCRIBIR TODO
-  parteInferiorConUsuario.innerHTML="";
+  document.getElementById("Home").innerHTML="";
   var parteInferiorProfile=document.getElementById("EditProfile");
   parteInferiorProfile.style.display="none";
   var parteInferiorSignUp=document.getElementById("signup_form");
@@ -443,7 +443,56 @@ function IniciarSesion(){
   parteInferiorProfile.style.display="none";
 }
 
+function checkName(form){
+  var signUp=document.getElementById(form);
 
+var username = signUp.username;
+if(username.length<1){
+  username.style.border="1px solid red";
+  comprobante=0;
+  return false;
+}
+else {
+  username.style.border="2px solid green";
+}
+}
+
+
+function checkPassword(){
+
+var password = document.getElementById("pswRegister");
+if (password.value == "" ) {
+    password.style.border="1px solid red";
+    comprobante=0;
+    return false;
+}
+else if(password.value.length > 8 ) {
+    password.style.border="1px solid red";
+    comprobante=0;
+    return false;
+}
+
+else {
+  password.style.border="2px solid green";
+}
+}
+
+
+
+function checkEmail(form){
+  var signUp=document.getElementById(form);
+  var patEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+var email = signUp.email;
+if(!patEmail.test(String(email.value).toLowerCase())){
+  email.style.border="1px solid red";
+  comprobante=0;
+  return false;
+}
+if(patEmail.test(String(email.value).toLowerCase())){
+  email.style.border="2px solid green";
+}
+}
                                                                             /*REGISTRO DEL USUARIO*/
 //FUNCION MODIFICADA
 function CheckLabels(form){
@@ -627,12 +676,15 @@ function addDivCategory(nombreCategoria) {
 
   var buttonarchivar = document.createElement("button");
   buttonarchivar.setAttribute("onclick", "archivar('nombreCategoria');" ); //HAY QUE CAMBIAR ESTO
+  buttonarchivar.setAttribute("title","Archiva esta categoria y accede a ella desde archivados")
   var contenido2 = document.createTextNode("Archivar lista");
   buttonarchivar.appendChild(contenido2);
+
 
   var buttonAñadir = document.createElement("button");
   var contenido3 = document.createTextNode("Añadir evento");
   buttonAñadir.setAttribute("onclick", "AñadirEvento(this);" );
+  buttonAñadir.setAttribute("title","¡Crea un evento dentro de esta categoria!")
   buttonAñadir.appendChild(contenido3);
 
   /*var buttonCompartir = document.createElement("button");

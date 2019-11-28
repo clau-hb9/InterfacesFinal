@@ -22,7 +22,7 @@
     <!--Cabecera con usuario-->
     <header id="headerPaginaConUsuario">
       <img src="https://i2.wp.com/goldenskyva.com/wp-content/uploads/2017/09/cropped-logo-SIN-FONDO-1-1.png?ssl=1" alt="Logo Página" width=60 >
-        <h1 >WorldAdvisor</h1>
+        <h1 onclick>WorldAdvisor</h1>
         <div id="DatosUsuario">
           <i class="far fa-user"></i>
           <p id="Username">User</p>
@@ -52,7 +52,7 @@
   <div class="TuPerfil">
     Tu perfil
   </div>
-  <button class= "AñadirCategoria" onclick="AñadirCategoria(this)"> Añadir categoria</button>
+  <button class= "AñadirCategoria" onclick="AñadirCategoria(this)" title="¡Crea una categoria para organizar mejor tus eventos!"> Añadir categoria</button>
 </div>
     <div id="Home">
 
@@ -91,7 +91,7 @@
   					  <input type="text" id="categoryname" placeholder="Enter category name" name="categoryname"></label><br>
   					</div>
   					<div class="clearfix1">
-  					  <button type="submit" class="crearCategoria">Añadir evento</button>
+  					  <button type="submit" class="crearCategoria" >Añadir categoria</button>
   					</div>
 				</div>
 			  </form>
@@ -167,13 +167,13 @@
           <br>
         <div>
           <label><b>User name*</b><br>
-          <input type="text" id="username" placeholder="Enter user name" name="username"></label><br>
+          <input type="text" id="username" placeholder="Enter user name" name="username" onchange="checkName('signup')"></label><br>
         </div>
           <label><b>Password*</b><br>
-          <input id="pswRegister" type="password" placeholder="Enter Password" name="psw"></label><br>
+          <input id="pswRegister" type="password" placeholder="Enter Password (8 or less characters)" name="psw" onchange="checkPassword()"></label><br>
 
           <label><b>Email*</b><br>
-          <input type="email" id="email" placeholder="Enter Email" name="email" ></label><br>
+          <input type="email" id="email" placeholder="Enter Email (example@example.domain)" name="email" onchange="checkEmail('signup')"></label><br>
           <input type="checkbox" name="agreement" required >He leído y acepto las condiciones de uso<br>
 
         <div class="clearfix1">
@@ -219,7 +219,7 @@
 
 <!--POP UP USUARIO REGISTRADO-->
 <div id=PopUpUsuarioRegistrado>
-  <p>Usuario registrado!</p>
+  <p>¡Usuario registrado correctamente!</p>
   <button onclick="pasarPaginaSignIn();"> Aceptar </button>
 </div>
 
