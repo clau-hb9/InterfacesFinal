@@ -681,14 +681,23 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
 
 }
 .crearCategoria{
-  background-color:rgba(65,100,111,0.34);
+  background-color:#846D0E;
   color: white;
-  padding: 14px 20px;
-  margin-left: 60px;
   border: none;
+  border-radius: 5px;
+  font: small-caps 100%/100% courier;
+  font-size: 100%;
+  font-size: 17px;
+
   cursor: pointer;
   opacity: 0.9;
-  margin:10px 0 0 70px
+  margin:10px 0 0 40px;
+  padding:10px;
+}
+
+.crearCategoria:hover{
+  opacity: 1;
+
 }
 /*POP UP NUEVO EVENTO*/
 #fullscreen-container3 {
@@ -724,6 +733,9 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
 #newEvent p{
   margin:5px auto 0 55px;
 
+}
+.clearfix1 button{
+  margin:10px 0 0 50px;
 }
 
 
