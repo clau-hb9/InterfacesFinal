@@ -224,12 +224,21 @@
 </div>
 
 <!--POP UP COMPARTIR EVENTO-->
-<!--<div id=PopUpCompartirEvento>
-  <p>Invita a un usuario!</p>
-  <label><b>Introduzca su Email</b></label><br>
-  <input type="text" placeholder="Enter Email" name="email" value="" readonly><br>
-  <button> Enviar </button>
-</div>-->
+<section id=PopUpCompartirEvento>
+  <button onclick="cerrarPopUp('PopUpCompartirEvento');" class= Boton-cierre ><i class="fas fa-times"></i></button>
+  <p>¡Invita a un usuario a unirse a la comunidad! Llama su atención con este evento.</p>
+  <form id="InvitarUsuarioExterno" onsubmit="return InvitarUsuarioExterno('InvitarUsuarioExterno');">
+    <label><b>Introduzca su Email</b></label><br>
+      <input type="text" placeholder="Enter Email (example@example.domain)" name="email" value="" ><br>
+    <button type="submit"> Enviar </button>
+  </form>
+</section>
+
+<!--POP UP MENSAJE DE INVITACION USUARIO EXTERNO ENVIADO-->
+<div id=PopUpInvitacionEnviada>
+  <p>¡Correo enviado!</p>
+  <button onclick="cerrarPopUp('PopUpInvitacionEnviada');"> Aceptar </button>
+</div>
 
 
 </div>

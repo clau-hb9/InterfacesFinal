@@ -290,7 +290,7 @@ display:none;
     float:right;
     background-color: transparent;
     border:none;
-    color: #e6e6e6;
+    color: #846D0E;
     cursor:pointer;
   }
   .DivImagen{
@@ -725,16 +725,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
   margin:5px auto 0 55px;
 
 }
-.crearCategoria{
-  background-color:rgba(65,100,111,0.34);
-  color: white;
-  padding: 14px 20px;
-  margin-left: 60px;
-  border: none;
-  cursor: pointer;
-  opacity: 0.9;
-  margin:10px 0 0 70px
-}
+
 
 
 /*POP UP USUARIO NUEVO REGISTRADO*/
@@ -751,7 +742,6 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
 }
 
 #PopUpUsuarioRegistrado p{
-margin:30px 0 10px 20px;
 float:left;
 color:#e6e6e6;
 font:small-caps 100%/100% courier;
@@ -760,7 +750,7 @@ text-align: center;
 }
 
 #PopUpUsuarioRegistrado button{
-margin:70px 0 0 -120px;
+margin:70px 0 0 -140px;
 padding: 4px 10px;
 border:none;
 background-color: #846D0E;
@@ -772,7 +762,35 @@ float:left;
 
 
 }
-/*POP UP COMPARTIR EVENTO*/
+/*POP UP COMPARTIR EVENTO CON USUARIO EXTERNO*/
+#PopUpCompartirEvento {
+  display: none;
+  position: fixed;
+  top: 100px;
+  bottom: 0;
+  left: 400px;
+  right: 0;
+  background-color: #404040;
+  z-index: 9999;
+  border-radius: 5px;
+  height: 230px;
+  width: 450px;
+  display:none;
+}
+#PopUpCompartirEvento p, #PopUpCompartirEvento label{
+  color:#e6e6e6;
+  font:small-caps 100%/100% courier;
+  font-size:17px;
+  margin:30px;
+}
+#PopUpCompartirEvento input[type="text"]{
+  margin:10px 30px;
+  width: 400px;
+
+}
+
+
+/*
 #PopUpCompartirEvento{
   position:absolute;
   display:none;
@@ -792,10 +810,54 @@ color:#e6e6e6;
 font:small-caps 100%/100% courier;
 font-size:17px;
 text-align: center;
+}*/
+
+
+/*
+#PopUpCompartirEvento button{ //cerrar
+margin-top:5px;
+}*/
+#InvitarUsuarioExterno button{ /*Aceptar*/
+margin:5px 0 0 180px;
+padding: 4px 10px;
+border:none;
+background-color: #846D0E;
+color:white;
+font:small-caps 100%/100% courier;
+font-size:17px;
+border-radius: 5px;
+float:left;
+
+
 }
 
-#PopUpCompartirEvento button{
-margin:70px 0 0 -120px;
+
+
+/*POP UP INVITACION ENVIADA*/
+
+#PopUpInvitacionEnviada{
+  position:absolute;
+  display:none;
+  float:left;
+  margin:-300px 500px;
+  background-color: #404040;
+  border-radius: 5px;
+  height: 110px;
+  z-index:10;
+  width: 200px;
+}
+
+#PopUpInvitacionEnviada p{
+float:left;
+color:#e6e6e6;
+font:small-caps 100%/100% courier;
+font-size:17px;
+text-align: center;
+margin-left: 30px;
+}
+
+#PopUpInvitacionEnviada button{
+margin:70px 0 0 -110px;
 padding: 4px 10px;
 border:none;
 background-color: #846D0E;

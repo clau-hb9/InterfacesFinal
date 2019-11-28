@@ -198,30 +198,57 @@ function CerrarEventPopUp(){
       }
 
                                                     /*POP UP COMPARTIR EVENTO*/
-/*  function CompartirEvento(){
+  function CompartirEvento(){
     var popUp=document.getElementById("PopUpCompartirEvento");
     popUp.style.display="block";
     activarBlur();
-  //  ListenerCompartirEvento();
-    var form=document.getElementById("newEvent");
+    ListenerCompartirEvento();
+    var form=document.getElementById("InvitarUsuarioExterno");
     form.reset();
-    return false;
 
-  }*/
-/*  function ListenerCompartirEvento(){
+  }
+  function ListenerCompartirEvento(){
   document.addEventListener('click', function(event){
-    var popUp=document.getElementById("popUpTextNewEvent");
     var isClickInside = event.target.closest("section");
     if(isClickInside==null){
       var isButton = event.target.closest("button");
       if(isButton==null && event.target.className!="tooltip"){
-        CerrarEventPopUp();
+        cerrarPopUp("PopUpCompartirEvento");
       }
     }
   });
-}*/
+}
 
 
+function InvitarUsuarioExterno(form){
+  var form_InvitarUsuarioExterno=document.getElementById(form);
+  var email= form_InvitarUsuarioExterno.email;
+  var patEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+  if(!patEmail.test(String(email.value).toLowerCase())){
+    alert("Formato de email incorrecto");
+    email.style.border="1px solid red";
+    return false;
+  }
+  else{
+    form_InvitarUsuarioExterno.reset();
+    cerrarPopUp("PopUpCompartirEvento");
+    abrirPopUp("PopUpInvitacionEnviada");
+    return false;
+  }
+
+}
+                                                            /*POP UPS ABRIR Y CERRAR*/
+function cerrarPopUp(popUp){
+  var popUpCerrar=document.getElementById(popUp);
+  popUpCerrar.style.display="none";
+  desactivarBlur();
+}
+function abrirPopUp(popUp){
+  var popUpCerrar=document.getElementById(popUp);
+  popUpCerrar.style.display="block";
+  activarBlur();
+}
 
 
 
