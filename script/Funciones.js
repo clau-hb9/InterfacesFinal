@@ -317,6 +317,7 @@ function CerrarlanzarPopUpUsuarioRegistrado(){
 /*Para cambiar de cualquier pagina a SignOut*/
 function pasarPaginaSignOut(){
   /*Cabecera*/
+  console.log(arraycookies[posArray]);
   var headerConUsusario=document.getElementById("headerPaginaConUsuario");
   headerConUsusario.style.display="none";
   var headerSinUsusario=document.getElementById("headerPaginaSinUsuario");
@@ -388,8 +389,56 @@ function pasarPaginaSignUp(){
   form_signIn.reset();
 
 }
+                                                          /*SECCIÓN DE PROFILE*/
+function PasarProfile(){
+  email_iniciado
+  var profile_form=document.getElementById("profile_form");
+  /*Cabecera*/
+  var navHome=document.getElementById("HomeNavBarConUsuario");
+  navHome.style.display="none";
+  var navHome=document.getElementById("divAñadirCategoria");
+  navHome.style.display="none";
+  var navProfile=document.getElementById("navBarProfile");
+  navProfile.style.display="block";
 
 
+  document.getElementById("Username").innerHTML =arraycookies[posArray].substring(arraycookies[posArray].indexOf("username=")+9,arraycookies[posArray].indexOf("&contraseña="));
+  /*Parte inferior*/
+  var parteInferiorConUsuario=document.getElementById("Home");
+  parteInferiorConUsuario.style.display="none";
+  var parteInferiorProfile=document.getElementById("EditProfile");
+  parteInferiorProfile.style.display="block";
+
+  // Rellenar campos de la form
+  profile_form.username.value = arraycookies[posArray].substring(arraycookies[posArray].indexOf("username=")+9,arraycookies[posArray].indexOf("&contraseña="));
+  profile_form.psw.value = arraycookies[posArray].substring(arraycookies[posArray].indexOf("&contraseña=")+12,arraycookies[posArray].indexOf("&email="));
+  profile_form.email.value = email_iniciado;
+}
+
+//Guardamos los cambios que realicen en el profile
+function saveChanges(profile_form){
+  profile=document.getElementById(profile_form);
+  //Guardamos los nuevos valores
+  var username = arraycookies[posArray].substring(arraycookies[posArray].indexOf("username=")+9,arraycookies[posArray].indexOf("&contraseña="));
+  console.log("actual:"+ username);
+  console.log("cambia a:"+profile.username.value);
+  arraycookies[posArray]=arraycookies[posArray].replace("username="+ username,"username="+profile.username.value);
+  var contraseña = arraycookies[posArray].substring(arraycookies[posArray].indexOf("&contraseña=")+12,arraycookies[posArray].indexOf("&email="));
+  arraycookies[posArray]=arraycookies[posArray].replace("&contraseña="+ contraseña,"&contraseña="+profile.psw.value);
+
+  //Los escribimos en el profile
+  profile.username.value = arraycookies[posArray].substring(arraycookies[posArray].indexOf("username=")+9,arraycookies[posArray].indexOf("&contraseña="));
+  profile.psw.value = arraycookies[posArray].substring(arraycookies[posArray].indexOf("&contraseña=")+12,arraycookies[posArray].indexOf("&email="));
+  profile.email.value = email_iniciado;
+  //Cambiamos el nombre de usuario que se muestra en la pagina
+  document.getElementById("Username").innerHTML =arraycookies[posArray].substring(arraycookies[posArray].indexOf("username=")+9,arraycookies[posArray].indexOf("&contraseña="));
+console.log(arraycookies[posArray]);
+  alert("Changes saved");
+
+
+}
+
+                                                    /*FUNCIÓN PARA PASAR LAS COOKIES A LOS ARRAYS*/
 function recuperarArrays(){
 
 	var json_str = getCookie('usuarios');
@@ -410,7 +459,7 @@ function recuperarArrays(){
 
 	}
 }
-
+                                                        /*PÁGINA PRINCIPAL CON USUARIO --> RECUPERAMOS TODOS LOS DATOS*/
 /*Para cambiar de cualquier pagina a la página principal de usuario*/
 function IniciarSesion(){
   /*Cabecera*/
@@ -470,6 +519,7 @@ function IniciarSesion(){
   parteInferiorProfile.style.display="none";
 }
 
+                                                    /*FUNCIONES PARA COMPROBAR LOS CAMPOS DEL REGISTRO */
 function checkName(form){
   var signUp=document.getElementById(form);
 
@@ -531,14 +581,8 @@ function CheckLabels(form){
 
   var username = signUp.username;
   var password = document.getElementById("pswRegister");
-  var name = signUp.name;
-  var surname = signUp.surname;
   var email= signUp.email;
-  var birth = document.getElementById("birth");
-  var museums = signUp.museums;
-  var theatre = signUp.theare;
-  var movies = signUp.movies;
-  var agreement = signUp.agreement;
+
 
     //Campos obligatorios
     if(username.value == ""){

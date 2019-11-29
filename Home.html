@@ -22,13 +22,13 @@
     <!--Cabecera con usuario-->
     <header id="headerPaginaConUsuario">
       <img src="https://i2.wp.com/goldenskyva.com/wp-content/uploads/2017/09/cropped-logo-SIN-FONDO-1-1.png?ssl=1" alt="Logo Página" width=60 >
-        <h1 onclick>WorldAdvisor</h1>
-        <div id="DatosUsuario">
-          <i class="far fa-user"></i>
+        <h1 onclick="IniciarSesion();">WorldAdvisor</h1>
+        <div id="DatosUsuario" onclick="PasarProfile();">
+          <i class="far fa-user" ></i>
           <p id="Username">User</p>
         </div>
         <ul id="HomeNavBarConUsuario">
-          <li><button onclick="ProfileDelUsuario();">Profile</button></li>
+          <li><button onclick="PasarProfile();">Profile</button></li>
           <li><button onclick="pasarPaginaSignOut();">Sign out</button></li>
         </ul>
         <ul id="navBarProfile">
@@ -193,14 +193,6 @@
           <p>Edit your personal information</p>
           <hr><br>
           <br>
-          <div class="casillasMitadLeft">
-            <label><b>Name</b></label><br>
-            <input type="text" placeholder="Enter name" name="name" value="" ><br>
-          </div>
-          <div class="casillasMitadRight">
-            <label><b>Surname</b></label><br>
-            <input type="text" placeholder="Enter surname" name="surname" value="" ><br>
-          </div>
             <label><b>User name</b></label><br>
             <input type="text" placeholder="Enter user name" name="username" value=""><br>
 
@@ -211,7 +203,7 @@
             <input type="text" placeholder="Enter Password" name="psw" value=""><br>
 
           <div class="clearfix">
-            <button onclick="saveChanges('profile_form');" type="button" class="profilebtn">Save</button>
+            <button onclick="saveChanges('profile_form');" type="button" class="profilebtn">Save changes</button>
           </div>
       </div>
     </form>
@@ -239,6 +231,9 @@
   <p>¡Correo enviado!</p>
   <button onclick="cerrarPopUp('PopUpInvitacionEnviada');"> Aceptar </button>
 </div>
+
+
+
 
 
 </div>
