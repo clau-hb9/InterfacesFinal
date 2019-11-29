@@ -57,6 +57,7 @@
   /*Con usuario*/
   #headerPaginaConUsuario{
     display:none;
+    overflow: auto;
   }
   #DatosUsuario{
     float:right;
@@ -82,19 +83,19 @@
     margin-top:0;
 
   }
-  #navBarProfile{
+  #navBarProfile, #navBarArchivados{
     display:none;
   }
-  #HomeNavBarConUsuario, #navBarProfile{
+  #HomeNavBarConUsuario, #navBarProfile, #navBarArchivados{
     float: right;
     margin: 0 5px auto 400px;
     padding: 10px ;
     background-color:  none;
   }
-  #HomeNavBarConUsuario li, #navBarProfile li{
+  #HomeNavBarConUsuario li, #navBarProfile li, #navBarArchivados li{
     display:inline;
   }
-  #HomeNavBarConUsuario li button, #navBarProfile li button {
+  #HomeNavBarConUsuario li button, #navBarProfile li button, #navBarArchivados li button {
     margin:auto 10px;
     color: #FFFFFF;
     text-decoration:none;
@@ -103,7 +104,7 @@
     font:small-caps 100%/100% courier;
     font-size: 15px;
   }
-  #HomeNavBarConUsuario li button:hover, #navBarProfile li button:hover {
+  #HomeNavBarConUsuario li button:hover, #navBarProfile li button:hover, #navBarArchivados li button:hover {
     color:#cc9900;
   }
 

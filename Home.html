@@ -29,14 +29,20 @@
         </div>
         <ul id="HomeNavBarConUsuario">
           <li><button onclick="PasarProfile();" title="Consulta y modifica tus datos personales">Profile</button></li>
-          <li><button onclick="pasarPaginaSignOut();" title="Cerrar sesion">Sign out</button></li>
           <li><button onclick="pasarPaginaArchivados();" title="Consulta tus categorias archivadas">Archivados</button></li>
+          <li><button onclick="pasarPaginaSignOut();" title="Cerrar sesion">Sign out</button></li>
         </ul>
         <ul id="navBarProfile">
           <li><button onclick="IniciarSesion();" title="Vuelve a tu perfil">Home</button></li>
+          <li><button onclick="pasarPaginaArchivados();" title="Consulta tus categorias archivadas">Archivados</button></li>
           <li><button onclick="pasarPaginaSignOut();" title="Cerrar sesion">Sign out</button></li>
         </ul>
-        
+        <ul id="navBarArchivados">
+          <li><button onclick="IniciarSesion();" title="Vuelve a tu perfil">Home</button></li>
+          <li><button onclick="PasarProfile();" title="Consulta y modifica tus datos personales">Profile</button></li>
+          <li><button onclick="pasarPaginaSignOut();" title="Cerrar sesion">Sign out</button></li>
+        </ul>
+
     </header>
     <!--Cabecera sin usuario-->
     <header id="headerPaginaSinUsuario">
@@ -251,6 +257,7 @@
     <button onclick="ColaboradoresEnviarRecordatorio()"> <i class="far fa-paper-plane"></i> </button>
   </div>
 </div>
+
 
 <div id="PopUpRecordatorioEnviado">
   <p>¡Recordatorio enviado!</p>

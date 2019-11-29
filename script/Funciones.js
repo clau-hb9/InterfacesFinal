@@ -415,9 +415,17 @@ function pasarPaginaSignUp(){
 function pasarPaginaArchivados(){
   /*Cabecera*/
   document.getElementById("Home").innerHTML ="";
+  document.getElementById("EditProfile").style.display="none";
 
   var navHome=document.getElementById("divAñadirCategoria");
   navHome.style.display="none";
+  var home=document.getElementById("HomeNavBarConUsuario");
+  home.style.display="none";
+  var profile=document.getElementById("navBarProfile");
+  profile.style.display="none";
+  var archivados=document.getElementById("navBarArchivados");
+  archivados.style.display="block";
+
 
 
 }
@@ -586,7 +594,7 @@ for(var k=0;k<arraycookiesCategorias.length;k++){
 
     if(busca_email2==email_iniciado && busca_archivado=="false" &&busca_categoria==busca_categoria2){
           addDivEvent(evento);
-          
+
         }
 
     }
@@ -756,9 +764,7 @@ function CheckLabels(form){
         comprobante=0;
         return false;
       }
-      else {
-        username.style.border="2px solid green";
-      }
+
 
       // Longitud minima de 8 caracteres
       if (password.value == "" ) {
@@ -779,9 +785,7 @@ function CheckLabels(form){
           comprobante=0;
           return false;
       }
-      else {
-        password.style.border="2px solid green";
-      }
+
 
 
     }
