@@ -314,6 +314,12 @@ function CerrarlanzarPopUpUsuarioRegistrado(){
   /*Desplegar el menu de los tres puntitos*/
   function desplegarMenu(ID){
       //var contenedorPequeño=document.getElementById(ID);
+
+
+      //me guardo el id de la categoria cuando pincho en el menu de los 3 puntos
+      categoria_seleccionada=$(ID).closest(".flex-container").attr('id');
+
+
   	var contenedorPequeño= $(ID).closest(".flex-container");
       var menu= contenedorPequeño[0].getElementsByClassName("dropdown-content")[0];
       menu.classList.toggle("visible");
@@ -326,6 +332,7 @@ function CerrarlanzarPopUpUsuarioRegistrado(){
       }
     });
   }
+
 
 
                                                                         /* CAMBIO ENTRE PÁGINAS */
@@ -403,8 +410,22 @@ function pasarPaginaSignUp(){
   form_signIn.reset();
 
 }
+
+/*Para cambiar de cualquier pagina a SignOut*/
+function pasarPaginaArchivados(){
+  /*Cabecera*/
+  document.getElementById("Home").innerHTML ="";
+
+  var navHome=document.getElementById("divAñadirCategoria");
+  navHome.style.display="none";
+
+
+}
+
                                                           /*SECCIÓN DE PROFILE*/
 function PasarProfile(){
+  document.getElementById("Home").innerHTML ="";
+
   email_iniciado
   var profile_form=document.getElementById("profile_form");
   /*Cabecera*/
@@ -432,6 +453,7 @@ function PasarProfile(){
 //Guardamos los cambios que realicen en el profile
 function saveChanges(profile_form){
   profile=document.getElementById(profile_form);
+  if(CheckLabelsProfile('profile_form')!=false){
   //Guardamos los nuevos valores
   var username = arraycookies[posArray].substring(arraycookies[posArray].indexOf("username=")+9,arraycookies[posArray].indexOf("&contraseña="));
   console.log("actual:"+ username);
@@ -444,10 +466,20 @@ function saveChanges(profile_form){
   profile.username.value = arraycookies[posArray].substring(arraycookies[posArray].indexOf("username=")+9,arraycookies[posArray].indexOf("&contraseña="));
   profile.psw.value = arraycookies[posArray].substring(arraycookies[posArray].indexOf("&contraseña=")+12,arraycookies[posArray].indexOf("&email="));
   profile.email.value = email_iniciado;
+
+
+//ACTUALIZAMOS LA COOKIE DE USUARIOS PORQUE MODIFICAMOS EL ARRAY
+  var json_str = JSON.stringify(arraycookies);
+  createCookie('usuarios', json_str);
+
   //Cambiamos el nombre de usuario que se muestra en la pagina
   document.getElementById("Username").innerHTML =arraycookies[posArray].substring(arraycookies[posArray].indexOf("username=")+9,arraycookies[posArray].indexOf("&contraseña="));
 console.log(arraycookies[posArray]);
+
+
   alert("Changes saved");
+}
+
 
 
 }
@@ -473,7 +505,34 @@ function recuperarArrays(){
 
 	}
 }
-                                                        /*PÁGINA PRINCIPAL CON USUARIO --> RECUPERAMOS TODOS LOS DATOS*/
+
+
+function archivarCategoria(elmnt){
+console.log(categoria_seleccionada);
+console.log($(elmnt).closest(".flex-container"));
+
+for(var j=0;j<arraycookiesCategorias.length;j++){
+
+  busca_categoria=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&nombreCategoria=")+17,arraycookiesCategorias[j].indexOf("&email="));
+  busca_email=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&email=")+7,arraycookiesCategorias[j].indexOf("&archivados="));
+/*  console.log( categoria_seleccionada);
+  console.log( busca_categoria);
+  console.log( busca_email);
+  console.log( email_iniciado);
+*/
+
+  if(categoria_seleccionada==busca_categoria && busca_email==email_iniciado){
+  arraycookiesCategorias[j]=arraycookiesCategorias[j].replace("&archivados=false","&archivados=true");
+  console.log( arraycookiesCategorias[j]);
+
+  var json_str = JSON.stringify(arraycookiesCategorias);
+  createCookie('categorias', json_str);
+}
+}
+var categoriaArchivar=document.getElementById(categoria_seleccionada);
+categoriaArchivar.remove();
+}
+                                                    /*PÁGINA PRINCIPAL CON USUARIO --> RECUPERAMOS TODOS LOS DATOS*/
 /*Para cambiar de cualquier pagina a la página principal de usuario*/
 function IniciarSesion(){
   /*Cabecera*/
@@ -494,9 +553,10 @@ function IniciarSesion(){
   var categoria;
   /*Añado las categorias que tenga el usuario */
   for(var j=0;j<arraycookiesCategorias.length;j++){
-	  busca_email=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&email=")+7,arraycookiesCategorias[j].length);
+	  busca_email=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&email=")+7,arraycookiesCategorias[j].indexOf("&archivados="));
+    busca_archivado=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&archivados=")+12,arraycookiesCategorias[j].length);
       //Buscamos el usuario que acaba de iniciar sesion
-  	  if(busca_email==email_iniciado){
+  	  if(busca_email==email_iniciado && busca_archivado=="false"){
       //Añadimos sus categorias
   		categoria=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("nombreCategoria=")+16,arraycookiesCategorias[j].indexOf("&email="));
   		addDivCategory(categoria);
@@ -504,17 +564,32 @@ function IniciarSesion(){
 	}
 
 	var evento;
+  var busca_categoria;
   /* Añado los eventos del usuario */
 	for(var j=0;j<arraycookiesEventos.length;j++){
 	  //me quedo con el email de quien añadio cada categoria
 	  busca_email=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("&email=")+7,arraycookiesEventos[j].indexOf("&MeGusta="));
+
 	  //voy a coger todos los eventos SOLO del usuario con sesion iniciada
 	  if(busca_email==email_iniciado){
   		evento=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("nombreEvento=")+13,arraycookiesEventos[j].indexOf("&nombreCategoria="));
   		likeGlobal=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("&MeGusta=")+9,arraycookiesEventos[j].length);
-  		categoria_seleccionada=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("&nombreCategoria=")+17,arraycookiesEventos[j].indexOf("&email="));
+  		busca_categoria=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("&nombreCategoria=")+17,arraycookiesEventos[j].indexOf("&email="));
+      categoria_seleccionada=busca_categoria;
   		//vuelvo a escribir todas las categorias que tenia el usuario
-  		addDivEvent(evento);
+
+
+for(var k=0;k<arraycookiesCategorias.length;k++){
+  busca_email2=arraycookiesCategorias[k].substring(arraycookiesCategorias[k].indexOf("&email=")+7,arraycookiesCategorias[k].indexOf("&archivados="));
+  busca_archivado=arraycookiesCategorias[k].substring(arraycookiesCategorias[k].indexOf("&archivados=")+12,arraycookiesCategorias[k].length);
+  busca_categoria2=arraycookiesCategorias[k].substring(arraycookiesCategorias[k].indexOf("nombreCategoria=")+16,arraycookiesCategorias[k].indexOf("&email="));
+
+    if(busca_email2==email_iniciado && busca_archivado=="false" &&busca_categoria==busca_categoria2){
+          addDivEvent(evento);
+          
+        }
+
+    }
 	  }
 	}
 
@@ -594,8 +669,9 @@ function CheckLabels(form){
   var comprobante= 1;
 
   var username = signUp.username;
-  var password = document.getElementById("pswRegister");
+  var password = signUp.psw;
   var email= signUp.email;
+  var agreement = signUp.agreement;
 
 
     //Campos obligatorios
@@ -661,6 +737,57 @@ function CheckLabels(form){
   }
 
 
+
+  function CheckLabelsProfile(form){
+    var signUp=document.getElementById(form);
+    /*Creamos un expresion regular para comparar el texto con un patron, diremos que se pueden utilizar mayusculas, minusculas y digitos*/
+    var patpass = new RegExp ("^[a-z0-9]+");
+    var patEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var comprobante= 1;
+
+    var username = signUp.username;
+    var password = signUp.psw;
+
+
+      //Campos obligatorios
+      if(username.value == ""){
+        alert("Enter your username");
+        username.style.border="1px solid red";
+        comprobante=0;
+        return false;
+      }
+      else {
+        username.style.border="2px solid green";
+      }
+
+      // Longitud minima de 8 caracteres
+      if (password.value == "" ) {
+          alert("Enter your password");
+          password.style.border="1px solid red";
+          comprobante=0;
+          return false;
+      }
+      else if(password.value.length > 8 ) {
+          alert("The password must be less than 8 characters long");
+          password.style.border="1px solid red";
+          comprobante=0;
+          return false;
+      }
+      else if(!patpass.test(password.value)){
+          alert("The password contains invalid characters");
+          password.style.border="1px solid red";
+          comprobante=0;
+          return false;
+      }
+      else {
+        password.style.border="2px solid green";
+      }
+
+
+    }
+
+
+
                                                                           /*GUARDAMOS EL REGISTRO SI NO EXISTE*/
 //FUNCION MODIFICADA
 function registerFormCookies(signUp) {
@@ -714,8 +841,9 @@ function comprobarRegistro(nombre) {
 function saveCategoryCookie(form) {
 	// muy parecida a registerFormCookies pero en otro array
 	//guardamos el evento y el email de quien lo crea
-	var DatosCategoria= "nombreCategoria=" + document.getElementById("categoryname").value + "&email=" +email_iniciado;
+	var DatosCategoria= "nombreCategoria=" + document.getElementById("categoryname").value + "&email=" +email_iniciado+ "&archivados=false";
   arraycookiesCategorias[indexCategorias]= DatosCategoria;
+  console.log(arraycookiesCategorias[indexCategorias]);
   indexCategorias++;
 
  //GUARDO UNA COOKIE CON TODO EL ARRAY DE CATEGORIAS
@@ -760,7 +888,7 @@ function addDivCategory(nombreCategoria) {
   divdropdowncontent.setAttribute("class", "dropdown-content" );
 
   var buttonarchivar = document.createElement("button");
-  buttonarchivar.setAttribute("onclick", "archivar('nombreCategoria');" ); //HAY QUE CAMBIAR ESTO
+  buttonarchivar.setAttribute("onclick", "archivarCategoria('this');" ); //HAY QUE CAMBIAR ESTO
   buttonarchivar.setAttribute("title","Archiva esta categoria y accede a ella desde archivados")
   var contenido2 = document.createTextNode("Archivar lista");
   buttonarchivar.appendChild(contenido2);

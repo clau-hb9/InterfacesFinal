@@ -28,13 +28,15 @@
           <p id="Username">User</p>
         </div>
         <ul id="HomeNavBarConUsuario">
-          <li><button onclick="PasarProfile();">Profile</button></li>
-          <li><button onclick="pasarPaginaSignOut();">Sign out</button></li>
+          <li><button onclick="PasarProfile();" title="Consulta y modifica tus datos personales">Profile</button></li>
+          <li><button onclick="pasarPaginaSignOut();" title="Cerrar sesion">Sign out</button></li>
+          <li><button onclick="pasarPaginaArchivados();" title="Consulta tus categorias archivadas">Archivados</button></li>
         </ul>
         <ul id="navBarProfile">
-          <li><button onclick="IniciarSesion();">Home</button></li>
-          <li><button onclick="pasarPaginaSignOut();">Sign out</button></li>
+          <li><button onclick="IniciarSesion();" title="Vuelve a tu perfil">Home</button></li>
+          <li><button onclick="pasarPaginaSignOut();" title="Cerrar sesion">Sign out</button></li>
         </ul>
+        
     </header>
     <!--Cabecera sin usuario-->
     <header id="headerPaginaSinUsuario">
@@ -196,7 +198,7 @@
             <label><b>User name</b></label><br>
             <input type="text" placeholder="Enter user name" name="username" value=""><br>
 
-            <label><b>Email</b></label><br>
+            <label><b>Email (El email no puede ser modificado)</b></label><br>
             <input type="text" placeholder="Enter Email" name="email" value="" readonly><br>
 
             <label><b>Password</b></label><br>
