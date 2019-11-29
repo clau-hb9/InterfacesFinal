@@ -104,7 +104,21 @@ return false;
 function Colaboradores(){
   abrirPopUp("PopUpColaboradores");
   activarBlur();
+  ListenerColaborador();
 }
+
+function ListenerColaborador(){
+document.addEventListener('click', function(event){
+var isClickInside = event.target.closest("section");
+if(isClickInside==null){
+var isButton = event.target.closest("button");
+if(isButton==null && event.target.className!="tooltip"){
+  cerrarPopUp("PopUpColaboradores");
+}
+}
+});
+}
+
 function ColaboradoresEnviarRecordatorio(){
   cerrarPopUp("PopUpColaboradores");
   abrirPopUp("PopUpRecordatorioEnviado");
