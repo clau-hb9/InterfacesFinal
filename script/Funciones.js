@@ -104,7 +104,10 @@ return false;
 function Colaboradores(){
   abrirPopUp("PopUpColaboradores");
   activarBlur();
-
+}
+function ColaboradoresEnviarRecordatorio(){
+  cerrarPopUp("PopUpColaboradores");
+  abrirPopUp("PopUpRecordatorioEnviado");
 }
 
 

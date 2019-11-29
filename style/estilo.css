@@ -937,6 +937,40 @@ margin: 0 40px 0 80px;
   color:#846D0E;
 }
 
+/*POP UP RECORDATORIO ENVIADO */
+#PopUpRecordatorioEnviado{
+  position:absolute;
+  display:none;
+  float:left;
+  margin:-300px 500px;
+  background-color: #404040;
+  border-radius: 5px;
+  height: 110px;
+  z-index:10;
+  width: 225px;
+}
+
+#PopUpRecordatorioEnviado p{
+float:left;
+color:#e6e6e6;
+font:small-caps 100%/100% courier;
+font-size:17px;
+text-align: center;
+margin-left: 15px;
+}
+
+#PopUpRecordatorioEnviado button{
+margin:60px 0 0 -130px;
+padding: 4px 10px;
+border:none;
+background-color: #846D0E;
+color:white;
+font:small-caps 100%/100% courier;
+font-size:17px;
+border-radius: 5px;
+float:left;
+}
+
 /*FOOTER*/
 footer {
   display:none;
