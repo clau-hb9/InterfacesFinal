@@ -305,6 +305,7 @@ function pasarPaginaSignOut(){
 
   //IMPORTANTE: CADA VEZ QUE SE HACE LOG OUT SE LIMPIA EL DIV HOME. CUANDO SE VUELVA A INICIAR SESIÓN HABRÁ QUE VOLVER A ESCRIBIR TODO
   document.getElementById("Home").innerHTML="";
+  likeGlobal="false";
   var parteInferiorProfile=document.getElementById("EditProfile");
   parteInferiorProfile.style.display="none";
   var parteInferiorSignUp=document.getElementById("signup_form");
@@ -739,6 +740,9 @@ function saveEventCookie(form) {
 	//añadimos el div de la nueva clase despues de guardar los datos
   CerrarEventPopUp();
   var nombreEvento=document.getElementById("eventname").value;
+
+//pra asegurarse de que cuendo se escribe por PRIMERA vez el evento, me gusta es false
+  likeGlobal="false";
 	addDivEvent(nombreEvento);
   return false;
 
