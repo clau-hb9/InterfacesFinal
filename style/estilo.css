@@ -63,6 +63,10 @@
     width: 200px;
     height: 30px;
     margin: 15px 30px 0 0;
+    cursor:pointer;
+  }
+  #DatosUsuario i:hover{
+    color: #cc9900;
   }
   #DatosUsuario i{
     float:right;
@@ -290,7 +294,7 @@ display:none;
     float:right;
     background-color: transparent;
     border:none;
-    color: #e6e6e6;
+    color: #846D0E;
     cursor:pointer;
   }
   .DivImagen{
@@ -595,14 +599,16 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
 }
 .profilebtn{
   width: 40%;
-
   color: white;
+  background-color: #846D0E;
   padding: 14px 20px;
   margin: 8px 100px;
   border: none;
-
+  border-radius: 5px;
   cursor: pointer;
   opacity: 0.9;
+  font:small-caps 100%/100% courier;
+  font-size:17px;
 }
 .profilebtn:hover{
   opacity:1;
@@ -665,7 +671,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
    position:absolute;
    display:none;
    float:left;
-   margin:0 450px;
+   margin:0 500px;
    background-color: #404040;
    border-radius: 5px;
    width: 300px;
@@ -681,14 +687,23 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
 
 }
 .crearCategoria{
-  background-color:rgba(65,100,111,0.34);
+  background-color:#846D0E;
   color: white;
-  padding: 14px 20px;
-  margin-left: 60px;
   border: none;
+  border-radius: 5px;
+  font: small-caps 100%/100% courier;
+  font-size: 100%;
+  font-size: 17px;
+
   cursor: pointer;
   opacity: 0.9;
-  margin:10px 0 0 70px
+  margin:10px 0 0 40px;
+  padding:10px;
+}
+
+.crearCategoria:hover{
+  opacity: 1;
+
 }
 /*POP UP NUEVO EVENTO*/
 #fullscreen-container3 {
@@ -725,16 +740,10 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
   margin:5px auto 0 55px;
 
 }
-.crearCategoria{
-  background-color:rgba(65,100,111,0.34);
-  color: white;
-  padding: 14px 20px;
-  margin-left: 60px;
-  border: none;
-  cursor: pointer;
-  opacity: 0.9;
-  margin:10px 0 0 70px
+.clearfix1 button{
+  margin:10px 0 0 50px;
 }
+
 
 
 /*POP UP USUARIO NUEVO REGISTRADO*/
@@ -751,7 +760,6 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
 }
 
 #PopUpUsuarioRegistrado p{
-margin:30px 0 10px 20px;
 float:left;
 color:#e6e6e6;
 font:small-caps 100%/100% courier;
@@ -760,7 +768,7 @@ text-align: center;
 }
 
 #PopUpUsuarioRegistrado button{
-margin:70px 0 0 -120px;
+margin:70px 0 0 -140px;
 padding: 4px 10px;
 border:none;
 background-color: #846D0E;
@@ -772,7 +780,35 @@ float:left;
 
 
 }
-/*POP UP COMPARTIR EVENTO*/
+/*POP UP COMPARTIR EVENTO CON USUARIO EXTERNO*/
+#PopUpCompartirEvento {
+  display: none;
+  position: fixed;
+  top: 100px;
+  bottom: 0;
+  left: 400px;
+  right: 0;
+  background-color: #404040;
+  z-index: 9999;
+  border-radius: 5px;
+  height: 230px;
+  width: 450px;
+  display:none;
+}
+#PopUpCompartirEvento p, #PopUpCompartirEvento label{
+  color:#e6e6e6;
+  font:small-caps 100%/100% courier;
+  font-size:17px;
+  margin:30px;
+}
+#PopUpCompartirEvento input[type="text"]{
+  margin:10px 30px;
+  width: 400px;
+
+}
+
+
+/*
 #PopUpCompartirEvento{
   position:absolute;
   display:none;
@@ -792,10 +828,15 @@ color:#e6e6e6;
 font:small-caps 100%/100% courier;
 font-size:17px;
 text-align: center;
-}
+}*/
 
-#PopUpCompartirEvento button{
-margin:70px 0 0 -120px;
+
+/*
+#PopUpCompartirEvento button{ //cerrar
+margin-top:5px;
+}*/
+#InvitarUsuarioExterno button{ /*Aceptar*/
+margin:5px 0 0 180px;
 padding: 4px 10px;
 border:none;
 background-color: #846D0E;
@@ -806,6 +847,128 @@ border-radius: 5px;
 float:left;
 
 
+}
+
+
+
+/*POP UP INVITACION ENVIADA*/
+
+#PopUpInvitacionEnviada{
+  position:absolute;
+  display:none;
+  float:left;
+  margin:-300px 500px;
+  background-color: #404040;
+  border-radius: 5px;
+  height: 110px;
+  z-index:10;
+  width: 200px;
+}
+
+#PopUpInvitacionEnviada p{
+float:left;
+color:#e6e6e6;
+font:small-caps 100%/100% courier;
+font-size:17px;
+text-align: center;
+margin-left: 30px;
+}
+
+#PopUpInvitacionEnviada button{
+margin:70px 0 0 -110px;
+padding: 4px 10px;
+border:none;
+background-color: #846D0E;
+color:white;
+font:small-caps 100%/100% courier;
+font-size:17px;
+border-radius: 5px;
+float:left;
+}
+
+
+/*  POP UP COLABORADORES*/
+#PopUpColaboradores{
+  position:absolute;
+  display:none;
+  float:left;
+  margin:-300px 425px;
+  background-color: #404040;
+  border-radius: 5px;
+  height: 200px;
+  z-index:10;
+  width: 400px;
+}
+#PopUpColaboradores p{
+  font:small-caps 100%/100% courier;
+  font-size:17px;
+  text-align: center;
+  margin-left: 30px;
+  color:#e6e6e6;
+
+}
+#TextoPopUpColaboradores{
+  width: 100%;
+  height: 80px;
+
+}
+#IconosPopUpColaboradores{
+  width: 100%;
+
+}
+#TextoPopUpColaboradores p{
+float:left;
+color:#e6e6e6;
+font:small-caps 100%/100% courier;
+font-size:17px;
+text-align: center;
+margin-left: 60px;
+width: 100px;
+}
+
+#IconosPopUpColaboradores button{
+background: none;
+border:none;
+font-size: 27px;
+color:white;
+margin: 0 40px 0 80px;
+}
+#IconosPopUpColaboradores button:hover{
+  color:#846D0E;
+}
+
+/*POP UP RECORDATORIO ENVIADO */
+#PopUpRecordatorioEnviado{
+  position:absolute;
+  display:none;
+  float:left;
+  margin:-300px 500px;
+  background-color: #404040;
+  border-radius: 5px;
+  height: 110px;
+  z-index:10;
+  width: 225px;
+}
+
+#PopUpRecordatorioEnviado p{
+float:left;
+color:#e6e6e6;
+font:small-caps 100%/100% courier;
+font-size:17px;
+text-align: center;
+margin-left: 15px;
+}
+
+#PopUpRecordatorioEnviado button{
+margin:60px 0 0 -130px;
+padding: 4px 10px;
+border:none;
+background-color: #846D0E;
+color:white;
+font:small-caps 100%/100% courier;
+font-size:17px;
+border-radius: 5px;
+float:left;
 }
 
 /*FOOTER*/

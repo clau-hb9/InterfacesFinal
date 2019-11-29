@@ -22,13 +22,13 @@
     <!--Cabecera con usuario-->
     <header id="headerPaginaConUsuario">
       <img src="https://i2.wp.com/goldenskyva.com/wp-content/uploads/2017/09/cropped-logo-SIN-FONDO-1-1.png?ssl=1" alt="Logo Página" width=60 >
-        <h1 onclick>WorldAdvisor</h1>
-        <div id="DatosUsuario">
-          <i class="far fa-user"></i>
+        <h1 onclick="IniciarSesion();">WorldAdvisor</h1>
+        <div id="DatosUsuario" onclick="PasarProfile();">
+          <i class="far fa-user" ></i>
           <p id="Username">User</p>
         </div>
         <ul id="HomeNavBarConUsuario">
-          <li><button onclick="ProfileDelUsuario();">Profile</button></li>
+          <li><button onclick="PasarProfile();">Profile</button></li>
           <li><button onclick="pasarPaginaSignOut();">Sign out</button></li>
         </ul>
         <ul id="navBarProfile">
@@ -193,14 +193,6 @@
           <p>Edit your personal information</p>
           <hr><br>
           <br>
-          <div class="casillasMitadLeft">
-            <label><b>Name</b></label><br>
-            <input type="text" placeholder="Enter name" name="name" value="" ><br>
-          </div>
-          <div class="casillasMitadRight">
-            <label><b>Surname</b></label><br>
-            <input type="text" placeholder="Enter surname" name="surname" value="" ><br>
-          </div>
             <label><b>User name</b></label><br>
             <input type="text" placeholder="Enter user name" name="username" value=""><br>
 
@@ -211,25 +203,59 @@
             <input type="text" placeholder="Enter Password" name="psw" value=""><br>
 
           <div class="clearfix">
-            <button onclick="saveChanges('profile_form');" type="button" class="profilebtn">Save</button>
+            <button onclick="saveChanges('profile_form');" type="button" class="profilebtn">Save changes</button>
           </div>
       </div>
     </form>
   </div>
 
 <!--POP UP USUARIO REGISTRADO-->
-<div id=PopUpUsuarioRegistrado>
+<div id="PopUpUsuarioRegistrado">
   <p>¡Usuario registrado correctamente!</p>
   <button onclick="pasarPaginaSignIn();"> Aceptar </button>
 </div>
 
 <!--POP UP COMPARTIR EVENTO-->
-<!--<div id=PopUpCompartirEvento>
-  <p>Invita a un usuario!</p>
-  <label><b>Introduzca su Email</b></label><br>
-  <input type="text" placeholder="Enter Email" name="email" value="" readonly><br>
-  <button> Enviar </button>
-</div>-->
+<section id="PopUpCompartirEvento">
+  <button onclick="cerrarPopUp('PopUpCompartirEvento');" class= Boton-cierre ><i class="fas fa-times"></i></button>
+  <p>¡Invita a un usuario a unirse a la comunidad! Llama su atención con este evento.</p>
+  <form id="InvitarUsuarioExterno" onsubmit="return InvitarUsuarioExterno('InvitarUsuarioExterno');">
+    <label><b>Introduzca su Email</b></label><br>
+      <input type="text" placeholder="Enter Email (example@example.domain)" name="email" value="" ><br>
+    <button type="submit"> Enviar </button>
+  </form>
+</section>
+
+<!--POP UP MENSAJE DE INVITACION USUARIO EXTERNO ENVIADO-->
+<div id="PopUpInvitacionEnviada">
+  <p>¡Correo enviado!</p>
+  <button onclick="cerrarPopUp('PopUpInvitacionEnviada');"> Aceptar </button>
+</div>
+
+
+
+<!--POP UP COLABORADORES-->
+<div id="PopUpColaboradores">
+  <button onclick="cerrarPopUp('PopUpColaboradores');" class= Boton-cierre ><i class="fas fa-times"></i></button>
+  <p>COLABORADORES</p>
+  <hr>
+  <div id="TextoPopUpColaboradores">
+    <p>Ver colaboradores </p>
+    <p>Enviar recordatorio</p>
+
+  </div>
+  <div id="IconosPopUpColaboradores">
+    <button > <i class="fas fa-users"></i> </button>
+    <button onclick="ColaboradoresEnviarRecordatorio()"> <i class="far fa-paper-plane"></i> </button>
+  </div>
+</div>
+
+<div id="PopUpRecordatorioEnviado">
+  <p>¡Recordatorio enviado!</p>
+  <button onclick="cerrarPopUp('PopUpRecordatorioEnviado');"> Aceptar </button>
+</div>
+
+
 
 
 </div>

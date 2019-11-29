@@ -23,9 +23,8 @@ function ConfirmacionDeCierre(ID) {
     }
   }
                                                                         /*BOTONES INFERIORES DE EVENTO*/
-/*Dar o quitar un like*/
+                                                                        /*DAR LIKE*/
 function PonerMeGusta(button){
-	console.log(button);
 		var eventoSelecionado=$(button).closest(".Evento").attr('id');
 
 		for(var j=0;j<arraycookiesEventos.length;j++){
@@ -57,6 +56,62 @@ function PonerMeGusta(button){
 	}
 
     }
+
+
+                                                                /*POP UP COMPARTIR EVENTO*/
+function CompartirEvento(){
+var popUp=document.getElementById("PopUpCompartirEvento");
+popUp.style.display="block";
+activarBlur();
+ListenerCompartirEvento();
+var form=document.getElementById("InvitarUsuarioExterno");
+form.reset();
+
+}
+function ListenerCompartirEvento(){
+document.addEventListener('click', function(event){
+var isClickInside = event.target.closest("section");
+if(isClickInside==null){
+var isButton = event.target.closest("button");
+if(isButton==null && event.target.className!="tooltip"){
+cerrarPopUp("PopUpCompartirEvento");
+}
+}
+});
+}
+
+
+function InvitarUsuarioExterno(form){
+var form_InvitarUsuarioExterno=document.getElementById(form);
+var email= form_InvitarUsuarioExterno.email;
+var patEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+if(!patEmail.test(String(email.value).toLowerCase())){
+alert("Formato de email incorrecto");
+email.style.border="1px solid red";
+return false;
+}
+else{
+form_InvitarUsuarioExterno.reset();
+cerrarPopUp("PopUpCompartirEvento");
+abrirPopUp("PopUpInvitacionEnviada");
+return false;
+}
+
+}
+
+                                                          /*COLABORADORES*/
+function Colaboradores(){
+  abrirPopUp("PopUpColaboradores");
+  activarBlur();
+}
+function ColaboradoresEnviarRecordatorio(){
+  cerrarPopUp("PopUpColaboradores");
+  abrirPopUp("PopUpRecordatorioEnviado");
+}
+
+
+
 
                                                                         /* EFECTOS BLUR */
 function activarBlur(){
@@ -197,31 +252,18 @@ function CerrarEventPopUp(){
         desactivarBlur();
       }
 
-                                                    /*POP UP COMPARTIR EVENTO*/
-/*  function CompartirEvento(){
-    var popUp=document.getElementById("PopUpCompartirEvento");
-    popUp.style.display="block";
-    activarBlur();
-  //  ListenerCompartirEvento();
-    var form=document.getElementById("newEvent");
-    form.reset();
-    return false;
 
-  }*/
-/*  function ListenerCompartirEvento(){
-  document.addEventListener('click', function(event){
-    var popUp=document.getElementById("popUpTextNewEvent");
-    var isClickInside = event.target.closest("section");
-    if(isClickInside==null){
-      var isButton = event.target.closest("button");
-      if(isButton==null && event.target.className!="tooltip"){
-        CerrarEventPopUp();
-      }
-    }
-  });
-}*/
-
-
+                                                            /*POP UPS ABRIR Y CERRAR*/
+function cerrarPopUp(popUp){
+  var popUpCerrar=document.getElementById(popUp);
+  popUpCerrar.style.display="none";
+  desactivarBlur();
+}
+function abrirPopUp(popUp){
+  var popUpCerrar=document.getElementById(popUp);
+  popUpCerrar.style.display="block";
+  activarBlur();
+}
 
 
 
@@ -305,7 +347,6 @@ function pasarPaginaSignOut(){
 
   //IMPORTANTE: CADA VEZ QUE SE HACE LOG OUT SE LIMPIA EL DIV HOME. CUANDO SE VUELVA A INICIAR SESIÓN HABRÁ QUE VOLVER A ESCRIBIR TODO
   document.getElementById("Home").innerHTML="";
-  likeGlobal="false";
   var parteInferiorProfile=document.getElementById("EditProfile");
   parteInferiorProfile.style.display="none";
   var parteInferiorSignUp=document.getElementById("signup_form");
@@ -362,8 +403,56 @@ function pasarPaginaSignUp(){
   form_signIn.reset();
 
 }
+                                                          /*SECCIÓN DE PROFILE*/
+function PasarProfile(){
+  email_iniciado
+  var profile_form=document.getElementById("profile_form");
+  /*Cabecera*/
+  var navHome=document.getElementById("HomeNavBarConUsuario");
+  navHome.style.display="none";
+  var navHome=document.getElementById("divAñadirCategoria");
+  navHome.style.display="none";
+  var navProfile=document.getElementById("navBarProfile");
+  navProfile.style.display="block";
 
 
+  document.getElementById("Username").innerHTML =arraycookies[posArray].substring(arraycookies[posArray].indexOf("username=")+9,arraycookies[posArray].indexOf("&contraseña="));
+  /*Parte inferior*/
+  var parteInferiorConUsuario=document.getElementById("Home");
+  parteInferiorConUsuario.style.display="none";
+  var parteInferiorProfile=document.getElementById("EditProfile");
+  parteInferiorProfile.style.display="block";
+
+  // Rellenar campos de la form
+  profile_form.username.value = arraycookies[posArray].substring(arraycookies[posArray].indexOf("username=")+9,arraycookies[posArray].indexOf("&contraseña="));
+  profile_form.psw.value = arraycookies[posArray].substring(arraycookies[posArray].indexOf("&contraseña=")+12,arraycookies[posArray].indexOf("&email="));
+  profile_form.email.value = email_iniciado;
+}
+
+//Guardamos los cambios que realicen en el profile
+function saveChanges(profile_form){
+  profile=document.getElementById(profile_form);
+  //Guardamos los nuevos valores
+  var username = arraycookies[posArray].substring(arraycookies[posArray].indexOf("username=")+9,arraycookies[posArray].indexOf("&contraseña="));
+  console.log("actual:"+ username);
+  console.log("cambia a:"+profile.username.value);
+  arraycookies[posArray]=arraycookies[posArray].replace("username="+ username,"username="+profile.username.value);
+  var contraseña = arraycookies[posArray].substring(arraycookies[posArray].indexOf("&contraseña=")+12,arraycookies[posArray].indexOf("&email="));
+  arraycookies[posArray]=arraycookies[posArray].replace("&contraseña="+ contraseña,"&contraseña="+profile.psw.value);
+
+  //Los escribimos en el profile
+  profile.username.value = arraycookies[posArray].substring(arraycookies[posArray].indexOf("username=")+9,arraycookies[posArray].indexOf("&contraseña="));
+  profile.psw.value = arraycookies[posArray].substring(arraycookies[posArray].indexOf("&contraseña=")+12,arraycookies[posArray].indexOf("&email="));
+  profile.email.value = email_iniciado;
+  //Cambiamos el nombre de usuario que se muestra en la pagina
+  document.getElementById("Username").innerHTML =arraycookies[posArray].substring(arraycookies[posArray].indexOf("username=")+9,arraycookies[posArray].indexOf("&contraseña="));
+console.log(arraycookies[posArray]);
+  alert("Changes saved");
+
+
+}
+
+                                                    /*FUNCIÓN PARA PASAR LAS COOKIES A LOS ARRAYS*/
 function recuperarArrays(){
 
 	var json_str = getCookie('usuarios');
@@ -384,7 +473,7 @@ function recuperarArrays(){
 
 	}
 }
-
+                                                        /*PÁGINA PRINCIPAL CON USUARIO --> RECUPERAMOS TODOS LOS DATOS*/
 /*Para cambiar de cualquier pagina a la página principal de usuario*/
 function IniciarSesion(){
   /*Cabecera*/
@@ -444,6 +533,7 @@ function IniciarSesion(){
   parteInferiorProfile.style.display="none";
 }
 
+                                                    /*FUNCIONES PARA COMPROBAR LOS CAMPOS DEL REGISTRO */
 function checkName(form){
   var signUp=document.getElementById(form);
 
@@ -505,14 +595,8 @@ function CheckLabels(form){
 
   var username = signUp.username;
   var password = document.getElementById("pswRegister");
-  var name = signUp.name;
-  var surname = signUp.surname;
   var email= signUp.email;
-  var birth = document.getElementById("birth");
-  var museums = signUp.museums;
-  var theatre = signUp.theare;
-  var movies = signUp.movies;
-  var agreement = signUp.agreement;
+
 
     //Campos obligatorios
     if(username.value == ""){
@@ -740,8 +824,6 @@ function saveEventCookie(form) {
 	//añadimos el div de la nueva clase despues de guardar los datos
   CerrarEventPopUp();
   var nombreEvento=document.getElementById("eventname").value;
-
-//pra asegurarse de que cuendo se escribe por PRIMERA vez el evento, me gusta es false
   likeGlobal="false";
 	addDivEvent(nombreEvento);
   return false;
@@ -822,6 +904,7 @@ function addDivEvent(nombreEvento) {
 
   var icon4 = document.createElement("i");
   icon4.setAttribute("class", "fas fa-users" );
+  icon4.setAttribute("onclick", "Colaboradores('this');" );
 
   var span3 = document.createElement("span");
   span3.setAttribute("class", "tooltiptext" );
