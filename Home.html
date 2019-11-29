@@ -210,13 +210,13 @@
   </div>
 
 <!--POP UP USUARIO REGISTRADO-->
-<div id=PopUpUsuarioRegistrado>
+<div id="PopUpUsuarioRegistrado">
   <p>¡Usuario registrado correctamente!</p>
   <button onclick="pasarPaginaSignIn();"> Aceptar </button>
 </div>
 
 <!--POP UP COMPARTIR EVENTO-->
-<section id=PopUpCompartirEvento>
+<section id="PopUpCompartirEvento">
   <button onclick="cerrarPopUp('PopUpCompartirEvento');" class= Boton-cierre ><i class="fas fa-times"></i></button>
   <p>¡Invita a un usuario a unirse a la comunidad! Llama su atención con este evento.</p>
   <form id="InvitarUsuarioExterno" onsubmit="return InvitarUsuarioExterno('InvitarUsuarioExterno');">
@@ -227,9 +227,27 @@
 </section>
 
 <!--POP UP MENSAJE DE INVITACION USUARIO EXTERNO ENVIADO-->
-<div id=PopUpInvitacionEnviada>
+<div id="PopUpInvitacionEnviada">
   <p>¡Correo enviado!</p>
   <button onclick="cerrarPopUp('PopUpInvitacionEnviada');"> Aceptar </button>
+</div>
+
+
+
+<!--POP UP COLABORADORES-->
+<div id="PopUpColaboradores">
+  <button onclick="cerrarPopUp('PopUpColaboradores');" class= Boton-cierre ><i class="fas fa-times"></i></button>
+  <p>COLABORADORES</p>
+  <hr>
+  <div id="TextoPopUpColaboradores">
+    <p>Ver colaboradores </p>
+    <p>Enviar recordatorio</p>
+
+  </div>
+  <div id="IconosPopUpColaboradores">
+    <button > <i class="fas fa-users"></i> </button>
+    <button > <i class="far fa-paper-plane"></i> </button>
+  </div>
 </div>
 
 

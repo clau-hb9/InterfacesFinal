@@ -23,9 +23,8 @@ function ConfirmacionDeCierre(ID) {
     }
   }
                                                                         /*BOTONES INFERIORES DE EVENTO*/
-/*Dar o quitar un like*/
+                                                                        /*DAR LIKE*/
 function PonerMeGusta(button){
-	console.log(button);
 		var eventoSelecionado=$(button).closest(".Evento").attr('id');
 
 		for(var j=0;j<arraycookiesEventos.length;j++){
@@ -57,6 +56,59 @@ function PonerMeGusta(button){
 	}
 
     }
+
+
+                                                                /*POP UP COMPARTIR EVENTO*/
+function CompartirEvento(){
+var popUp=document.getElementById("PopUpCompartirEvento");
+popUp.style.display="block";
+activarBlur();
+ListenerCompartirEvento();
+var form=document.getElementById("InvitarUsuarioExterno");
+form.reset();
+
+}
+function ListenerCompartirEvento(){
+document.addEventListener('click', function(event){
+var isClickInside = event.target.closest("section");
+if(isClickInside==null){
+var isButton = event.target.closest("button");
+if(isButton==null && event.target.className!="tooltip"){
+cerrarPopUp("PopUpCompartirEvento");
+}
+}
+});
+}
+
+
+function InvitarUsuarioExterno(form){
+var form_InvitarUsuarioExterno=document.getElementById(form);
+var email= form_InvitarUsuarioExterno.email;
+var patEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+if(!patEmail.test(String(email.value).toLowerCase())){
+alert("Formato de email incorrecto");
+email.style.border="1px solid red";
+return false;
+}
+else{
+form_InvitarUsuarioExterno.reset();
+cerrarPopUp("PopUpCompartirEvento");
+abrirPopUp("PopUpInvitacionEnviada");
+return false;
+}
+
+}
+
+                                                          /*COLABORADORES*/
+function Colaboradores(){
+  abrirPopUp("PopUpColaboradores");
+  activarBlur();
+
+}
+
+
+
 
                                                                         /* EFECTOS BLUR */
 function activarBlur(){
@@ -197,47 +249,7 @@ function CerrarEventPopUp(){
         desactivarBlur();
       }
 
-                                                    /*POP UP COMPARTIR EVENTO*/
-  function CompartirEvento(){
-    var popUp=document.getElementById("PopUpCompartirEvento");
-    popUp.style.display="block";
-    activarBlur();
-    ListenerCompartirEvento();
-    var form=document.getElementById("InvitarUsuarioExterno");
-    form.reset();
 
-  }
-  function ListenerCompartirEvento(){
-  document.addEventListener('click', function(event){
-    var isClickInside = event.target.closest("section");
-    if(isClickInside==null){
-      var isButton = event.target.closest("button");
-      if(isButton==null && event.target.className!="tooltip"){
-        cerrarPopUp("PopUpCompartirEvento");
-      }
-    }
-  });
-}
-
-
-function InvitarUsuarioExterno(form){
-  var form_InvitarUsuarioExterno=document.getElementById(form);
-  var email= form_InvitarUsuarioExterno.email;
-  var patEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  if(!patEmail.test(String(email.value).toLowerCase())){
-    alert("Formato de email incorrecto");
-    email.style.border="1px solid red";
-    return false;
-  }
-  else{
-    form_InvitarUsuarioExterno.reset();
-    cerrarPopUp("PopUpCompartirEvento");
-    abrirPopUp("PopUpInvitacionEnviada");
-    return false;
-  }
-
-}
                                                             /*POP UPS ABRIR Y CERRAR*/
 function cerrarPopUp(popUp){
   var popUpCerrar=document.getElementById(popUp);
@@ -317,7 +329,6 @@ function CerrarlanzarPopUpUsuarioRegistrado(){
 /*Para cambiar de cualquier pagina a SignOut*/
 function pasarPaginaSignOut(){
   /*Cabecera*/
-  console.log(arraycookies[posArray]);
   var headerConUsusario=document.getElementById("headerPaginaConUsuario");
   headerConUsusario.style.display="none";
   var headerSinUsusario=document.getElementById("headerPaginaSinUsuario");
@@ -810,6 +821,7 @@ function saveEventCookie(form) {
 	//añadimos el div de la nueva clase despues de guardar los datos
   CerrarEventPopUp();
   var nombreEvento=document.getElementById("eventname").value;
+  likeGlobal="false";
 	addDivEvent(nombreEvento);
   return false;
 
@@ -889,6 +901,7 @@ function addDivEvent(nombreEvento) {
 
   var icon4 = document.createElement("i");
   icon4.setAttribute("class", "fas fa-users" );
+  icon4.setAttribute("onclick", "Colaboradores('this');" );
 
   var span3 = document.createElement("span");
   span3.setAttribute("class", "tooltiptext" );
