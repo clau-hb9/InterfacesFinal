@@ -441,6 +441,50 @@ function pasarPaginaArchivados(){
   archivados.style.display="block";
 
 
+  var busca_email;
+  var categoria;
+  /*Añado las categorias que tenga el usuario */
+  for(var j=0;j<arraycookiesCategorias.length;j++){
+    busca_email=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&email=")+7,arraycookiesCategorias[j].indexOf("&archivados="));
+    busca_archivado=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&archivados=")+12,arraycookiesCategorias[j].length);
+      //Buscamos el usuario que acaba de iniciar sesion
+      if(busca_email==email_iniciado && busca_archivado=="true"){
+      //Añadimos sus categorias
+      categoria=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("nombreCategoria=")+16,arraycookiesCategorias[j].indexOf("&email="));
+      addDivCategory(categoria);
+      }
+  }
+
+  var evento;
+  var busca_categoria;
+  /* Añado los eventos del usuario */
+  for(var j=0;j<arraycookiesEventos.length;j++){
+    //me quedo con el email de quien añadio cada categoria
+    busca_email=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("&email=")+7,arraycookiesEventos[j].indexOf("&MeGusta="));
+
+    //voy a coger todos los eventos SOLO del usuario con sesion iniciada
+    if(busca_email==email_iniciado){
+      evento=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("nombreEvento=")+13,arraycookiesEventos[j].indexOf("&nombreCategoria="));
+      likeGlobal=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("&MeGusta=")+9,arraycookiesEventos[j].length);
+      busca_categoria=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("&nombreCategoria=")+17,arraycookiesEventos[j].indexOf("&email="));
+      categoria_seleccionada=busca_categoria;
+      //vuelvo a escribir todas las categorias que tenia el usuario
+
+
+  for(var k=0;k<arraycookiesCategorias.length;k++){
+  busca_email2=arraycookiesCategorias[k].substring(arraycookiesCategorias[k].indexOf("&email=")+7,arraycookiesCategorias[k].indexOf("&archivados="));
+  busca_archivado=arraycookiesCategorias[k].substring(arraycookiesCategorias[k].indexOf("&archivados=")+12,arraycookiesCategorias[k].length);
+  busca_categoria2=arraycookiesCategorias[k].substring(arraycookiesCategorias[k].indexOf("nombreCategoria=")+16,arraycookiesCategorias[k].indexOf("&email="));
+
+    if(busca_email2==email_iniciado && busca_archivado=="true" &&busca_categoria==busca_categoria2){
+          addDivEvent(evento);
+
+        }
+
+    }
+    }
+  }
+
 
 }
 
@@ -557,6 +601,7 @@ categoriaArchivar.remove();
                                                     /*PÁGINA PRINCIPAL CON USUARIO --> RECUPERAMOS TODOS LOS DATOS*/
 /*Para cambiar de cualquier pagina a la página principal de usuario*/
 function IniciarSesion(){
+  document.getElementById("Home").innerHTML ="";
   /*Cabecera*/
   var headerSinUsuario=document.getElementById("headerPaginaSinUsuario");
   headerSinUsuario.style.display="none";
@@ -578,6 +623,10 @@ function IniciarSesion(){
 	  busca_email=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&email=")+7,arraycookiesCategorias[j].indexOf("&archivados="));
     busca_archivado=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&archivados=")+12,arraycookiesCategorias[j].length);
       //Buscamos el usuario que acaba de iniciar sesion
+
+      console.log(busca_email);
+      console.log(email_iniciado);
+      console.log(busca_archivado);
   	  if(busca_email==email_iniciado && busca_archivado=="false"){
       //Añadimos sus categorias
   		categoria=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("nombreCategoria=")+16,arraycookiesCategorias[j].indexOf("&email="));
