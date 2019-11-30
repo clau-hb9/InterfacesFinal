@@ -120,8 +120,8 @@
 					  <label><p><b>Nombre de Evento</b></p><br>
 					  <input type="text" id="eventname" placeholder="Enter event name" name="eventname"></label><br>
 					</div>
-					<div class="clearfix1">
-					  <button type="submit" class="crearCategoria">Añadir evento</button>
+					<div class="clearfix2">
+					  <button type="submit" class="crearEvento">Añadir evento</button>
 					</div>
 
 				</div>
@@ -249,22 +249,46 @@
   <hr>
   <div id="TextoPopUpColaboradores">
     <p>Ver colaboradores </p>
-    <p>Enviar recordatorio</p>
+    <p>Invitar a un colaborador</p>
 
   </div>
   <div id="IconosPopUpColaboradores">
-    <button > <i class="fas fa-users"></i> </button>
-    <button onclick="ColaboradoresEnviarRecordatorio()"> <i class="far fa-paper-plane"></i> </button>
+    <button onclick="abrirPopUpColaboradoresLista(this)" > <i class="fas fa-users"></i> </button>
+    <button onclick="abrirPopUpInvitarColaborador();"> <i class="far fa-paper-plane"></i> </button>
   </div>
 </section>
 
+<!--POP UP COLABORADORES-INVITAR -->
+<section id="PopUpColaboradores-Invitar">
+  <button onclick="cerrarPopUp('PopUpColaboradores-Invitar');" class= Boton-cierre ><i class="fas fa-times"></i></button>
+  <p>INVITAR A UN COLABORADOR</p>
+  <hr>
+  <form id="Form-PopUpColaboradores-Invitar" onsubmit="return InvitarColaborador('Form-PopUpColaboradores-Invitar');">
+    <br>
+    <label id="Form-Titulo"><b>Introduzca su Email</b></label><br>
+    <div id="Form-Explicacion">
+      <label >Es necesario que el usuario pertenezca a la comunidad</label><br>
+    </div>
+      <input type="text" placeholder="Enter Email (example@example.domain)" name="email" value="" ><br>
+    <button type="submit"> Enviar </button>
+  </form>
+</section>
 
-<div id="PopUpRecordatorioEnviado">
-  <p>¡Recordatorio enviado!</p>
-  <button onclick="cerrarPopUp('PopUpRecordatorioEnviado');"> Aceptar </button>
+
+<div id="PopUpInvitacion">
+  <p>¡Invitación enviada!</p>
+  <button onclick="cerrarPopUp('PopUpInvitacion');"> Aceptar </button>
 </div>
 
+<!--POP UP COLABORADORES-LISTA -->
+<section id="PopUpColaboradores-Lista">
+  <button onclick="cerrarPopUp('PopUpColaboradores-Lista');" class= Boton-cierre ><i class="fas fa-times"></i></button>
+  <p>LISTA DE COLABORADORES</p>
+  <hr>
+  <div id="ListaColaboradores">
 
+  </div>
+</section>
 
 
 </div>

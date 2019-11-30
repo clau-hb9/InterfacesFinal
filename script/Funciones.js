@@ -13,6 +13,10 @@ var indexCategorias=0;
 
 var email_iniciado;
 var categoria_seleccionada;
+var evento_seleccionado;
+
+
+
 
 /*PopUp de confirmación para cerrar un Evento*/
 function ConfirmacionDeCierre(ID) {
@@ -106,7 +110,8 @@ return false;
 }
 
                                                           /*COLABORADORES*/
-function Colaboradores(){
+function Colaboradores(elmnt){
+  evento_seleccionado= $(elmnt).closest(".Evento").attr('id');
   abrirPopUp("PopUpColaboradores");
   activarBlur();
   ListenerColaborador();
@@ -124,10 +129,77 @@ if(isButton==null && event.target.className!="tooltip"){
 });
 }
 
-function ColaboradoresEnviarRecordatorio(){
+/*INVITAR COLABORADORES*/
+function abrirPopUpInvitarColaborador(){
   cerrarPopUp("PopUpColaboradores");
-  abrirPopUp("PopUpRecordatorioEnviado");
+  var form_InvitarColaborador=document.getElementById("Form-PopUpColaboradores-Invitar");
+  form_InvitarColaborador.reset();
+  abrirPopUp("PopUpColaboradores-Invitar");
 }
+
+function InvitarColaborador(form){
+var form_InvitarColaborador=document.getElementById(form);
+var email= form_InvitarColaborador.email;
+var patEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+if(!patEmail.test(String(email.value).toLowerCase())){
+alert("Formato de email incorrecto");
+email.style.border="1px solid red";
+return false;
+}
+//Comprobamos que sea un usuario registrado
+for (i in arraycookies) {
+		var busca = arraycookies[i].substring(arraycookies[i].indexOf("&email=")+7,arraycookies[i].length);
+		if(busca==email){
+      alert("Es necesario que el usuario pertenezca a la comunidad");
+      email.style.border="1px solid red";
+      return false;
+		}
+}
+cerrarPopUp("PopUpColaboradores-Invitar");
+abrirPopUp("PopUpInvitacion");
+return false;
+
+}
+
+/*COLABORADORES LISTA*/
+function abrirPopUpColaboradoresLista(boton){
+
+
+
+  cerrarPopUp("PopUpColaboradores");
+  abrirPopUp("PopUpColaboradores-Lista");
+
+  for(i in arraycookiesEventos){
+
+    var evento = arraycookiesEventos[i].substring(arraycookiesEventos[i].indexOf("Evento=")+7,arraycookiesEventos[i].indexOf("&nombreCategoria="));
+    console.log("evento "+evento);
+    console.log("evento seleccionada "+evento_seleccionado);
+    if(evento==evento_seleccionado){
+        var categoria = arraycookiesEventos[i].substring(arraycookiesEventos[i].indexOf("&nombreCategoria=")+17,arraycookiesEventos[i].indexOf("&email="));
+        console.log("categoria "+categoria);
+        console.log("categoria seleccionada "+categoria_seleccionada);
+
+        if(categoria==categoria_seleccionada){
+          var usuario =arraycookiesEventos[i].substring(arraycookiesEventos[i].indexOf("&email=")+7,arraycookiesEventos[i].indexOf("&MeGusta="));
+          if(usuario!=email_iniciado){
+            var nuevoEvento = document.createElement("div");
+            nuevoEvento.setAttribute("class", "UsuarioColaborador" );
+            nuevoEvento.setAttribute("id", usuario );
+
+            var contenido = document.createTextNode(usuario);
+            nuevoEvento.appendChild(contenido);
+
+
+            var divID = document.getElementById("ListaColaboradores");
+            divID.appendChild(nuevoEvento);
+          }
+        }
+
+    }
+  }
+}
+
 
 
 
@@ -279,8 +351,8 @@ function cerrarPopUp(popUp){
   desactivarBlur();
 }
 function abrirPopUp(popUp){
-  var popUpCerrar=document.getElementById(popUp);
-  popUpCerrar.style.display="block";
+  var popUpAbrir=document.getElementById(popUp);
+  popUpAbrir.style.display="block";
   activarBlur();
 }
 
@@ -529,8 +601,6 @@ function saveChanges(profile_form){
   if(CheckLabelsProfile('profile_form')!=false){
   //Guardamos los nuevos valores
   var username = arraycookies[posArray].substring(arraycookies[posArray].indexOf("username=")+9,arraycookies[posArray].indexOf("&contraseña="));
-  console.log("actual:"+ username);
-  console.log("cambia a:"+profile.username.value);
   arraycookies[posArray]=arraycookies[posArray].replace("username="+ username,"username="+profile.username.value);
   var contraseña = arraycookies[posArray].substring(arraycookies[posArray].indexOf("&contraseña=")+12,arraycookies[posArray].indexOf("&email="));
   arraycookies[posArray]=arraycookies[posArray].replace("&contraseña="+ contraseña,"&contraseña="+profile.psw.value);
@@ -582,6 +652,8 @@ function recuperarArrays(){
 
   //SINO HAGO ESTO, AL RECARGAR LA PAGINA Y AÑADIR UNA CATEGORIA SE COLOCARÍA EN LA POSICION 0 PORQUE indexCategorias SE REINICIA
   indexCategorias=arraycookiesCategorias.length;
+  console.log("categorias"+arraycookiesCategorias);
+  console.log("evento"+arraycookiesEventos);
 	}
 }
 
@@ -940,9 +1012,8 @@ function comprobarRegistro(nombre) {
 	var registrado=false;
   for (i in arraycookies) {
 		var busca = arraycookies[i].substring(arraycookies[i].indexOf("&email=")+7,arraycookies[i].length);
-		if(busca==document.getElementById("email").value&&busca!=""){
+		if(busca==document.getElementById("email").value && busca!=""){
 			registrado=true;
-			//return registrado;
 		}
   }
   return registrado;
@@ -1213,7 +1284,7 @@ function addDivEvent(nombreEvento) {
 
   var icon4 = document.createElement("i");
   icon4.setAttribute("class", "fas fa-users" );
-  icon4.setAttribute("onclick", "Colaboradores('this');" );
+  icon4.setAttribute("onclick", "Colaboradores(this);" );
 
   var span3 = document.createElement("span");
   span3.setAttribute("class", "tooltiptext" );

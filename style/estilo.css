@@ -741,9 +741,11 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
   margin:5px auto 0 55px;
 
 }
-.clearfix1 button{
-  margin:10px 0 0 50px;
+.clearfix2 button{
+  margin:10px 0 0 60px;
 }
+
+
 
 
 
@@ -752,6 +754,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
   position:absolute;
   display:none;
   float:left;
+
   margin:-300px 500px;
   background-color: #404040;
   border-radius: 5px;
@@ -809,33 +812,7 @@ float:left;
 }
 
 
-/*
-#PopUpCompartirEvento{
-  position:absolute;
-  display:none;
-  float:left;
-  margin:-300px 500px;
-  background-color: #404040;
-  border-radius: 5px;
-  height: 110px;
-  z-index:10;
-  width: 200px;
-}
 
-#PopUpCompartirEvento p{
-margin:30px 0 10px 20px;
-float:left;
-color:#e6e6e6;
-font:small-caps 100%/100% courier;
-font-size:17px;
-text-align: center;
-}*/
-
-
-/*
-#PopUpCompartirEvento button{ //cerrar
-margin-top:5px;
-}*/
 #InvitarUsuarioExterno button{ /*Aceptar*/
 margin:5px 0 0 180px;
 padding: 4px 10px;
@@ -923,8 +900,8 @@ color:#e6e6e6;
 font:small-caps 100%/100% courier;
 font-size:17px;
 text-align: center;
-margin-left: 60px;
-width: 100px;
+margin-left: 50px;
+width: 120px;
 }
 
 #IconosPopUpColaboradores button{
@@ -938,8 +915,63 @@ margin: 0 40px 0 80px;
   color:#846D0E;
 }
 
+/*POP UP COLABORADORES-INVITAR*/
+#PopUpColaboradores-Invitar{
+  position:absolute;
+  display:none;
+  float:left;
+  margin:-300px 425px;
+  background-color: #404040;
+  border-radius: 5px;
+  height: 300px;
+  z-index:10;
+  width: 400px;
+}
+#PopUpColaboradores-Invitar p{
+  font:small-caps 100%/100% courier;
+  font-size:17px;
+  text-align: center;
+  margin-left: 30px;
+  color:#e6e6e6;
+
+}
+
+#PopUpColaboradores-Invitar p, #Form-Titulo{
+  color:#e6e6e6;
+  font:small-caps 100%/100% courier;
+  font-size:17px;
+  margin:30px;
+}
+#Form-Explicacion{
+
+  color:#a2a59e;
+  font-size:15px;
+  font:small-caps 100%/100% courier;
+  margin:0 5px 0 30px;
+  text-align: left;
+}
+#PopUpColaboradores-Invitar input[type="text"]{
+  margin:10px 30px;
+  width: 350px;
+
+}
+
+#Form-PopUpColaboradores-Invitar button{ /*Aceptar*/
+margin:5px 0 0 160px;
+padding: 4px 10px;
+border:none;
+background-color: #846D0E;
+color:white;
+font:small-caps 100%/100% courier;
+font-size:17px;
+border-radius: 5px;
+float:left;
+
+
+}
+
 /*POP UP RECORDATORIO ENVIADO */
-#PopUpRecordatorioEnviado{
+#PopUpInvitacion{
   position:absolute;
   display:none;
   float:left;
@@ -948,10 +980,10 @@ margin: 0 40px 0 80px;
   border-radius: 5px;
   height: 110px;
   z-index:10;
-  width: 225px;
+  width: 200px;
 }
 
-#PopUpRecordatorioEnviado p{
+#PopUpInvitacion p{
 float:left;
 color:#e6e6e6;
 font:small-caps 100%/100% courier;
@@ -960,7 +992,7 @@ text-align: center;
 margin-left: 15px;
 }
 
-#PopUpRecordatorioEnviado button{
+#PopUpInvitacion button{
 margin:60px 0 0 -130px;
 padding: 4px 10px;
 border:none;
@@ -971,6 +1003,37 @@ font-size:17px;
 border-radius: 5px;
 float:left;
 }
+
+
+/*POP UP COLABORADORES-LISTA*/
+#PopUpColaboradores-Lista{
+  position:absolute;
+  display:none;
+  float:left;
+  margin:-300px 425px;
+  background-color: #404040;
+  border-radius: 5px;
+  height: 300px;
+  z-index:10;
+  width: 400px;
+}
+#PopUpColaboradores-Lista p{
+  font:small-caps 100%/100% courier;
+  font-size:17px;
+  text-align: center;
+  margin-left: 30px;
+  color:#e6e6e6;
+
+}
+.UsuarioColaborador{
+  font:small-caps 100%/100% courier;
+  font-size:17px;
+  text-align: center;
+  color:#a2a59e;
+  margin-bottom:10px;
+  margin-top:10px;
+}
+
 
 /*FOOTER*/
 footer {
