@@ -26,25 +26,30 @@ function ConfirmacionDeCierre(ID) {
                                                                         /*DAR LIKE*/
 function PonerMeGusta(button){
 		var eventoSelecionado=$(button).closest(".Evento").attr('id');
+    var categseleccionada=$(button).closest(".flex-container").attr('id');
 
 		for(var j=0;j<arraycookiesEventos.length;j++){
 	  //me quedo con el email de quien añadio cada categoria
 
 	  busca_email=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("&email=")+7,arraycookiesEventos[j].indexOf("&MeGusta="));
 	  busca_evento=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("nombreEvento=")+13,arraycookiesEventos[j].indexOf("&nombreCategoria="));
+    busca_categoria=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("&nombreCategoria=")+17,arraycookiesEventos[j].indexOf("&email="));
 
 
 
 	  //voy a coger toda las categorias SOLO del usuario con sesion iniciada
-	  if(busca_email==email_iniciado && busca_evento==eventoSelecionado){
+	  if(busca_email==email_iniciado && busca_evento==eventoSelecionado && busca_categoria==categseleccionada){
 
   		 if(button.className== "far fa-thumbs-up"){
   			button.className="fas fa-thumbs-up";
   			arraycookiesEventos[j]=arraycookiesEventos[j].replace("&MeGusta=false","&MeGusta=true");
+        console.log("1: "+arraycookiesEventos[j]);
         }
   		else{
           button.className="far fa-thumbs-up";
   			arraycookiesEventos[j]=arraycookiesEventos[j].replace("&MeGusta=true","&MeGusta=false");
+        console.log("2: "+arraycookiesEventos[j]);
+
           }
 
 
@@ -451,7 +456,7 @@ function pasarPaginaArchivados(){
       if(busca_email==email_iniciado && busca_archivado=="true"){
       //Añadimos sus categorias
       categoria=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("nombreCategoria=")+16,arraycookiesCategorias[j].indexOf("&email="));
-      addDivCategory(categoria);
+      addDivCategoryArchivada(categoria);
       }
   }
 
@@ -497,6 +502,8 @@ function PasarProfile(){
   /*Cabecera*/
   var navHome=document.getElementById("HomeNavBarConUsuario");
   navHome.style.display="none";
+  var navArchivados=document.getElementById("navBarArchivados");
+  navArchivados.style.display="none";
   var navHome=document.getElementById("divAñadirCategoria");
   navHome.style.display="none";
   var navProfile=document.getElementById("navBarProfile");
@@ -557,18 +564,24 @@ function recuperarArrays(){
 	if(json_str.length!=0){
   arraycookies = JSON.parse(json_str);
 
+  //SINO HAGO ESTO, AL RECARGAR LA PAGINA Y REGISTRAR UN USUARIO SE COLOCARÍA EN LA POSICION 0 PORQUE w SE REINICIA
+  w=arraycookies.length;
 	}
 
 	var json_str2 = getCookie('eventos');
 	if(json_str2.length!=0){
   arraycookiesEventos = JSON.parse(json_str2);
 
+  //SINO HAGO ESTO, AL RECARGAR LA PAGINA Y AÑADIR UN EVENTO SE COLOCARÍA EN LA POSICION 0 PORQUE indexEventos SE REINICIA
+  indexEventos=arraycookiesEventos.length;
 	}
 
 	var json_str3 = getCookie('categorias');
 	if(json_str3.length!=0){
   arraycookiesCategorias = JSON.parse(json_str3);
 
+  //SINO HAGO ESTO, AL RECARGAR LA PAGINA Y AÑADIR UNA CATEGORIA SE COLOCARÍA EN LA POSICION 0 PORQUE indexCategorias SE REINICIA
+  indexCategorias=arraycookiesCategorias.length;
 	}
 }
 
@@ -589,6 +602,33 @@ for(var j=0;j<arraycookiesCategorias.length;j++){
 
   if(categoria_seleccionada==busca_categoria && busca_email==email_iniciado){
   arraycookiesCategorias[j]=arraycookiesCategorias[j].replace("&archivados=false","&archivados=true");
+  console.log( arraycookiesCategorias[j]);
+
+  var json_str = JSON.stringify(arraycookiesCategorias);
+  createCookie('categorias', json_str);
+}
+}
+var categoriaArchivar=document.getElementById(categoria_seleccionada);
+categoriaArchivar.remove();
+}
+
+
+function DesarchivarCategoria(elmnt){
+console.log(categoria_seleccionada);
+console.log($(elmnt).closest(".flex-container"));
+
+for(var j=0;j<arraycookiesCategorias.length;j++){
+
+  busca_categoria=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&nombreCategoria=")+17,arraycookiesCategorias[j].indexOf("&email="));
+  busca_email=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&email=")+7,arraycookiesCategorias[j].indexOf("&archivados="));
+/*  console.log( categoria_seleccionada);
+  console.log( busca_categoria);
+  console.log( busca_email);
+  console.log( email_iniciado);
+*/
+
+  if(categoria_seleccionada==busca_categoria && busca_email==email_iniciado){
+  arraycookiesCategorias[j]=arraycookiesCategorias[j].replace("&archivados=true","&archivados=false");
   console.log( arraycookiesCategorias[j]);
 
   var json_str = JSON.stringify(arraycookiesCategorias);
@@ -666,6 +706,8 @@ for(var k=0;k<arraycookiesCategorias.length;k++){
 
   var navProfile=document.getElementById("navBarProfile");
   navProfile.style.display="none";
+  var navArchivados=document.getElementById("navBarArchivados");
+  navArchivados.style.display="none";
   var navHome=document.getElementById("HomeNavBarConUsuario");
   navHome.style.display="block";
   /*Parte inferior*/
@@ -880,6 +922,10 @@ function registerFormCookies(signUp) {
  var json_str = JSON.stringify(arraycookies);
  createCookie('usuarios', json_str);
 
+ for (i in arraycookies) {
+  console.log(arraycookies[i])
+ }
+
     username.style.border = "none";
     password.style.border = "none";
     email.style.border = "none";
@@ -994,6 +1040,74 @@ function addDivCategory(nombreCategoria) {
   divdropdowncontent.appendChild(buttonAñadir);
 
   }
+
+
+
+  function addDivCategoryArchivada(nombreCategoria) {
+  	// crea un nuevo div con unos campos y hace innerHTML de los valores de la cookie en esos campos
+  	//creamos elementos
+  	var nuevaCategoria = document.createElement("div");
+    nuevaCategoria.setAttribute("class", "flex-container" );
+    nuevaCategoria.setAttribute("id", nombreCategoria );
+
+    var divtitulo = document.createElement("div");
+    divtitulo.setAttribute("class", "Titulo" );
+
+    var linea_hr = document.createElement("hr");
+
+    var titulo = document.createElement("h2");
+    var contenido = document.createTextNode(nombreCategoria);
+    titulo.appendChild(contenido);
+
+    var divdropdown = document.createElement("div");
+    divdropdown.setAttribute("class", "dropdown" );
+
+    var buttonmenu = document.createElement("button");
+    buttonmenu.setAttribute("class", "dropbtn" );
+    buttonmenu.setAttribute("onclick", "desplegarMenu(this);" );
+
+    var icon = document.createElement("i");
+    icon.setAttribute("class", "fas fa-ellipsis-v" );
+
+    var divdropdowncontent = document.createElement("div");
+    divdropdowncontent.setAttribute("class", "dropdown-content" );
+
+    var buttonDesArchivar = document.createElement("button");
+    buttonDesArchivar.setAttribute("onclick", "DesarchivarCategoria('this');" );
+    buttonDesArchivar.setAttribute("title","Desarchiva esta categoria y accede a ella desde tu pagina principal")
+    var contenido2 = document.createTextNode("Desarchivar lista");
+    buttonDesArchivar.appendChild(contenido2);
+
+
+
+
+    /*var buttonCompartir = document.createElement("button");
+    var contenido4 = document.createTextNode("Compartir lista");
+    buttonCompartir.appendChild(contenido4);
+
+    var buttonImportar  = document.createElement("button");
+    var contenido5 = document.createTextNode("Importar a calendario");
+    buttonImportar.appendChild(contenido5);*/
+
+    //metemos los elementos al div flex container
+    var contenido = document.createTextNode(nombreCategoria);
+    nuevaCategoria.appendChild(divtitulo);
+
+    //metemos todo en el div HOME
+    var contenedor = document.getElementById("Home");
+    contenedor.appendChild(nuevaCategoria);
+    nuevaCategoria.appendChild(divtitulo);
+    nuevaCategoria.appendChild(linea_hr);
+
+    divtitulo.appendChild(titulo);
+    divtitulo.appendChild(divdropdown);
+    divdropdown.appendChild(buttonmenu);
+    buttonmenu.appendChild(icon);
+    divdropdown.appendChild(divdropdowncontent);
+    divdropdowncontent.appendChild(buttonDesArchivar);
+
+
+    }
 
 
 
