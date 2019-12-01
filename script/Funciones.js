@@ -18,7 +18,7 @@ var evento_seleccionado;
 
 
 
-/*PopUp de confirmación para cerrar un Evento*/
+/*PopUp de confirmación para cerrar un Evento
 function ConfirmacionDeCierre(ID) {
     contenedor= document.getElementById(ID);
     var opcion = confirm("¿Desea cerrar este evento?");
@@ -26,7 +26,7 @@ function ConfirmacionDeCierre(ID) {
       contenedor.style.display="none";
     }
   }
-                                                                        /*BOTONES INFERIORES DE EVENTO*/
+  */                                                                      /*BOTONES INFERIORES DE EVENTO*/
                                                                         /*DAR LIKE*/
 function PonerMeGusta(button){
 		var eventoSelecionado=$(button).closest(".Evento").attr('id');
@@ -112,6 +112,8 @@ return false;
                                                           /*COLABORADORES*/
 function Colaboradores(elmnt){
   evento_seleccionado= $(elmnt).closest(".Evento").attr('id');
+  categoria_seleccionada= $(elmnt).closest(".flex-container").attr('id');
+
   abrirPopUp("PopUpColaboradores");
   activarBlur();
   ListenerColaborador();
@@ -164,7 +166,7 @@ return false;
 
 /*COLABORADORES LISTA*/
 function abrirPopUpColaboradoresLista(boton){
-
+document.getElementById("ListaColaboradores").innerHTML="";
 
 
   cerrarPopUp("PopUpColaboradores");
@@ -426,6 +428,98 @@ function CerrarlanzarPopUpUsuarioRegistrado(){
 
 
 
+
+function pasarPreguntasFrecuentes(){
+  /*Cabecera*/
+  document.getElementById("HomeNavBarConUsuario").style.display="none";
+
+  document.getElementById("navBarArchivados").style.display="none";
+
+
+  document.getElementById("navBarProfile").style.display="block";
+
+  document.getElementById("divAñadirCategoria").style.display="none";
+
+  //IMPORTANTE: CADA VEZ QUE SE HACE LOG OUT SE LIMPIA EL DIV HOME. CUANDO SE VUELVA A INICIAR SESIÓN HABRÁ QUE VOLVER A ESCRIBIR TODO
+  document.getElementById("Home").innerHTML="";
+
+  addDivFAQ();
+
+}
+
+function addDivFAQ(){
+
+var div = document.createElement("div");
+  div.setAttribute("class", "preguntasTexto" );
+
+  var aux= document.createElement("h3");
+  //h3.setAttribute("class", "Titulo-Evento" );
+  var contenido = document.createTextNode("¿Por qué WorldAdvisor?");
+  aux.appendChild(contenido);
+
+  var p= document.createElement("p");
+  //h3.setAttribute("class", "Titulo-Evento" );
+  var contenido2 = document.createTextNode("WorldAdvisor es la web para organizar mejor tus tareas y eventos. Es un servicio gratuito y todo en uno donde podrás crear categorias, añadir eventos a estas e interactuar con más usuarios. Te esperamos");
+  p.appendChild(contenido2);
+
+
+
+  var aux2= document.createElement("h3");
+
+  //h3.setAttribute("class", "Titulo-Evento" );
+  var contenido3 = document.createTextNode("¿Cómo puede WolrdAdvisor ayudarme?");
+  aux2.appendChild(contenido3);
+
+  var p2= document.createElement("p");
+
+  //h3.setAttribute("class", "Titulo-Evento" );
+  var contenido4 = document.createTextNode("A diario tenemos muchas actividades que nos gustaria recordar para planificar mejor nuestro tiempo y worldAdvisor te permite organizar estos eventos o actividades por categorias.");
+  p2.appendChild(contenido4);
+
+
+
+  var aux3= document.createElement("h3");
+
+  //h3.setAttribute("class", "Titulo-Evento" );
+  var contenido = document.createTextNode("¿Cómo añado una categoria?");
+  aux3.appendChild(contenido);
+
+  var p3= document.createElement("p");
+
+  //h3.setAttribute("class", "Titulo-Evento" );
+  var contenido5 = document.createTextNode("Pulsando en el botón superior derecho de la pantalla aparecerá un popUp donde se te pedirá el nombre de la categoria. Una vez escrito este nombre, pulsa en Añadir categoria y ¡Listo!");
+  p3.appendChild(contenido5);
+
+
+  var aux4= document.createElement("h3");
+
+  //h3.setAttribute("class", "Titulo-Evento" );
+  var contenido6 = document.createTextNode("¿Cómo añado un evento?");
+  aux4.appendChild(contenido6);
+
+  var p4= document.createElement("p");
+
+  //h3.setAttribute("class", "Titulo-Evento" );
+  var contenido7 = document.createTextNode("Pulsando en el botón situado a la derecha del título de una categoria e desplegará un menú donde deberás pulsar en Añadir evento. Rellena el nombre del evento y pulsa en ¡Añadir evento!");
+  p4.appendChild(contenido7);
+
+  document.getElementById("Home").appendChild(div);
+  div.appendChild(aux);
+  div.appendChild(p);
+
+  div.appendChild(aux2);
+  div.appendChild(p2);
+
+  div.appendChild(aux3);
+  div.appendChild(p3);
+
+  div.appendChild(aux4);
+  div.appendChild(p4);
+
+
+
+}
+
                                                                         /* CAMBIO ENTRE PÁGINAS */
 /*Para cambiar de cualquier pagina a SignOut*/
 function pasarPaginaSignOut(){
@@ -657,31 +751,62 @@ function recuperarArrays(){
 	}
 }
 
+function ConfirmacionDeCierre(elmnt){
+
+  evento_seleccionado= $(elmnt).closest(".Evento").attr('id');
+  console.log($(elmnt).closest(".Evento"));
+    if (confirm("¿Seguro que quieres eliminar este evento?")) {
+        for(i in arraycookiesEventos){
+          busca_email=arraycookiesEventos[i].substring(arraycookiesEventos[i].indexOf("&email=")+7,arraycookiesEventos[i].indexOf("&MeGusta="));
+      	  busca_evento=arraycookiesEventos[i].substring(arraycookiesEventos[i].indexOf("nombreEvento=")+13,arraycookiesEventos[i].indexOf("&nombreCategoria="));
+          console.log(busca_email);
+          console.log(email_iniciado);
+
+          console.log(busca_evento);
+          console.log(evento_seleccionado);
+
+          if(busca_email==email_iniciado && busca_evento==evento_seleccionado){
+            arraycookiesEventos[i]=arraycookiesEventos[i].replace(busca_email,"aaa");
+            console.log(arraycookiesEventos[i]);
+
+            var json_str = JSON.stringify(arraycookiesEventos);
+            createCookie('eventos', json_str);
+
+            $(elmnt).closest(".Evento").remove();
+          }
+
+        }
+    }
+
+}
 
 function archivarCategoria(elmnt){
 console.log(categoria_seleccionada);
 console.log($(elmnt).closest(".flex-container"));
 
-for(var j=0;j<arraycookiesCategorias.length;j++){
+if (confirm("¿Seguro que quieres archivar esta lista?")) {
+    for(var j=0;j<arraycookiesCategorias.length;j++){
 
-  busca_categoria=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&nombreCategoria=")+17,arraycookiesCategorias[j].indexOf("&email="));
-  busca_email=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&email=")+7,arraycookiesCategorias[j].indexOf("&archivados="));
-/*  console.log( categoria_seleccionada);
-  console.log( busca_categoria);
-  console.log( busca_email);
-  console.log( email_iniciado);
-*/
+      busca_categoria=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&nombreCategoria=")+17,arraycookiesCategorias[j].indexOf("&email="));
+      busca_email=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&email=")+7,arraycookiesCategorias[j].indexOf("&archivados="));
+    /*  console.log( categoria_seleccionada);
+      console.log( busca_categoria);
+      console.log( busca_email);
+      console.log( email_iniciado);
+    */
 
-  if(categoria_seleccionada==busca_categoria && busca_email==email_iniciado){
-  arraycookiesCategorias[j]=arraycookiesCategorias[j].replace("&archivados=false","&archivados=true");
-  console.log( arraycookiesCategorias[j]);
+      if(categoria_seleccionada==busca_categoria && busca_email==email_iniciado){
+      arraycookiesCategorias[j]=arraycookiesCategorias[j].replace("&archivados=false","&archivados=true");
+      console.log( arraycookiesCategorias[j]);
 
-  var json_str = JSON.stringify(arraycookiesCategorias);
-  createCookie('categorias', json_str);
+      var json_str = JSON.stringify(arraycookiesCategorias);
+      createCookie('categorias', json_str);
+    }
+    }
+    var categoriaArchivar=document.getElementById(categoria_seleccionada);
+    categoriaArchivar.remove();
+
 }
-}
-var categoriaArchivar=document.getElementById(categoria_seleccionada);
-categoriaArchivar.remove();
 }
 
 
@@ -1223,7 +1348,7 @@ function addDivEvent(nombreEvento) {
 
   var icon = document.createElement("i");
   icon.setAttribute("class", "fas fa-times" );
-  icon.setAttribute("onclick", "ConfirmacionDeCierre('this');" );
+  icon.setAttribute("onclick", "ConfirmacionDeCierre(this)" );
 
   var divImagen= document.createElement("div");
   divImagen.setAttribute("class", "DivImagen" );

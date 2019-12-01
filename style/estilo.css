@@ -1047,9 +1047,9 @@ footer {
 
 #footerBox{
   float:left;
-  margin-left: 35%;
+  margin-left: 15%;
   display:inline;
-  margin-top:30px;
+  margin-top:10px;
 
 }
 .footerLinks{
@@ -1076,4 +1076,57 @@ margin-left: 30px;
 }
 #footerTexto hr{
   border  : none;
+}
+
+#footerPreguntas{
+  float:left;
+  width: 270px;
+  text-align:center;
+  margin-right: 10px;
+  margin-top:11px;
+}
+#footerPreguntas p{
+  color: #cccccc;
+}
+
+#FAQ{
+  background-color:#262626;
+  border: none;
+  border-radius: 5px;
+  font: small 100%/100% serif;
+  font-size: 13px;
+  color:white;
+  width: auto;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+
+#FAQ:hover{
+  cursor:pointer;
+  color:#846D0E;
+
+}
+
+
+#preguntas{
+display:none;
+
+
+}
+
+.preguntasTexto{
+  margin:12px;
+}
+
+.preguntasTexto p{
+color: #cccccc;
+
+
+}
+
+.preguntasTexto h3{
+color: #cccccc;
+
+
 }
