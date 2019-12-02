@@ -415,8 +415,8 @@
     border-radius: 6px;
     padding: 5px 0;
     position: absolute;
-    bottom: 38%;
-    margin-left: -60px;
+    bottom: -5%;
+    margin-left: -80px;
 
 
   }
@@ -1142,7 +1142,7 @@ margin-left: 30px;
   color: #cccccc;
 }
 #footerTexto hr{
-  border  : none;
+  border : none;
 }
 
 #footerPreguntas{
@@ -1162,25 +1162,31 @@ margin-left: 30px;
   border-radius: 5px;
   font: small 100%/100% serif;
   font-size: 13px;
-  color:white;
+  color:#cccccc;
   width: auto;
   padding: 5px;
   margin-right: 10px;
 }
-
-
 #FAQ:hover{
   cursor:pointer;
   color:#846D0E;
-
+}
+.preguntasfrecuentes{
+border:2px solid #404040;
+background-color: rgba(10,11,11,0.94);
+margin-bottom: 20px;
+padding:20px;
+font: 100%/100% serif;
+font-size: 14px;
+color:white;
+}
+.preguntasfrecuentes::after{
+  clear:both;
+}
+.preguntasfrecuentes h3{
+  color:#846D0E;
 }
 
-
-#preguntas{
-display:none;
-
-
-}
 
 .preguntasTexto{
   margin:12px;
@@ -1188,12 +1194,4 @@ display:none;
 
 .preguntasTexto p{
 color: #cccccc;
-
-
-}
-
-.preguntasTexto h3{
-color: #cccccc;
-
-
 }

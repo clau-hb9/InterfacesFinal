@@ -452,6 +452,8 @@ function pasarPreguntasFrecuentes(){
 
   //IMPORTANTE: CADA VEZ QUE SE HACE LOG OUT SE LIMPIA EL DIV HOME. CUANDO SE VUELVA A INICIAR SESIÓN HABRÁ QUE VOLVER A ESCRIBIR TODO
   document.getElementById("Home").innerHTML="";
+	document.getElementById("EditProfile").style.display="none";
+	document.getElementById("Home").style.display="block";
 
   addDivFAQ();
 
@@ -459,72 +461,89 @@ function pasarPreguntasFrecuentes(){
 
 function addDivFAQ(){
 
-var div = document.createElement("div");
+	var div = document.createElement("div");
   div.setAttribute("class", "preguntasTexto" );
 
+	//Pregunta 1
+	var pregunta1=document.createElement("div");
+	pregunta1.setAttribute("class", "preguntasfrecuentes" );
   var aux= document.createElement("h3");
-  //h3.setAttribute("class", "Titulo-Evento" );
   var contenido = document.createTextNode("¿Por qué WorldAdvisor?");
   aux.appendChild(contenido);
-
   var p= document.createElement("p");
-  //h3.setAttribute("class", "Titulo-Evento" );
-  var contenido2 = document.createTextNode("WorldAdvisor es la web para organizar mejor tus tareas y eventos. Es un servicio gratuito y todo en uno donde podrás crear categorias, añadir eventos a estas e interactuar con más usuarios. Te esperamos");
+  var contenido2 = document.createTextNode("WorldAdvisor es una web para organizar mejor tus tareas y eventos. Es un servicio gratuito y todo en uno, donde podrás crear categorias, añadir eventos a estas e interactuar con más usuarios. ¡Te esperamos!");
   p.appendChild(contenido2);
+	pregunta1.appendChild(aux);
+	pregunta1.appendChild(p);
 
 
-
+	//Pregunta 2
+	var pregunta2=document.createElement("div");
+	pregunta2.setAttribute("class", "preguntasfrecuentes" );
   var aux2= document.createElement("h3");
-
-  //h3.setAttribute("class", "Titulo-Evento" );
   var contenido3 = document.createTextNode("¿Cómo puede WolrdAdvisor ayudarme?");
   aux2.appendChild(contenido3);
-
   var p2= document.createElement("p");
-
-  //h3.setAttribute("class", "Titulo-Evento" );
-  var contenido4 = document.createTextNode("A diario tenemos muchas actividades que nos gustaria recordar para planificar mejor nuestro tiempo y worldAdvisor te permite organizar estos eventos o actividades por categorias.");
+  var contenido4 = document.createTextNode("A diario tenemos muchas actividades que nos gustaria recordar para planificar mejor nuestro tiempo. WorldAdvisor te permite organizar estos eventos o actividades por categorias.");
   p2.appendChild(contenido4);
+	pregunta2.appendChild(aux2);
+	pregunta2.appendChild(p2);
 
-
-
+	//Pregunta 3
+	var pregunta3=document.createElement("div");
+	pregunta3.setAttribute("class", "preguntasfrecuentes" );
   var aux3= document.createElement("h3");
-
-  //h3.setAttribute("class", "Titulo-Evento" );
   var contenido = document.createTextNode("¿Cómo añado una categoria?");
   aux3.appendChild(contenido);
-
   var p3= document.createElement("p");
-
-  //h3.setAttribute("class", "Titulo-Evento" );
   var contenido5 = document.createTextNode("Pulsando en el botón superior derecho de la pantalla aparecerá un popUp donde se te pedirá el nombre de la categoria. Una vez escrito este nombre, pulsa en Añadir categoria y ¡Listo!");
   p3.appendChild(contenido5);
+	pregunta3.appendChild(aux3);
+	pregunta3.appendChild(p3);
 
-
+	//Pregunta 4
+	var pregunta4=document.createElement("div");
+	pregunta4.setAttribute("class", "preguntasfrecuentes" );
   var aux4= document.createElement("h3");
-
-  //h3.setAttribute("class", "Titulo-Evento" );
   var contenido6 = document.createTextNode("¿Cómo añado un evento?");
   aux4.appendChild(contenido6);
-
   var p4= document.createElement("p");
-
-  //h3.setAttribute("class", "Titulo-Evento" );
-  var contenido7 = document.createTextNode("Pulsando en el botón situado a la derecha del título de una categoria e desplegará un menú donde deberás pulsar en Añadir evento. Rellena el nombre del evento y pulsa en ¡Añadir evento!");
+  var contenido7 = document.createTextNode("Pulsando en el botón situado a la derecha del título de una categoria se desplegará un menú donde deberás pulsar en Añadir evento. Rellena el nombre del evento y pulsa en Añadir evento y ¡Listo!");
   p4.appendChild(contenido7);
+	pregunta4.appendChild(aux4);
+	pregunta4.appendChild(p4);
+
+	//Pregunta 5
+	var pregunta5=document.createElement("div");
+	pregunta5.setAttribute("class", "preguntasfrecuentes" );
+  var aux5= document.createElement("h3");
+  var contenido7 = document.createTextNode("¿Qué otras funcionalidades me ofrece WorldAdvisor?");
+  aux5.appendChild(contenido7);
+  var p5= document.createElement("p");
+  var contenido8 = document.createTextNode("1. Puedes archivar categorías y volver a recuperarlas en la sección de arhivados que encontrarás en el menú superior.");
+	var salto1 = document.createElement("br");
+	var contenido9 = document.createTextNode("2. Puedes interactuar con tu evento. Dale me gusta, añade comentarios, elimina el evento, mira sus colaboradores y comparte el evento con usuarios tanto internos como externos a WorldAdvisor.");
+	var salto2 = document.createElement("br");
+	var contenido10 = document.createTextNode("3. Accede a tu perfil y modifica tus datos. ");
+	var salto3 = document.createElement("br");
+	var contenido11 = document.createTextNode("4. Recibe invitaciones del resto de usuarios. Podrás tanto aceptar como rechazar estas invitaciones. ¡Añadelas a tu perfil y comparte la experiecia con el resto de usuarios!");
+
+  p5.appendChild(contenido8);
+	p5.appendChild(salto1);
+	p5.appendChild(contenido9);
+	p5.appendChild(salto2);
+	p5.appendChild(contenido10);
+	p5.appendChild(salto3);
+	p5.appendChild(contenido11);
+	pregunta5.appendChild(aux5);
+	pregunta5.appendChild(p5);
 
   document.getElementById("Home").appendChild(div);
-  div.appendChild(aux);
-  div.appendChild(p);
-
-  div.appendChild(aux2);
-  div.appendChild(p2);
-
-  div.appendChild(aux3);
-  div.appendChild(p3);
-
-  div.appendChild(aux4);
-  div.appendChild(p4);
+  div.appendChild(pregunta1);
+  div.appendChild(pregunta2);
+  div.appendChild(pregunta3);
+  div.appendChild(pregunta4);
+	div.appendChild(pregunta5);
 
 
 
