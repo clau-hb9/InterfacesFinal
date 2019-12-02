@@ -1451,11 +1451,10 @@ function addDivEvent(nombreEvento) {
   var divImagen= document.createElement("div");
   divImagen.setAttribute("class", "DivImagen" );
 
-  var img= document.createElement("img");
-  img.setAttribute("src", "https://www.revistadearte.com/wp-content/uploads/2019/03/paseos-a-orillas-del-mar-1909.jpg" );
-  img.setAttribute("alt", nombreEvento );
-  img.setAttribute("width", "85" );
-  img.setAttribute("height", "80" );
+  var img= document.createElement("i");
+  img.setAttribute("class", "fas fa-image imagen");
+	//img.setAttribute("class", "imagen");
+
 
   var p= document.createElement("p");
   p.setAttribute("class", "Titulo-Evento" );

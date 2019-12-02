@@ -329,7 +329,7 @@
     border-radius: 3px;
   }
   .Titulo-Evento{
-    margin-left: 20px;
+    margin: 30px 0 0 20px;
     float:left;
     color:#e6e6e6;
     font:small-caps 100%/100% courier;
@@ -729,6 +729,11 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
 #newEvent p{
   margin:5px auto 0 55px;
 
+}
+.imagen{
+  color:white;
+  float:left;
+  font-size:80px;
 }
 .clearfix2 button{
   margin:10px 0 0 60px;
