@@ -1125,6 +1125,7 @@ float:left;
 }
 #listaComentarios{
   height: 260px;
+  overflow: auto;
 }
 #Form-Comentarios input[type="text"]{
   margin: 10px 30px;
