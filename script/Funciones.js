@@ -14,6 +14,9 @@ var indexCategorias=0;
 var arrayInvitaciones = new Array();
 var indexInvitaciones=0;
 
+var arrayComentarios = new Array();
+var indexComentarios=0;
+
 var email_iniciado;
 var categoria_seleccionada;
 var evento_seleccionado;
@@ -208,6 +211,75 @@ document.getElementById("ListaColaboradores").innerHTML="";
     }
   }
 }
+
+/*COMENTARIOS*/
+function Comentarios(elemt){
+	document.getElementById("listaComentarios").innerHTML="";
+	evento_seleccionado= $(elemt).closest(".Evento").attr('id');
+  categoria_seleccionada= $(elemt).closest(".flex-container").attr('id');
+	abrirPopUp("Comentarios");
+
+
+	for(i in arrayComentarios){
+		var busca_evento = arrayComentarios[i].substring(arrayComentarios[i].indexOf("Evento=")+7,arrayComentarios[i].indexOf("&nombreCategoria="));
+		var busca_categoria = arrayComentarios[i].substring(arrayComentarios[i].indexOf("&nombreCategoria=")+17,arrayComentarios[i].indexOf("&email="));
+		if(busca_evento.toLowerCase()==evento_seleccionado.toLowerCase() && busca_categoria.toLowerCase()==categoria_seleccionada.toLowerCase()){
+			var busca_usuario =arrayComentarios[i].substring(arrayComentarios[i].indexOf("&email=")+7,arrayComentarios[i].indexOf("&comentario="));
+			var comentario =arrayComentarios[i].substring(arrayComentarios[i].indexOf("&comentario=")+12,arrayComentarios[i].length);
+
+			//NoUsuarioActual
+			if(busca_usuario!=email_iniciado){
+				var nuevoEvento = document.createElement("div");
+				nuevoEvento.setAttribute("class", "NoUsuarioActual" );
+				var contenido = document.createTextNode(busca_usuario+": "+comentario);
+				nuevoEvento.appendChild(contenido);
+
+				var divID = document.getElementById("listaComentarios");
+				divID.appendChild(nuevoEvento);
+			}
+			//UsuarioActual
+			else{
+				var nuevoEvento = document.createElement("div");
+				nuevoEvento.setAttribute("class", "UsuarioActual" );
+				var contenido = document.createTextNode("Tú: "+comentario);
+				nuevoEvento.appendChild(contenido);
+
+				var divID = document.getElementById("listaComentarios");
+				divID.appendChild(nuevoEvento);
+			}
+		}
+	}
+
+	}
+
+	function EnviarComentario(form){
+		var form_Comentarios=document.getElementById(form);
+		var comentario= form_Comentarios.comentario.value;
+		var DatosComentario= document.cookie= "Evento=" + evento_seleccionado +"&nombreCategoria=" + categoria_seleccionada+ "&email="+ email_iniciado+ "&comentario="+ comentario;
+		arrayComentarios[indexComentarios]= DatosComentario;
+		console.log("evento"+arraycookiesEventos);
+		console.log("arraycomentarios: "+arrayComentarios);
+		indexComentarios++;
+		//GUARDO UNA COOKIE CON TODO EL ARRAY DE USUARIOS
+		var json_str = JSON.stringify(arrayComentarios);
+		createCookie('comentarios', json_str);
+		//Añado el comentario
+		var nuevoEvento = document.createElement("div");
+		nuevoEvento.setAttribute("class", "UsuarioActual" );
+		var contenido = document.createTextNode("Tú: "+comentario);
+		nuevoEvento.appendChild(contenido);
+		var divID = document.getElementById("listaComentarios");
+		divID.appendChild(nuevoEvento);
+
+		form_Comentarios.reset();
+		return false;
+	}
+
+
+
+
+
+
 
 
 
@@ -580,7 +652,6 @@ function pasarPaginaSignOut(){
 /*Para cambiar de cualquier pagina a SignIn*/
 function pasarPaginaSignIn(){
   /*Parte inferior*/
-console.log("recuperoArrays");
     recuperarArrays();
   var parteInferiorConUsuario=document.getElementById("Home");
   parteInferiorConUsuario.style.display="none";
@@ -783,9 +854,19 @@ function recuperarArrays(){
   //SINO HAGO ESTO, AL RECARGAR LA PAGINA Y AÑADIR UN EVENTO SE COLOCARÍA EN LA POSICION 0 PORQUE indexEventos SE REINICIA
   indexInvitaciones=arrayInvitaciones.length;
 	}
+
+	var json_str5 = getCookie('comentarios');
+	if(json_str5.length!=0){
+  arrayComentarios = JSON.parse(json_str5);
+
+  //SINO HAGO ESTO, AL RECARGAR LA PAGINA Y AÑADIR UN EVENTO SE COLOCARÍA EN LA POSICION 0 PORQUE indexEventos SE REINICIA
+  indexComentarios=arrayComentarios.length;
+	}
   console.log("categorias"+arraycookiesCategorias);
   console.log("evento"+arraycookiesEventos);
 	console.log("invitaciones"+arrayInvitaciones);
+	console.log("comentarios"+arrayComentarios);
+
 
 	}
 
@@ -815,8 +896,7 @@ function ConfirmacionDeCierre(elmnt){
 }
 
 function archivarCategoria(elmnt){
-console.log(categoria_seleccionada);
-console.log($(elmnt).closest(".flex-container"));
+
 
 if (confirm("¿Seguro que quieres archivar esta lista?")) {
     for(var j=0;j<arraycookiesCategorias.length;j++){
@@ -1001,7 +1081,6 @@ function aceptarInvitacion(elemt){
 
 				}
 			}
-			console.log("categoriaExiste:"+categoriaExiste );
 			if(categoriaExiste==false){
 				var DatosCategoria= "nombreCategoria=" + categoria_seleccionada + "&email=" +email_iniciado+ "&archivados=false";
 				arraycookiesCategorias[indexCategorias]=DatosCategoria;
@@ -1012,7 +1091,6 @@ function aceptarInvitacion(elemt){
 				indexEventos++;
 				addDivEvent(nombre_evento);
 				activarBlur();
-				console.log(invitacion_evento);
 
 				document.getElementById(invitacion_evento).style.display="none";
 			}
@@ -1026,9 +1104,7 @@ function aceptarInvitacion(elemt){
   createCookie('eventos', json_str);
 	var json_str = JSON.stringify(arrayInvitaciones);
   createCookie('invitaciones', json_str);
-console.log("categorias"+arraycookiesCategorias);
-console.log("evento"+arraycookiesEventos);
-console.log("invitaciones"+arrayInvitaciones);
+
 }
 
 function rechazarInvitacion(elemt){
@@ -1511,12 +1587,13 @@ function addDivEvent(nombreEvento) {
 
   var icon3 = document.createElement("i");
   icon3.setAttribute("class", "far fa-comment" );
+	icon3.setAttribute("onclick", "Comentarios(this);" );
+
 
   var span2 = document.createElement("span");
   span2.setAttribute("class", "tooltiptext" );
   var contenido3 = document.createTextNode("Comentar");
   span2.appendChild(contenido3);
-
 
 
 
@@ -1673,7 +1750,7 @@ function checkCookieLogIn() {
 
 
 //FUNCIONES PARA CREAR Y ACCEDER A LAS COOKIES DE LOS ARRAYS
-         var createCookie = function(name, value, days) {
+  var createCookie = function(name, value, days) {
    var expires;
    if (days) {
        var date = new Date();

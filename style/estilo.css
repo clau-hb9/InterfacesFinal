@@ -415,7 +415,7 @@
     border-radius: 6px;
     padding: 5px 0;
     position: absolute;
-    bottom: -5%;
+    bottom: -38%;
     margin-left: -80px;
 
 
@@ -1056,10 +1056,10 @@ float:left;
 #Invitaciones{
   display:none;
   position: fixed;
-top: 100px;
-bottom: 0;
-left: 450px;
-right: 0;
+  top: 100px;
+  bottom: 0;
+  left: 450px;
+  right: 0;
   background-color: #404040;
   border-radius: 5px;
   height: 300px;
@@ -1102,6 +1102,75 @@ right: 0;
   font-size:20px;
 }
 
+/*POP UP COMENTARIOS*/
+#Comentarios{
+  display:none;
+  position: fixed;
+  top: 100px;
+  bottom: 0;
+  left: 400px;
+  right: 0;
+  background-color: #404040;
+  border-radius: 5px;
+  height: 450px;
+  z-index:10;
+  width: 500px;
+}
+#Comentarios p{
+  font:small-caps 100%/100% courier;
+  font-size:17px;
+  text-align: center;
+  margin-left: 30px;
+  color:#e6e6e6;
+}
+#listaComentarios{
+  height: 260px;
+}
+#Form-Comentarios input[type="text"]{
+  margin: 10px 30px;
+  width: 430px;
+  border-radius: 5px;
+
+}
+
+#Form-Comentarios button{ /*Aceptar*/
+margin:5px 0 0 200px;
+padding: 4px 10px;
+border:none;
+background-color: #846D0E;
+color:white;
+font:small-caps 100%/100% courier;
+font-size:17px;
+border-radius: 5px;
+float:left;
+}
+.NoUsuarioActual{
+  float:left;
+  padding:10px;
+  margin: 10px 10px 0 10px;
+  background-color: #635c5c;
+  border-radius: 5px;
+  color: #e6e6e6;
+  width: 300px;
+  font:  100%/100% serif;
+  font-size: 15px;
+
+}
+.UsuarioActual{
+  float:right;
+  padding:10px;
+  margin: 10px 30px 10px 0;
+  background-color: #635c5c;
+  color: #e6e6e6;
+  border-radius: 5px;
+
+  width: 300px;
+  font:  100%/100% serif;
+  font-size: 15px;
+  text-align:right;
+
+
+}
 /*FOOTER*/
 footer {
   display:none;

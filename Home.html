@@ -301,6 +301,21 @@
   </div>
 </section>
 
+<!--POP UP INVITACIONES MAS ABRIR CUENTA -->
+<section id="Comentarios">
+  <button onclick="cerrarPopUp('Comentarios');" class= Boton-cierre ><i class="fas fa-times"></i></button>
+  <p>COMENTARIOS</p>
+  <hr>
+  <div id="listaComentarios">
+
+  </div>
+  <hr>
+  <form id="Form-Comentarios" onsubmit="return EnviarComentario('Form-Comentarios');">
+    <input type="text" placeholder="Escriba un comentario" name="comentario" value="" >
+    <button type="submit"> Enviar </button>
+  </form>
+</section>
+
 </div>
 <footer id="myFooter">
   <div id="footerPreguntas">
