@@ -11,6 +11,9 @@ var likeGlobal;
 var arraycookiesCategorias =  new Array();
 var indexCategorias=0;
 
+var arrayInvitaciones = new Array();
+var indexInvitaciones=0;
+
 var email_iniciado;
 var categoria_seleccionada;
 var evento_seleccionado;
@@ -29,33 +32,29 @@ function ConfirmacionDeCierre(ID) {
   */                                                                      /*BOTONES INFERIORES DE EVENTO*/
                                                                         /*DAR LIKE*/
 function PonerMeGusta(button){
+	console.log("voy a poner me gusta");
 		var eventoSelecionado=$(button).closest(".Evento").attr('id');
     var categseleccionada=$(button).closest(".flex-container").attr('id');
 
 		for(var j=0;j<arraycookiesEventos.length;j++){
 	  //me quedo con el email de quien añadio cada categoria
-
+		console.log(arraycookiesEventos);
 	  busca_email=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("&email=")+7,arraycookiesEventos[j].indexOf("&MeGusta="));
 	  busca_evento=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("nombreEvento=")+13,arraycookiesEventos[j].indexOf("&nombreCategoria="));
     busca_categoria=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("&nombreCategoria=")+17,arraycookiesEventos[j].indexOf("&email="));
 
-
-
 	  //voy a coger toda las categorias SOLO del usuario con sesion iniciada
 	  if(busca_email==email_iniciado && busca_evento==eventoSelecionado && busca_categoria==categseleccionada){
-
   		 if(button.className== "far fa-thumbs-up"){
   			button.className="fas fa-thumbs-up";
+				console.log("relleno me gusta");
   			arraycookiesEventos[j]=arraycookiesEventos[j].replace("&MeGusta=false","&MeGusta=true");
-        console.log("1: "+arraycookiesEventos[j]);
         }
   		else{
           button.className="far fa-thumbs-up";
   			arraycookiesEventos[j]=arraycookiesEventos[j].replace("&MeGusta=true","&MeGusta=false");
-        console.log("2: "+arraycookiesEventos[j]);
 
           }
-
 
           //Actualizamos la cookie de los eventos porque se actualiza el array
           var json_str = JSON.stringify(arraycookiesEventos);
@@ -145,53 +144,61 @@ var email= form_InvitarColaborador.email;
 var patEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 if(!patEmail.test(String(email.value).toLowerCase())){
-alert("Formato de email incorrecto");
-email.style.border="1px solid red";
-return false;
+	alert("Formato de email incorrecto");
+	email.style.border="1px solid red";
+	return false;
 }
 //Comprobamos que sea un usuario registrado
 for (i in arraycookies) {
 		var busca = arraycookies[i].substring(arraycookies[i].indexOf("&email=")+7,arraycookies[i].length);
+		console.log("email"+email.value);
 		if(busca==email){
       alert("Es necesario que el usuario pertenezca a la comunidad");
       email.style.border="1px solid red";
       return false;
 		}
 }
+if(email.value==email_iniciado){
+	alert("Correo no válido: No puede invitarse a si mismo");
+	return false;
+
+}
 cerrarPopUp("PopUpColaboradores-Invitar");
 abrirPopUp("PopUpInvitacion");
-return false;
+var DatosInvitado= document.cookie= "email=" + email.value + "&evento= invitacion" + evento_seleccionado
++ "&categoria="+ categoria_seleccionada;
 
+arrayInvitaciones[indexInvitaciones]=DatosInvitado;
+console.log(arrayInvitaciones[indexInvitaciones]);
+indexInvitaciones++;
+//GUARDO UNA COOKIE CON TODO EL ARRAY DE USUARIOS
+var json_str = JSON.stringify(arrayInvitaciones);
+createCookie('invitaciones', json_str);
+return false;
 }
 
 /*COLABORADORES LISTA*/
 function abrirPopUpColaboradoresLista(boton){
 document.getElementById("ListaColaboradores").innerHTML="";
 
-
   cerrarPopUp("PopUpColaboradores");
   abrirPopUp("PopUpColaboradores-Lista");
 
   for(i in arraycookiesEventos){
-
     var evento = arraycookiesEventos[i].substring(arraycookiesEventos[i].indexOf("Evento=")+7,arraycookiesEventos[i].indexOf("&nombreCategoria="));
-    console.log("evento "+evento);
-    console.log("evento seleccionada "+evento_seleccionado);
-    if(evento==evento_seleccionado){
+    if(evento.toLowerCase()==evento_seleccionado.toLowerCase()){
         var categoria = arraycookiesEventos[i].substring(arraycookiesEventos[i].indexOf("&nombreCategoria=")+17,arraycookiesEventos[i].indexOf("&email="));
-        console.log("categoria "+categoria);
-        console.log("categoria seleccionada "+categoria_seleccionada);
 
-        if(categoria==categoria_seleccionada){
+        if(categoria.toLowerCase()==categoria_seleccionada.toLowerCase()){
           var usuario =arraycookiesEventos[i].substring(arraycookiesEventos[i].indexOf("&email=")+7,arraycookiesEventos[i].indexOf("&MeGusta="));
           if(usuario!=email_iniciado){
+						//Dado este caso, en el que encontramos un usuario con la misma categoria y evento, entonces mostramos su correo
             var nuevoEvento = document.createElement("div");
             nuevoEvento.setAttribute("class", "UsuarioColaborador" );
             nuevoEvento.setAttribute("id", usuario );
 
             var contenido = document.createTextNode(usuario);
             nuevoEvento.appendChild(contenido);
-
 
             var divID = document.getElementById("ListaColaboradores");
             divID.appendChild(nuevoEvento);
@@ -225,6 +232,7 @@ containers[i].classList.add("blur");
 
 function desactivarBlur(){
 /*Quitaremos el efecto borroso a los elementos*/
+console.log("estoy desactivando el blur");
 var containers=document.getElementsByClassName("flex-container");
 for(var i=0;i<containers.length;i++){
 containers[i].classList.remove("blur");
@@ -342,6 +350,7 @@ function CerrarEventPopUp(){
         popUp.style.display="none";
         var container=document.getElementById("fullscreen-container3");
         container.style.display="none";
+
         desactivarBlur();
       }
 
@@ -350,6 +359,7 @@ function CerrarEventPopUp(){
 function cerrarPopUp(popUp){
   var popUpCerrar=document.getElementById(popUp);
   popUpCerrar.style.display="none";
+
   desactivarBlur();
 }
 function abrirPopUp(popUp){
@@ -551,7 +561,7 @@ function pasarPaginaSignOut(){
 /*Para cambiar de cualquier pagina a SignIn*/
 function pasarPaginaSignIn(){
   /*Parte inferior*/
-
+console.log("recuperoArrays");
     recuperarArrays();
   var parteInferiorConUsuario=document.getElementById("Home");
   parteInferiorConUsuario.style.display="none";
@@ -746,24 +756,29 @@ function recuperarArrays(){
 
   //SINO HAGO ESTO, AL RECARGAR LA PAGINA Y AÑADIR UNA CATEGORIA SE COLOCARÍA EN LA POSICION 0 PORQUE indexCategorias SE REINICIA
   indexCategorias=arraycookiesCategorias.length;
+	}
+	var json_str4 = getCookie('invitaciones');
+	if(json_str4.length!=0){
+  arrayInvitaciones = JSON.parse(json_str4);
+
+  //SINO HAGO ESTO, AL RECARGAR LA PAGINA Y AÑADIR UN EVENTO SE COLOCARÍA EN LA POSICION 0 PORQUE indexEventos SE REINICIA
+  indexInvitaciones=arrayInvitaciones.length;
+	}
   console.log("categorias"+arraycookiesCategorias);
   console.log("evento"+arraycookiesEventos);
+	console.log("invitaciones"+arrayInvitaciones);
+
 	}
-}
+
 
 function ConfirmacionDeCierre(elmnt){
 
   evento_seleccionado= $(elmnt).closest(".Evento").attr('id');
-  console.log($(elmnt).closest(".Evento"));
     if (confirm("¿Seguro que quieres eliminar este evento?")) {
         for(i in arraycookiesEventos){
           busca_email=arraycookiesEventos[i].substring(arraycookiesEventos[i].indexOf("&email=")+7,arraycookiesEventos[i].indexOf("&MeGusta="));
       	  busca_evento=arraycookiesEventos[i].substring(arraycookiesEventos[i].indexOf("nombreEvento=")+13,arraycookiesEventos[i].indexOf("&nombreCategoria="));
-          console.log(busca_email);
-          console.log(email_iniciado);
 
-          console.log(busca_evento);
-          console.log(evento_seleccionado);
 
           if(busca_email==email_iniciado && busca_evento==evento_seleccionado){
             arraycookiesEventos[i]=arraycookiesEventos[i].replace(busca_email,"aaa");
@@ -789,15 +804,10 @@ if (confirm("¿Seguro que quieres archivar esta lista?")) {
 
       busca_categoria=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&nombreCategoria=")+17,arraycookiesCategorias[j].indexOf("&email="));
       busca_email=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&email=")+7,arraycookiesCategorias[j].indexOf("&archivados="));
-    /*  console.log( categoria_seleccionada);
-      console.log( busca_categoria);
-      console.log( busca_email);
-      console.log( email_iniciado);
-    */
+
 
       if(categoria_seleccionada==busca_categoria && busca_email==email_iniciado){
       arraycookiesCategorias[j]=arraycookiesCategorias[j].replace("&archivados=false","&archivados=true");
-      console.log( arraycookiesCategorias[j]);
 
       var json_str = JSON.stringify(arraycookiesCategorias);
       createCookie('categorias', json_str);
@@ -818,11 +828,6 @@ for(var j=0;j<arraycookiesCategorias.length;j++){
 
   busca_categoria=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&nombreCategoria=")+17,arraycookiesCategorias[j].indexOf("&email="));
   busca_email=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&email=")+7,arraycookiesCategorias[j].indexOf("&archivados="));
-/*  console.log( categoria_seleccionada);
-  console.log( busca_categoria);
-  console.log( busca_email);
-  console.log( email_iniciado);
-*/
 
   if(categoria_seleccionada==busca_categoria && busca_email==email_iniciado){
   arraycookiesCategorias[j]=arraycookiesCategorias[j].replace("&archivados=true","&archivados=false");
@@ -844,15 +849,14 @@ function IniciarSesion(){
   headerSinUsuario.style.display="none";
   var headerConUsusario=document.getElementById("headerPaginaConUsuario");
   headerConUsusario.style.display="block";
-
-
   document.getElementById("divAñadirCategoria").style.display="block";
 
   /* RECARGAMOS LA PAGINA DEL USUARIO QUE HA INICIADO SESION */
   //PARA ESCRIBIR EL NOMBRE DEL USUARIO EN EL HEADER AL INICIAR SESION
-  document.getElementById("Username").innerHTML =
-  arraycookies[posArray].substring(arraycookies[posArray].indexOf("username=")+9,arraycookies[posArray].indexOf("&contraseña="));
-  //PARA VOLVER A ESCRIBIR LAS CATEGORIAS DEL USUARIO AL VOLVER A INICIAR SESION
+  document.getElementById("Username").innerHTML = arraycookies[posArray].substring(arraycookies[posArray].indexOf("username=")+9,arraycookies[posArray].indexOf("&contraseña="));
+
+
+	//PARA VOLVER A ESCRIBIR LAS CATEGORIAS DEL USUARIO AL VOLVER A INICIAR SESION
   var busca_email;
   var categoria;
   /*Añado las categorias que tenga el usuario */
@@ -860,10 +864,6 @@ function IniciarSesion(){
 	  busca_email=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&email=")+7,arraycookiesCategorias[j].indexOf("&archivados="));
     busca_archivado=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&archivados=")+12,arraycookiesCategorias[j].length);
       //Buscamos el usuario que acaba de iniciar sesion
-
-      console.log(busca_email);
-      console.log(email_iniciado);
-      console.log(busca_archivado);
   	  if(busca_email==email_iniciado && busca_archivado=="false"){
       //Añadimos sus categorias
   		categoria=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("nombreCategoria=")+16,arraycookiesCategorias[j].indexOf("&email="));
@@ -877,30 +877,64 @@ function IniciarSesion(){
 	for(var j=0;j<arraycookiesEventos.length;j++){
 	  //me quedo con el email de quien añadio cada categoria
 	  busca_email=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("&email=")+7,arraycookiesEventos[j].indexOf("&MeGusta="));
-
 	  //voy a coger todos los eventos SOLO del usuario con sesion iniciada
 	  if(busca_email==email_iniciado){
   		evento=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("nombreEvento=")+13,arraycookiesEventos[j].indexOf("&nombreCategoria="));
   		likeGlobal=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("&MeGusta=")+9,arraycookiesEventos[j].length);
   		busca_categoria=arraycookiesEventos[j].substring(arraycookiesEventos[j].indexOf("&nombreCategoria=")+17,arraycookiesEventos[j].indexOf("&email="));
       categoria_seleccionada=busca_categoria;
-  		//vuelvo a escribir todas las categorias que tenia el usuario
+  		//vuelvo a escribir todas los eventos que tenia el usuario
+			for(var k=0;k<arraycookiesCategorias.length;k++){
+			  busca_email2=arraycookiesCategorias[k].substring(arraycookiesCategorias[k].indexOf("&email=")+7,arraycookiesCategorias[k].indexOf("&archivados="));
+			  busca_archivado=arraycookiesCategorias[k].substring(arraycookiesCategorias[k].indexOf("&archivados=")+12,arraycookiesCategorias[k].length);
+			  busca_categoria2=arraycookiesCategorias[k].substring(arraycookiesCategorias[k].indexOf("nombreCategoria=")+16,arraycookiesCategorias[k].indexOf("&email="));
 
-
-for(var k=0;k<arraycookiesCategorias.length;k++){
-  busca_email2=arraycookiesCategorias[k].substring(arraycookiesCategorias[k].indexOf("&email=")+7,arraycookiesCategorias[k].indexOf("&archivados="));
-  busca_archivado=arraycookiesCategorias[k].substring(arraycookiesCategorias[k].indexOf("&archivados=")+12,arraycookiesCategorias[k].length);
-  busca_categoria2=arraycookiesCategorias[k].substring(arraycookiesCategorias[k].indexOf("nombreCategoria=")+16,arraycookiesCategorias[k].indexOf("&email="));
-
-    if(busca_email2==email_iniciado && busca_archivado=="false" &&busca_categoria==busca_categoria2){
-          addDivEvent(evento);
-
-        }
-
-    }
+			    if(busca_email2==email_iniciado && busca_archivado=="false" &&busca_categoria==busca_categoria2){
+			          addDivEvent(evento);
+			        }
+			 }
 	  }
 	}
 
+	/*Miramos a ver si el usuario tiene alguna invitacion*/
+	document.getElementById("listaInvitaciones").innerHTML="";
+
+	for(i in arrayInvitaciones){
+		var busca_email=arrayInvitaciones[i].substring(arrayInvitaciones[i].indexOf("email=")+6,arrayInvitaciones[i].indexOf("&evento="));
+		if(busca_email==email_iniciado){
+			abrirPopUp("Invitaciones");
+			//Guardamos el nombre del evento al que nos invitan
+			var invitacion_evento=arrayInvitaciones[i].substring(arrayInvitaciones[i].indexOf("&evento= ")+9,arrayInvitaciones[i].indexOf("&categoria="));
+			var nombre_evento=arrayInvitaciones[i].substring(arrayInvitaciones[i].indexOf("&evento= invitacion")+19,arrayInvitaciones[i].indexOf("&categoria="));
+
+			//Generamos una invitacion en la lista de invitaciones
+			var nuevoEvento = document.createElement("div");
+			nuevoEvento.setAttribute("class", "invitacion" );
+			nuevoEvento.setAttribute("id", invitacion_evento );
+			var divID = document.getElementById("listaInvitaciones");
+			divID.appendChild(nuevoEvento);
+			//Nombre del evento Evento
+			var divTextoInvitacion = document.createElement("div");
+			divTextoInvitacion.setAttribute("class", "divTextoInvitacion" );
+			nuevoEvento.appendChild(divTextoInvitacion);
+			var contenido = document.createTextNode("Evento: " + nombre_evento);
+			divTextoInvitacion.appendChild(contenido);
+			//Parte de los iconos
+			var divIconosInvitacion = document.createElement("div");
+			divIconosInvitacion.setAttribute("class", "divIconosInvitacion" );
+			nuevoEvento.appendChild(divIconosInvitacion);
+			var iconoAceptar = document.createElement("i");
+		  iconoAceptar.setAttribute("class", "fas fa-check-square" );
+			iconoAceptar.setAttribute("onclick", "aceptarInvitacion(this);" );
+		  var iconoRechazar = document.createElement("i");
+		  iconoRechazar.setAttribute("class", "fas fa-window-close" );
+			iconoRechazar.setAttribute("onclick", "rechazarInvitacion(this);" );
+			divIconosInvitacion.appendChild(iconoAceptar);
+			divIconosInvitacion.appendChild(iconoRechazar);
+		}
+
+	}
+	/*Ponemos el navegador adecuado*/
   var navProfile=document.getElementById("navBarProfile");
   navProfile.style.display="none";
   var navArchivados=document.getElementById("navBarArchivados");
@@ -917,6 +951,88 @@ for(var k=0;k<arraycookiesCategorias.length;k++){
   var parteInferiorProfile=document.getElementById("EditProfile");
   parteInferiorProfile.style.display="none";
 }
+
+
+function aceptarInvitacion(elemt){
+	var evento = $(elemt).closest(".invitacion").attr('id');
+	var invitacion_evento;
+	for(i in arrayInvitaciones){
+		var busca_email=arrayInvitaciones[i].substring(arrayInvitaciones[i].indexOf("email=")+6,arrayInvitaciones[i].indexOf("&evento="));
+		invitacion_evento=arrayInvitaciones[i].substring(arrayInvitaciones[i].indexOf("&evento= ")+9,arrayInvitaciones[i].indexOf("&categoria="));
+		nombre_evento=arrayInvitaciones[i].substring(arrayInvitaciones[i].indexOf("&evento= invitacion")+19,arrayInvitaciones[i].indexOf("&categoria="));
+
+		if(busca_email==email_iniciado && invitacion_evento==evento){
+			arrayInvitaciones[i]=arrayInvitaciones[i].replace("email="+ email_iniciado,"email=null");
+			var invitacion_categoria=arrayInvitaciones[i].substring(arrayInvitaciones[i].indexOf("&categoria=")+11,arrayInvitaciones[i].length);
+			categoria_seleccionada=invitacion_categoria;
+			//Miramos a ver si la categoria ya existe
+			var categoriaExiste=false;
+			for (j in arraycookiesCategorias){
+				busca_categoria=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("nombreCategoria=")+16,arraycookiesCategorias[j].indexOf("&email="));
+				busca_email=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&email=")+7,arraycookiesCategorias[j].indexOf("&archivados="));
+				if(busca_categoria==invitacion_categoria && busca_email==email_iniciado){
+					addDivEvent(nombre_evento);
+					activarBlur();
+					console.log(invitacion_evento);
+					document.getElementById(invitacion_evento).style.display="none";
+					var DatosEvento= "nombreEvento=" + nombre_evento +"&nombreCategoria="+ categoria_seleccionada + "&email=" +email_iniciado + "&MeGusta=false";
+					arraycookiesEventos[indexEventos]=DatosEvento;
+					indexEventos++;
+					categoriaExiste=true;
+
+				}
+			}
+			console.log("categoriaExiste:"+categoriaExiste );
+			if(categoriaExiste==false){
+				var DatosCategoria= "nombreCategoria=" + categoria_seleccionada + "&email=" +email_iniciado+ "&archivados=false";
+				arraycookiesCategorias[indexCategorias]=DatosCategoria;
+				indexCategorias++;
+				addDivCategory(invitacion_categoria);
+				var DatosEvento= "nombreEvento=" + nombre_evento +"&nombreCategoria="+ categoria_seleccionada + "&email=" +email_iniciado + "&MeGusta=false";
+				arraycookiesEventos[indexEventos]=DatosEvento;
+				indexEventos++;
+				addDivEvent(nombre_evento);
+				activarBlur();
+				console.log(invitacion_evento);
+
+				document.getElementById(invitacion_evento).style.display="none";
+			}
+
+	}
+}
+//ACTUALIZAMOS LA COOKIE DE USUARIOS PORQUE MODIFICAMOS EL ARRAY
+  var json_str = JSON.stringify(arraycookiesCategorias);
+  createCookie('categorias', json_str);
+	var json_str = JSON.stringify(arraycookiesEventos);
+  createCookie('eventos', json_str);
+	var json_str = JSON.stringify(arrayInvitaciones);
+  createCookie('invitaciones', json_str);
+console.log("categorias"+arraycookiesCategorias);
+console.log("evento"+arraycookiesEventos);
+console.log("invitaciones"+arrayInvitaciones);
+}
+
+function rechazarInvitacion(elemt){
+	var evento = $(elemt).closest(".invitacion").attr('id');
+	for(i in arrayInvitaciones){
+		var busca_email=arrayInvitaciones[i].substring(arrayInvitaciones[i].indexOf("email=")+6,arrayInvitaciones[i].indexOf("&evento="));
+		invitacion_evento=arrayInvitaciones[i].substring(arrayInvitaciones[i].indexOf("&evento= ")+9,arrayInvitaciones[i].indexOf("&categoria="));
+		nombre_evento=arrayInvitaciones[i].substring(arrayInvitaciones[i].indexOf("&evento= invitacion")+19,arrayInvitaciones[i].indexOf("&categoria="));
+		if(busca_email==email_iniciado && invitacion_evento==evento){
+			arrayInvitaciones[i]=arrayInvitaciones[i].replace("email="+ email_iniciado,"email=null");
+			document.getElementById(invitacion_evento).style.display="none";
+		}
+	}
+	var json_str = JSON.stringify(arrayInvitaciones);
+	createCookie('invitaciones', json_str);
+	console.log("invitaciones"+arrayInvitaciones);
+
+}
+
+
+
+
+
 
                                                     /*FUNCIONES PARA COMPROBAR LOS CAMPOS DEL REGISTRO */
 function checkName(form){
@@ -1119,9 +1235,7 @@ function registerFormCookies(signUp) {
  var json_str = JSON.stringify(arraycookies);
  createCookie('usuarios', json_str);
 
- for (i in arraycookies) {
-  console.log(arraycookies[i])
- }
+
 
     username.style.border = "none";
     password.style.border = "none";
@@ -1209,13 +1323,7 @@ function addDivCategory(nombreCategoria) {
   buttonAñadir.setAttribute("title","¡Crea un evento dentro de esta categoria!")
   buttonAñadir.appendChild(contenido3);
 
-  /*var buttonCompartir = document.createElement("button");
-  var contenido4 = document.createTextNode("Compartir lista");
-  buttonCompartir.appendChild(contenido4);
 
-  var buttonImportar  = document.createElement("button");
-  var contenido5 = document.createTextNode("Importar a calendario");
-  buttonImportar.appendChild(contenido5);*/
 
   //metemos los elementos al div flex container
   var contenido = document.createTextNode(nombreCategoria);
@@ -1274,16 +1382,6 @@ function addDivCategory(nombreCategoria) {
     var contenido2 = document.createTextNode("Desarchivar lista");
     buttonDesArchivar.appendChild(contenido2);
 
-
-
-
-    /*var buttonCompartir = document.createElement("button");
-    var contenido4 = document.createTextNode("Compartir lista");
-    buttonCompartir.appendChild(contenido4);
-
-    var buttonImportar  = document.createElement("button");
-    var contenido5 = document.createTextNode("Importar a calendario");
-    buttonImportar.appendChild(contenido5);*/
 
     //metemos los elementos al div flex container
     var contenido = document.createTextNode(nombreCategoria);

@@ -31,7 +31,7 @@
   header {
     padding: 15px;
     margin:20px 10px;
-    overflow: auto;
+    overflow: hidden;
     background-color:rgba(65,100,111,0.34);
     height: 100px;
 
@@ -57,13 +57,12 @@
   /*Con usuario*/
   #headerPaginaConUsuario{
     display:none;
-    overflow: auto;
   }
   #DatosUsuario{
     float:right;
     width: 200px;
     height: 30px;
-    margin: 15px 30px 0 0;
+    margin: 5px 30px 0 0;
     cursor:pointer;
   }
   #DatosUsuario i:hover{
@@ -80,7 +79,7 @@
     color:#FFFFFF;
     font: 100%/100% serif;
     font-size: 25px;
-    margin-top:0;
+    margin:0;
 
   }
   #navBarProfile, #navBarArchivados{
@@ -88,8 +87,7 @@
   }
   #HomeNavBarConUsuario, #navBarProfile, #navBarArchivados{
     float: right;
-    margin: 0 5px auto 400px;
-    padding: 10px ;
+    margin: 50px -220px 0 0;
     background-color:  none;
   }
   #HomeNavBarConUsuario li, #navBarProfile li, #navBarArchivados li{
@@ -232,16 +230,9 @@
   .flex-container::after{
     clear:both;
   }
-  .TuPerfil{
-    margin-left:10%;
-    margin-right:30%;
-float: left;
-    font-size: 26px;
-    font-family: "Lucida Sans";
-    color:white;
-  }
+
   #divAñadirCategoria{
-display:none;
+    display:none;
     overflow: hidden;
 
   }
@@ -695,16 +686,14 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
   font: small-caps 100%/100% courier;
   font-size: 100%;
   font-size: 17px;
-
   cursor: pointer;
   opacity: 0.9;
-  margin:10px 0 0 40px;
+  margin:10px 0 0 45px;
   padding:10px;
 }
 
 .crearCategoria:hover{
   opacity: 1;
-
 }
 /*POP UP NUEVO EVENTO*/
 #fullscreen-container3 {
@@ -712,7 +701,7 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
   position: fixed;
   top: 100px;
   bottom: 0;
-  left: 0;
+  left: 30px;
   right: 0;
   background-color: transparent;
   z-index: 9999;
@@ -744,6 +733,23 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
 .clearfix2 button{
   margin:10px 0 0 60px;
 }
+.crearEvento{
+  background-color:#846D0E;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font: small-caps 100%/100% courier;
+  font-size: 100%;
+  font-size: 17px;
+  cursor: pointer;
+  opacity: 0.9;
+  margin:10px 0 0 45px;
+  padding:10px;
+}
+
+.crearEvento:hover{
+  opacity: 1;
+}
 
 
 
@@ -751,11 +757,12 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
 
 /*POP UP USUARIO NUEVO REGISTRADO*/
 #PopUpUsuarioRegistrado{
-  position:absolute;
   display:none;
-  float:left;
-
-  margin:-300px 500px;
+  position: fixed;
+  top: 100px;
+  bottom: 0;
+  left: 550px;
+  right: 0;
   background-color: #404040;
   border-radius: 5px;
   height: 110px;
@@ -867,10 +874,12 @@ float:left;
 
 /*  POP UP COLABORADORES*/
 #PopUpColaboradores{
-  position:absolute;
   display:none;
-  float:left;
-  margin:-300px 425px;
+  position: fixed;
+  top: 100px;
+  bottom: 0;
+  left: 450px;
+  right: 0;
   background-color: #404040;
   border-radius: 5px;
   height: 200px;
@@ -917,10 +926,12 @@ margin: 0 40px 0 80px;
 
 /*POP UP COLABORADORES-INVITAR*/
 #PopUpColaboradores-Invitar{
-  position:absolute;
   display:none;
-  float:left;
-  margin:-300px 425px;
+  position: fixed;
+  top: 100px;
+  bottom: 0;
+  left: 450px;
+  right: 0;
   background-color: #404040;
   border-radius: 5px;
   height: 300px;
@@ -972,10 +983,12 @@ float:left;
 
 /*POP UP RECORDATORIO ENVIADO */
 #PopUpInvitacion{
-  position:absolute;
   display:none;
-  float:left;
-  margin:-300px 500px;
+  position: fixed;
+  top: 100px;
+  bottom: 0;
+  left: 550px;
+  right: 0;
   background-color: #404040;
   border-radius: 5px;
   height: 110px;
@@ -1007,10 +1020,12 @@ float:left;
 
 /*POP UP COLABORADORES-LISTA*/
 #PopUpColaboradores-Lista{
-  position:absolute;
   display:none;
-  float:left;
-  margin:-300px 425px;
+  position: fixed;
+  top: 100px;
+  bottom: 0;
+  left: 450px;
+  right: 0;
   background-color: #404040;
   border-radius: 5px;
   height: 300px;
@@ -1034,6 +1049,55 @@ float:left;
   margin-top:10px;
 }
 
+/*POP UP INVITACIONES MAS ABRIR CUENTA*/
+#Invitaciones{
+  display:none;
+  position: fixed;
+top: 100px;
+bottom: 0;
+left: 450px;
+right: 0;
+  background-color: #404040;
+  border-radius: 5px;
+  height: 300px;
+  z-index:10;
+  width: 400px;
+}
+#Invitaciones p{
+  font:small-caps 100%/100% courier;
+  font-size:17px;
+  text-align: center;
+  margin-left: 30px;
+  color:#e6e6e6;
+
+}
+.invitacion{
+  font:small-caps 100%/100% courier;
+  font-size:17px;
+  text-align: center;
+  color:#e6e6e6;
+  margin:10px;
+  background: #846D0E;
+  height: 50px;
+  padding:10px;
+  opacity:0.7;
+  border-radius: 5px;
+}
+.divTextoInvitacion{
+  float:left;
+  width: 200px;
+  margin-top:5px;
+}
+.divIconosInvitacion{
+  float:right;
+  width: 100px;
+  margin-top:5px;
+
+}
+.divIconosInvitacion i{
+  margin:0 10px 0 10px;
+  font-size:20px;
+}
 
 /*FOOTER*/
 footer {
