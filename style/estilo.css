@@ -105,6 +105,7 @@
   }
   #HomeNavBarConUsuario li button:hover, #navBarProfile li button:hover, #navBarArchivados li button:hover {
     color:#cc9900;
+    cursor:pointer;
   }
 
   /*Sin usurio*/
@@ -239,7 +240,7 @@
   }
   .AñadirCategoria{
     float: right;
-    background-color:#262626;
+    background-color:#846D0E;
     border: none;
     border-radius: 5px;
     font: small 100%/100% serif;
@@ -248,6 +249,7 @@
     width: auto;
     padding: 10px;
     margin-right: 10px;
+    cursor:pointer;
 
 
   }
@@ -274,7 +276,7 @@
 
   /*EVENTO*/
   .Evento{
-  border:2px solid #404040;
+  border:1px solid #242222;
   background-color: rgba(10,11,11,0.94);
   margin-bottom: 20px;
   }
@@ -1273,4 +1275,5 @@ height: 10px;
 background-color: #846D0E;
 color:white;
 border-radius: 5px;
+margin-left: 10px;
 }
