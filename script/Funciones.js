@@ -1741,6 +1741,15 @@ function checkCookieLogIn() {
 
 
 
+				 $(document).ready(function(){
+					  $("#buscador").on("keyup", function() {
+					    var value = $(this).val().toLowerCase();
+					    $("#Home div.flex-container").filter(function() {
+					      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+					    });
+					  });
+					});
+//$(button).closest(".flex-container").attr('id');
 
 
 

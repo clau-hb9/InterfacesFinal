@@ -1265,3 +1265,12 @@ color:white;
 .preguntasTexto p{
 color: #cccccc;
 }
+
+
+#buscador{
+width: 200px;
+height: 10px;
+background-color: #846D0E;
+color:white;
+border-radius: 5px;
+}
