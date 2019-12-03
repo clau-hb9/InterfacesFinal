@@ -622,6 +622,23 @@ function addDivFAQ(){
 }
 
                                                                         /* CAMBIO ENTRE PÁGINAS */
+
+/*Para cambiar a la página home sin usuario*/
+function pasarPaginaHomeSinUsuario(){
+	var headerSinUsusario=document.getElementById("headerPaginaSinUsuario");
+  headerSinUsusario.style.display="none";
+	var paginaPrincipalLogOut=document.getElementById("PaginaPrincipalLogOut");
+  paginaPrincipalLogOut.style.display="none";
+	var parteInferiorSignUp=document.getElementById("signup_form");
+  parteInferiorSignUp.style.display="none";
+  var parteInferiorSignIn=document.getElementById("signin_form");
+  parteInferiorSignIn.style.display="none";
+
+	var Home =document.getElementById("sinUsuario");
+  Home.style.display="block";
+}
+
+
 /*Para cambiar de cualquier pagina a SignOut*/
 function pasarPaginaSignOut(){
   /*Cabecera*/
@@ -637,6 +654,8 @@ function pasarPaginaSignOut(){
   parteInferiorPaginaInicial.style.display="block";
 
   document.getElementById("divAñadirCategoria").style.display="none";
+	var Home =document.getElementById("sinUsuario");
+  Home.style.display="none";
 
   //IMPORTANTE: CADA VEZ QUE SE HACE LOG OUT SE LIMPIA EL DIV HOME. CUANDO SE VUELVA A INICIAR SESIÓN HABRÁ QUE VOLVER A ESCRIBIR TODO
   document.getElementById("Home").innerHTML="";
@@ -665,6 +684,8 @@ function pasarPaginaSignIn(){
   parteInferiorPaginaInicial.style.display="none";
   var footer=document.getElementById("myFooter");
   footer.style.display="block";
+	var Home =document.getElementById("sinUsuario");
+  Home.style.display="none";
   desactivarBlur();
   document.getElementById("PopUpUsuarioRegistrado").style.display="none";
 
@@ -690,6 +711,8 @@ function pasarPaginaSignUp(){
   parteInferiorPaginaInicial.style.display="none";
   var footer=document.getElementById("myFooter");
   footer.style.display="block";
+	var Home =document.getElementById("sinUsuario");
+  Home.style.display="none";
   desactivarBlur();
   var form_signIn=document.getElementById("signIn");
   form_signIn.reset();
@@ -1785,4 +1808,30 @@ function getCookie(c_name) {
        }
    }
    return "";
+}
+
+var imagenes=new Array(
+
+		['images/PaginaPrincipal.jpg'],
+
+		['images/Chat.jpg'],
+
+		['images/Invitaciones.jpg']
+
+
+);
+
+ var contadorImagen=0;
+
+ function rotarImagenes(){
+		contadorImagen++
+
+		document.getElementById("imagen").src=imagenes[contadorImagen%imagenes.length][0];
+}
+onload=function(){
+
+		rotarImagenes();
+		// Indicamos que cada 5 segundos cambie la imagen
+		setInterval(rotarImagenes,5000);
+
 }

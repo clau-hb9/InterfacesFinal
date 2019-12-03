@@ -49,11 +49,40 @@
       <img src="https://i2.wp.com/goldenskyva.com/wp-content/uploads/2017/09/cropped-logo-SIN-FONDO-1-1.png?ssl=1" alt="Logo Página" width=100 >
         <h1 onclick="pasarPaginaSignOut();">WorldAdvisor</h1>
         <ul id="navigation-bar">
-          <li><button onclick="pasarPaginaSignOut();">Home</button></li>
+          <li><button onclick="pasarPaginaHomeSinUsuario();">Home</button></li>
           <li><button onclick="pasarPaginaSignIn();">Sign In</button></li>
           <li><button onclick="pasarPaginaSignUp();">Sign Up</button></li>
         </ul>
     </header>
+
+<!--CUERPO PAGINA PRINCIPAL SIN USUARIO-->
+<div id="sinUsuario">
+  <header id="headerHomeSinUsuario">
+    <img src="https://i2.wp.com/goldenskyva.com/wp-content/uploads/2017/09/cropped-logo-SIN-FONDO-1-1.png?ssl=1" alt="Logo Página" width=100 >
+      <h1>WorldAdvisor</h1>
+      <ul id="navigation-HomeSinUsuario">
+        <li><button onclick="pasarPaginaSignIn();">Sign In</button></li>
+        <li><button onclick="pasarPaginaSignUp();">Sign Up</button></li>
+      </ul>
+  </header>
+  <div id="bodySinUsuario">
+    <p>¡WorldAdvisor es una plataforma para organizar eventos y actividades!</p>
+    <img id="FotoOrdendor" src="images/FotoOrdenador.png" alt="FotoOrdendor" width=400>
+    <img src="" id="imagen" alt="FotoInterior">
+    <div id="Tresopciones">
+      <div id="TresOpcionesTexto">
+        <div><p>Crea tus propias actividades</p></div>
+        <div><p>Da feedback a las actividades</p></div>
+        <div><p>Recibe invitaciones para unirte a un evento</p></div>
+      </div>
+      <div id="TresOpicionesImagen">
+        <img  src="images/Crea.png" alt="Crear">
+        <img  src="images/feedback.png" alt="Crear">
+        <img  src="images/invitaciones.png" alt="Crear">
+      </div>
+    </div>
+  </div>
+</div>
 
 <!--CUERPO PAGINA PRINCIPAL CON USUARIO-->
 <div id="divAñadirCategoria">
@@ -140,9 +169,10 @@
 <!--PAGINA PRINCIPAL LOG OUT-->
 <div id="PaginaPrincipalLogOut">
   <img src="https://i2.wp.com/goldenskyva.com/wp-content/uploads/2017/09/cropped-logo-SIN-FONDO-1-1.png?ssl=1" alt="Logo Página" width=60 >
-  <p>WorldAdvisor</p>
+  <p id="PaginaPrincipalLogOut-titulo">WorldAdvisor</p>
   <button id="btnsingIn" onclick="pasarPaginaSignIn();">SIGN IN</button>
   <button id="btnsingUp" onclick="pasarPaginaSignUp();">SIGN UP</button>
+  <p id="ayudaHome">¿Continuar sin registrase? <a onclick="pasarPaginaHomeSinUsuario();"> Home</a></p>
 </div>
 
 <!--INICIAR SESION-->
