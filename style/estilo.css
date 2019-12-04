@@ -228,7 +228,7 @@
     color:
     #FFFFFF;
   }
-  
+
   #TresOpcionesTexto div{
     float: left;
     width: 30%;
@@ -814,6 +814,18 @@ input[type=text]:focus, input[type=password]:focus, input[type=date]:focus, inpu
   width:73%;
   margin:0 0 0 30px;
 }
+
+.tituloPequeño{
+margin:0 0 0 55px;
+
+}
+
+.tituloPequeño2{
+margin:0 0 0 17px;
+
+}
+
+
 #newEvent p{
   margin:5px auto 0 55px;
 
