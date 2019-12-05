@@ -1093,6 +1093,7 @@ function aceptarInvitacion(elemt){
 				busca_categoria=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("nombreCategoria=")+16,arraycookiesCategorias[j].indexOf("&email="));
 				busca_email=arraycookiesCategorias[j].substring(arraycookiesCategorias[j].indexOf("&email=")+7,arraycookiesCategorias[j].indexOf("&archivados="));
 				if(busca_categoria==invitacion_categoria && busca_email==email_iniciado){
+					likeGlobal="false";
 					addDivEvent(nombre_evento);
 					activarBlur();
 					console.log(invitacion_evento);
